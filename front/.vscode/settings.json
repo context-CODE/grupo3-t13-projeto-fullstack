@@ -3,6 +3,8 @@
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
-  }
+    "source.fixAll.eslint": true
+  },
+  "files.autoSave": "onFocusChange",
+  "files.autoSaveDelay": 1000
 }
