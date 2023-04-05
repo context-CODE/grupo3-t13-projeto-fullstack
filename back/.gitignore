@@ -1,2 +1,24 @@
-node_modules
+# automatically generated files
+node_modules/
+dist/
+build/
+*.log
+
+# TypeScript files
+*.tsbuildinfo
+
+# configuration files
 .env
+
+# Prettier generated files
+*.js
+*.map
+
+# other temporary files
+*.swp
+*.swo
+tmp/
+temp/
+
+# Sqlite database development file
+database.sqlite
