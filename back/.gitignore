@@ -8,7 +8,7 @@ build/
 *.tsbuildinfo
 
 # configuration files
-.env
+*.env
 
 # Prettier generated files
 *.js
