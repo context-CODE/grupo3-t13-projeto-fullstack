@@ -142,6 +142,58 @@ const theme = extendTheme({
         },
       },
     },
+    Input: {
+      variants: {
+        default: {
+          field: {
+            bg: 'none',
+            outline: '2px solid',
+            outlineColor: 'gray.600',
+            borderRadius: 'base',
+            _placeholder: {
+              color: 'gray.600',
+            },
+            _hover: {
+              bg: 'gray.100',
+            },
+            _focus: {
+              bg: 'white',
+              outlineColor: 'brand.400',
+              color: 'gray.900',
+            },
+          },
+        },
+      },
+      defaultProps: {
+        variant: 'default',
+      },
+    },
+    Select: {
+      variants: {
+        default: {
+          field: {
+            bg: 'none',
+            outline: '2px solid',
+            outlineColor: 'gray.600',
+            borderRadius: 'base',
+            _placeholder: {
+              color: 'gray.600',
+            },
+            _hover: {
+              bg: 'gray.100',
+            },
+            _focus: {
+              bg: 'white',
+              outlineColor: 'brand.400',
+              color: 'gray.900',
+            },
+          },
+        },
+      },
+      defaultProps: {
+        variant: 'default',
+      },
+    },
   },
 });
 
