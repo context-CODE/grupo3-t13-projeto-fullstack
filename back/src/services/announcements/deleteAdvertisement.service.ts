@@ -13,6 +13,6 @@ const deleteAdvertisementService = async (params_id: string) => {
   }
 
   await advertisementRepository.remove(findAdvertisement);
-  return { message: "Contact sucessfully deleted!" };
+  return { message: "Contact successfully deleted!" };
 };
 export default deleteAdvertisementService;

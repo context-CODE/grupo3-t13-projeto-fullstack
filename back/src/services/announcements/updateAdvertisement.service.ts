@@ -5,6 +5,7 @@ import {
   iAdvertisementReqUpdate,
   iAdvertisementRes,
 } from "../../interfaces/advertisements.interface";
+import { advertisementResSchema } from "../../schemas/advertisement.schema";
 
 const updateAdvertisementService = async (
   data: iAdvertisementReqUpdate,
@@ -22,6 +23,8 @@ const updateAdvertisementService = async (
   });
   await advertisementRepository.save(updatedAdvertisement);
 
-  return updatedAdvertisement;
+  const validatedAdvertisement = advertisementResSchema.parse(updatedAdvertisement);
+
+  return validatedAdvertisement as iAdvertisementRes;
 };
 export default updateAdvertisementService;

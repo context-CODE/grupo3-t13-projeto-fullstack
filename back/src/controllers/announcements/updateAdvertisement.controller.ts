@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import updateAdvertisementService from "../../services/announcements/updateAdvertisement.service.js";
+import updateAdvertisementService from "../../services/announcements/updateAdvertisement.service";
+
 
 const updateAdvertisementController = async (req: Request, res: Response) => {
   const params_id: string = req.params.id;
