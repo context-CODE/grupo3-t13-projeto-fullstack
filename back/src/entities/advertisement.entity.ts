@@ -28,7 +28,7 @@ export default class Advertisement {
   color: string;
 
   @Column({ type: "int" })
-  quilometres: number;
+  kilometers: number;
 
   @Column({ type: "decimal", precision: 10, scale: 2, default: 0.0 })
   price: number | string;
@@ -47,7 +47,4 @@ export default class Advertisement {
 
   @UpdateDateColumn({ type: "timestamp" })
   updated_at: Date;
-
-  @DeleteDateColumn({ type: "timestamp", nullable: true })
-  deleted_at: Date;
 }

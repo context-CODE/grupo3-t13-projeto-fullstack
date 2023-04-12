@@ -6,7 +6,7 @@ const advertisementReqSchema = z.object({
   year: z.number(),
   fuel: z.string().max(20),
   color: z.string().max(20),
-  quilometres: z.number(),
+  kilometers: z.number(),
   price: z.number().or(z.string()),
   description: z.string(),
   image: z.string().max(300),
@@ -17,7 +17,6 @@ const advertisementResSchema = advertisementReqSchema.extend({
   is_available: z.boolean(),
   created_at: z.date(),
   updated_at: z.date(),
-  deleted_at: z.date().nullable(),
 });
 
 const advertisementListResSchema = advertisementResSchema.array();
