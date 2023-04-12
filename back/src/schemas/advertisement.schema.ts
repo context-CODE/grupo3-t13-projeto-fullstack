@@ -9,13 +9,12 @@ const advertisementReqSchema = z.object({
   quilometres: z.number(),
   price: z.number().or(z.string()),
   description: z.string(),
-  image: z.string().max(300),
-  is_available: z.boolean(),
-  created_at: z.date(),
+  image: z.string().max(300)
 });
 
 const advertisementResSchema = advertisementReqSchema.extend({
   id: z.string().uuid(),
+  is_available: z.boolean(),
   created_at: z.date(),
   updated_at: z.date(),
   deleted_at: z.date().nullable(),
