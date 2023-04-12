@@ -7,7 +7,7 @@ const advertisementReqSchema = z.object({
   fuel: z.string().max(20),
   color: z.string().max(20),
   kilometers: z.number(),
-  price: z.number().or(z.string()),
+  price: z.number(),
   description: z.string(),
   image: z.string().max(300),
 });

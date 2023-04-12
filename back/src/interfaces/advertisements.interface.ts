@@ -11,4 +11,5 @@ type iAdvertisementEntity = Repository<Advertisement>;
 type iAdvertisementReq = z.infer<typeof advertisementReqSchema>;
 type iAdvertisementRes = z.infer<typeof advertisementResSchema>;
 
+
 export { iAdvertisementEntity, iAdvertisementReq, iAdvertisementRes };

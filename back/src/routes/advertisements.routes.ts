@@ -1,5 +1,5 @@
 import { Router } from "express";
-import createAdvertisementController from "../controllers/announcements/createClient.controller";
+import createAdvertisementController from "../controllers/advertisements/createAdvertisements.controller";
 import ensureIsValidDataMiddleware from "../middlewares/formHandling/ensureIsValidData.middleware";
 import { advertisementReqSchema } from "../schemas/advertisement.schema";
 
