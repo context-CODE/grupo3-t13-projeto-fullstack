@@ -13,20 +13,12 @@ const createAdvertisementService = async (
   const advertisementRepository: iAdvertisementEntity =
     AppDataSource.getRepository(Advertisement);
 
-  const createdAdvertisement = await advertisementRepository
-    .createQueryBuilder()
-    .insert()
-    .into(Advertisement)
-    .values(newAdvertisementData)
-    .execute();
+  const createdAdvertisement: Advertisement =
+    advertisementRepository.create(newAdvertisementData);
 
-  const advertisementAfterInsert = await advertisementRepository.findOneBy({
-    id: createdAdvertisement.identifiers[0].id,
-  });
+  await advertisementRepository.save(createdAdvertisement);
 
-  const newAdvertisement = advertisementResSchema.parse(
-    advertisementAfterInsert
-  );
+  const newAdvertisement = advertisementResSchema.parse(createdAdvertisement);
 
   return newAdvertisement as iAdvertisementRes;
 };
