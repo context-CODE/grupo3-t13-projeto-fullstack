@@ -4,8 +4,8 @@ import "reflect-metadata";
 import "dotenv/config";
 
 const getDataSourceOptions = (): DataSourceOptions => {
-  const entitiesPath = path.join(__dirname, "./entities/.{**js,ts}");
-  const migrationsPath = path.join(__dirname, "./migrations/.{**js,ts}");
+  const entitiesPath = path.join(__dirname, "./entities/**.{js,ts}");
+  const migrationsPath = path.join(__dirname, "./migrations/**.{js,ts}");
 
   const dbUrl: string | undefined =
     process.env.DATABASE_URL || process.env.LOCAL_DATABASE_URL;
@@ -25,7 +25,7 @@ const getDataSourceOptions = (): DataSourceOptions => {
     return {
       type: "postgres",
       url: dbUrl,
-      synchronize: true, // Disable it when resolving migration issues, and remember to re-enable it afterward.
+      synchronize: false, // Disable it when resolving migration issues, and remember to re-enable it afterward.
       logging: true,
       entities: [entitiesPath],
       migrations: [migrationsPath],

@@ -42,12 +42,9 @@ export default class Advertisement {
   @Column({ default: true })
   is_available: boolean;
 
-  @CreateDateColumn({ type: "date" })
+  @CreateDateColumn({ type: "timestamp" })
   created_at: Date;
 
-  @UpdateDateColumn({ type: "date" })
+  @UpdateDateColumn({ type: "timestamp" })
   updated_at: Date;
-
-  @DeleteDateColumn({ type: "date", nullable: true })
-  deleted_at: Date;
 }
