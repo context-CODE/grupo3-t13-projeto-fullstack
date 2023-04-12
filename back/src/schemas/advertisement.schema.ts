@@ -9,7 +9,7 @@ const advertisementReqSchema = z.object({
   quilometres: z.number(),
   price: z.number().or(z.string()),
   description: z.string(),
-  image: z.string().max(300)
+  image: z.string().max(300),
 });
 
 const advertisementResSchema = advertisementReqSchema.extend({
