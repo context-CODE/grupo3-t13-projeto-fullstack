@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import createAdvertisementService from "../../services/announcements/createAdvertisement.service.ts";
+import createAdvertisementService from "../../services/announcements/createAdvertisement.service.js";
 
 const createAdvertisementController = async (req: Request, res: Response) => {
   const newAdvertisement = await createAdvertisementService(req.body);

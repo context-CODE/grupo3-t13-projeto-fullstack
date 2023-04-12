@@ -28,7 +28,7 @@ export default class Advertisement {
   color: string;
 
   @Column({ type: "int" })
-  quilometres: number;
+  kilometers: number;
 
   @Column({ type: "decimal", precision: 10, scale: 2, default: 0.0 })
   price: number | string;
