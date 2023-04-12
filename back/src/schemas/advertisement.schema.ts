@@ -8,7 +8,7 @@ const advertisementReqSchema = z.object({
   fuel: z.string().max(20),
   color: z.string().max(20),
   kilometers: z.number(),
-  price: z.string().regex(/^\d+(\.\d{10,2})?$/),
+  price: z.number(),
   description: z.string(),
   image: z.string().max(300),
 });
