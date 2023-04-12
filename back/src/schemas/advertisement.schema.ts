@@ -1,4 +1,5 @@
 import { z } from "zod";
+import errorMap from "zod/lib/locales/en";
 
 const advertisementReqSchema = z.object({
   brand: z.string().max(60),
@@ -7,7 +8,7 @@ const advertisementReqSchema = z.object({
   fuel: z.string().max(20),
   color: z.string().max(20),
   kilometers: z.number(),
-  price: z.number().or(z.string()),
+  price: z.string().regex(/^\d+(\.\d{10,2})?$/),
   description: z.string(),
   image: z.string().max(300),
 });

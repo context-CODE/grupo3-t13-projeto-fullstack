@@ -14,6 +14,7 @@ const handleError = async (
       message: err.message,
     });
   } else if (err instanceof ZodError) {
+    console.log(err)
     return res.status(400).send({
       message: err.flatten().fieldErrors,
     });

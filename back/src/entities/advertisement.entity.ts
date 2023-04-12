@@ -30,8 +30,8 @@ export default class Advertisement {
   @Column({ type: "int" })
   kilometers: number;
 
-  @Column({ type: "decimal", precision: 10, scale: 2, default: 0.0 })
-  price: number | string;
+  @Column({ type: "int" })
+  price: number;
 
   @Column({ type: "text" })
   description: string;
