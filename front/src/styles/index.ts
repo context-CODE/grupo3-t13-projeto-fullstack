@@ -194,6 +194,15 @@ const theme = extendTheme({
         variant: 'default',
       },
     },
+    Tag: {
+      baseStyle: {
+        container: {
+          bg: 'brand.100',
+          color: 'brand.400',
+          borderRadius: 'base',
+        },
+      },
+    },
   },
 });
 

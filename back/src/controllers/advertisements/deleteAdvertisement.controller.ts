@@ -5,7 +5,7 @@ import deleteAdvertisementService from "../../services/announcements/deleteAdver
 const deleteAdvertisementController = async (req: Request, res: Response) => {
   const params_id: string = req.params.id;
   const deletedAdvertisement = await deleteAdvertisementService(params_id);
-  return res.status(201).send(deletedAdvertisement);
+  return res.status(204).send(deletedAdvertisement);
 };
 
 export default deleteAdvertisementController;
