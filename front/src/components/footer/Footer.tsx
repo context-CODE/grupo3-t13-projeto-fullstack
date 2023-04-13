@@ -1,5 +1,5 @@
 import { ChevronUpIcon } from "@chakra-ui/icons"
-import { Box, Button, IconButton, Text } from "@chakra-ui/react"
+import { Box, IconButton, Text } from "@chakra-ui/react"
 
 const Footer = () => {
 
