@@ -194,6 +194,103 @@ const theme = extendTheme({
         variant: 'default',
       },
     },
+    Tag: {
+      baseStyle: {
+        container: {
+          bg: 'brand.100',
+          color: 'brand.400',
+          borderRadius: 'base',
+        },
+      },
+    },
+    Heading: {
+      variants: {
+        'Heading-1-700': {
+          color: 'gray.900',
+          fontSize: '2.75rem',
+          fontWeight: 700,
+        },
+        'Heading-2-600': {
+          color: 'gray.900',
+          fontSize: '2.25rem',
+          fontWeight: 600,
+        },
+        'Heading-3-600': {
+          color: 'gray.900',
+          fontSize: '2rem',
+          fontWeight: 600,
+        },
+        'Heading-3-500': {
+          color: 'gray.900',
+          fontSize: '2rem',
+          fontWeight: 500,
+        },
+        'Heading-4-600': {
+          color: 'gray.900',
+          fontSize: '1.75rem',
+          fontWeight: 600,
+        },
+        'Heading-4-500': {
+          color: 'gray.900',
+          fontSize: '1.75rem',
+          fontWeight: 500,
+        },
+        'Heading-5-600': {
+          color: 'gray.900',
+          fontSize: '1.5rem',
+          fontWeight: 600,
+        },
+        'Heading-5-500': {
+          color: 'gray.900',
+          fontSize: '1.5rem',
+          fontWeight: 500,
+        },
+        'Heading-6-600': {
+          color: 'gray.900',
+          fontSize: '1.25rem',
+          fontWeight: 600,
+        },
+        'Heading-6-500': {
+          color: 'gray.900',
+          fontSize: '1.25rem',
+          fontWeight: 500,
+        },
+        'Heading-7-600': {
+          color: 'gray.900',
+          fontSize: '1rem',
+          fontWeight: 600,
+        },
+        'Heading-7-500': {
+          color: 'gray.900',
+          fontSize: '1rem',
+          fontWeight: 500,
+        },
+      },
+    },
+    Text: {
+      variants: {
+        'body-1-400': {
+          color: 'gray.900',
+          fontSize: '1rem',
+          fontWeight: 400,
+        },
+        'body-1-600': {
+          color: 'gray.900',
+          fontSize: '1rem',
+          fontWeight: 600,
+        },
+        'body-2-400': {
+          color: 'gray.900',
+          fontSize: '0.875rem',
+          fontWeight: 400,
+        },
+        'body-2-500': {
+          color: 'gray.900',
+          fontSize: '0.875rem',
+          fontWeight: 500,
+        },
+      },
+    },
   },
 });
 
