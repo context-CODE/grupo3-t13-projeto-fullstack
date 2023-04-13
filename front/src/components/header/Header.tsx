@@ -1,6 +1,5 @@
-import { Box, Button, Drawer, DrawerCloseButton, DrawerContent, DrawerOverlay, HStack, IconButton, Link, Menu, MenuButton, MenuItem, MenuList, Text, useDisclosure } from "@chakra-ui/react"
+import { Box, Button, HStack, Link, Menu, MenuButton, MenuItem, MenuList, Text, useDisclosure } from "@chakra-ui/react"
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons"
-import { ReactNode } from "react"
 
 interface IHeaderProps {
     name?: string
@@ -24,7 +23,7 @@ const Header = () => {
                 <HeaderLoggedContent name={'Roberto Pontes'} isLogged={false}/>
             </HStack>
             <Box display={{base:'flex', md:'none'}} w={'30vw'} justifyContent={'flex-end'} pr={'6px'}>
-                <ResponsiveMenu isOpen={isOpen} onClose={onClose}/>
+                <ResponsiveMenu/>
             </Box>
         </Box>
     )
@@ -53,7 +52,7 @@ const HeaderLoggedContent = ({name, isLogged}: IHeaderProps) => {
     )   
 }
 
-const ResponsiveMenu = ({isOpen, onClose}: any) => {
+const ResponsiveMenu = () => {
     return (
         <Menu>
             <MenuButton as={Button} bg={'grey-10'}>
