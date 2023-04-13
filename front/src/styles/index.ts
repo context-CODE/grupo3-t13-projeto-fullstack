@@ -8,7 +8,8 @@ const theme = extendTheme({
       300: '#5126EA',
       400: '#4529E6',
     },
-    gray: {
+    grey: {
+      10: '#FDFDFD',
       50: '#F8F9FA',
       100: '#F1F3F5',
       200: '#E9ECEF',
@@ -54,31 +55,31 @@ const theme = extendTheme({
           cursor: 'default',
         },
         disable: {
-          bg: 'gray.400',
+          bg: 'grey.400',
           borderRadius: 'sm',
           color: 'white',
           cursor: 'default',
         },
         darkGray: {
-          bg: 'gray.900',
+          bg: 'grey.900',
           borderRadius: 'sm',
           color: 'white',
           _hover: {
-            bg: 'gray.800',
+            bg: 'grey.800',
           },
         },
         lightGray: {
-          bg: 'gray.300',
+          bg: 'grey.300',
           borderRadius: 'sm',
-          color: 'gray.700',
+          color: 'grey.700',
           _hover: {
-            bg: 'gray.400',
+            bg: 'grey.400',
           },
         },
         white: {
           bg: 'white',
           borderRadius: 'sm',
-          color: 'gray.900',
+          color: 'grey.900',
         },
         outline: {
           bg: 'none',
@@ -95,17 +96,17 @@ const theme = extendTheme({
           borderColor: 'white',
           _hover: {
             bg: 'white',
-            color: 'gray.900',
+            color: 'grey.900',
           },
         },
         outlineDark: {
           bg: 'none',
           borderRadius: 'sm',
-          color: 'gray.900',
+          color: 'grey.900',
           border: '2px',
-          borderColor: 'gray.900',
+          borderColor: 'grey.900',
           _hover: {
-            bg: 'gray.900',
+            bg: 'grey.900',
             color: 'white',
           },
         },
@@ -132,12 +133,12 @@ const theme = extendTheme({
         default: {
           bg: 'none',
           borderRadius: 'sm',
-          color: 'gray.900',
+          color: 'grey.900',
           padding: '12px',
           fontWeight: 'bold',
           _hover: {
             textDecoration: 'none',
-            bg: 'gray.100',
+            bg: 'grey.100',
           },
         },
       },
@@ -148,13 +149,13 @@ const theme = extendTheme({
           field: {
             bg: 'none',
             outline: '2px solid',
-            outlineColor: 'gray.600',
+            outlineColor: 'grey.600',
             borderRadius: 'base',
             _placeholder: {
-              color: 'gray.600',
+              color: 'grey.600',
             },
             _hover: {
-              bg: 'gray.100',
+              bg: 'grey.100',
             },
             _focus: {
               bg: 'white',
