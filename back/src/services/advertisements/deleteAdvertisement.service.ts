@@ -2,10 +2,10 @@ import AppDataSource from "../../data-source";
 import Advertisement from "../../entities/advertisement.entity";
 import AppError from "../../errors/AppError";
 
-const deleteAdvertisementService = async (params_id: string) => {
+const deleteAdvertisementService = async (paramsId: string) => {
   const advertisementRepository = AppDataSource.getRepository(Advertisement);
   const findAdvertisement = await advertisementRepository.findOneBy({
-    id: params_id,
+    id: paramsId,
   });
 
   if (!findAdvertisement) {
