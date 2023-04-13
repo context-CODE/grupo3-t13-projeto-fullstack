@@ -3,10 +3,10 @@ import updateAdvertisementService from "../../services/announcements/updateAdver
 
 
 const updateAdvertisementController = async (req: Request, res: Response) => {
-  const params_id: string = req.params.id;
+  const paramsId: string = req.params.id;
   const updatedAdvertisement = await updateAdvertisementService(
     req.body,
-    params_id
+    paramsId
   );
   return res.status(201).send(updatedAdvertisement);
 };
