@@ -9,12 +9,12 @@ import { advertisementResSchema } from "../../schemas/advertisement.schema";
 
 const updateAdvertisementService = async (
   data: iAdvertisementReqUpdate,
-  params_id: string
+  paramsId: string
 ): Promise<iAdvertisementRes> => {
   const advertisementRepository: iAdvertisementEntity =
     AppDataSource.getRepository(Advertisement);
   const findAdvertisement = await advertisementRepository.findOneBy({
-    id: params_id,
+    id: paramsId,
   });
 
   const updatedAdvertisement: Advertisement = advertisementRepository.create({
