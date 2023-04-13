@@ -12,7 +12,6 @@ type iAdvertisementEntity = Repository<Advertisement>;
 type iAdvertisementReq = z.infer<typeof advertisementReqSchema>;
 type iAdvertisementRes = z.infer<typeof advertisementResSchema>;
 type iAdvertisementReqUpdate = DeepPartial<iAdvertisementReq>;
-// type iAdvertisementReqUpdate = z.infer<typeof advertisementReqUpdateSchema>
 
 <<<<<<< HEAD
 export {
