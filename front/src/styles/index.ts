@@ -8,7 +8,8 @@ const theme = extendTheme({
       300: '#5126EA',
       400: '#4529E6',
     },
-    gray: {
+    grey: {
+      10: '#FDFDFD',
       50: '#F8F9FA',
       100: '#F1F3F5',
       200: '#E9ECEF',
@@ -21,7 +22,7 @@ const theme = extendTheme({
       900: '#0B0D0D',
     },
     white: '#FFFFFF',
-    sucess: {
+    success: {
       100: '#DDF3E4',
       200: '#CCEBD7',
       300: '#18794E',
@@ -43,6 +44,9 @@ const theme = extendTheme({
           bg: 'brand.400',
           borderRadius: 'sm',
           color: 'white',
+          height: {base: '38px', md: '48px'}, 
+          fontSize: {base: '0.875rem', md: '1rem'},
+          fontWeight: '600',
           _hover: {
             bg: 'brand.300',
           },
@@ -51,18 +55,27 @@ const theme = extendTheme({
           bg: 'brand.200',
           borderRadius: 'sm',
           color: 'white',
+          height: {base: '38px', md: '48px'}, 
+          fontSize: {base: '0.875rem', md: '1rem'},
+          fontWeight: '600',
           cursor: 'default',
         },
         disable: {
           bg: 'gray.400',
           borderRadius: 'sm',
           color: 'white',
+          height: {base: '38px', md: '48px'}, 
+          fontSize: {base: '0.875rem', md: '1rem'},
+          fontWeight: '600',
           cursor: 'default',
         },
         darkGray: {
           bg: 'gray.900',
           borderRadius: 'sm',
           color: 'white',
+          height: {base: '38px', md: '48px'}, 
+          fontSize: {base: '0.875rem', md: '1rem'},
+          fontWeight: '600',
           _hover: {
             bg: 'gray.800',
           },
@@ -71,6 +84,9 @@ const theme = extendTheme({
           bg: 'gray.300',
           borderRadius: 'sm',
           color: 'gray.700',
+          height: {base: '38px', md: '48px'}, 
+          fontSize: {base: '0.875rem', md: '1rem'},
+          fontWeight: '600',
           _hover: {
             bg: 'gray.400',
           },
@@ -79,6 +95,9 @@ const theme = extendTheme({
           bg: 'white',
           borderRadius: 'sm',
           color: 'gray.900',
+          height: {base: '38px', md: '48px'}, 
+          fontSize: {base: '0.875rem', md: '1rem'},
+          fontWeight: '600',
         },
         outline: {
           bg: 'none',
@@ -86,6 +105,9 @@ const theme = extendTheme({
           color: 'brand.400',
           border: '2px',
           borderColor: 'brand.400',
+          height: {base: '38px', md: '48px'}, 
+          fontSize: {base: '0.875rem', md: '1rem'},
+          fontWeight: '600',
         },
         outlineLight: {
           bg: 'none',
@@ -93,6 +115,9 @@ const theme = extendTheme({
           color: 'white',
           border: '2px',
           borderColor: 'white',
+          height: {base: '38px', md: '48px'}, 
+          fontSize: {base: '0.875rem', md: '1rem'},
+          fontWeight: '600',
           _hover: {
             bg: 'white',
             color: 'gray.900',
@@ -104,6 +129,9 @@ const theme = extendTheme({
           color: 'gray.900',
           border: '2px',
           borderColor: 'gray.900',
+          height: {base: '38px', md: '48px'}, 
+          fontSize: {base: '0.875rem', md: '1rem'},
+          fontWeight: '600',
           _hover: {
             bg: 'gray.900',
             color: 'white',
@@ -113,16 +141,22 @@ const theme = extendTheme({
           bg: 'alert.100',
           borderRadius: 'sm',
           color: 'alert.300',
+          height: {base: '38px', md: '48px'}, 
+          fontSize: {base: '0.875rem', md: '1rem'},
+          fontWeight: '600',
           _hover: {
             bg: 'alert.200',
           },
         },
-        sucess: {
-          bg: 'sucess.100',
+        success: {
+          bg: 'success.100',
           borderRadius: 'sm',
-          color: 'sucess.300',
+          color: 'success.300',
+          height: {base: '38px', md: '48px'}, 
+          fontSize: {base: '0.875rem', md: '1rem'},
+          fontWeight: '600',
           _hover: {
-            bg: 'sucess.200',
+            bg: 'success.200',
           },
         },
       },
@@ -200,6 +234,96 @@ const theme = extendTheme({
           bg: 'brand.100',
           color: 'brand.400',
           borderRadius: 'base',
+          fontSize: '0.875rem',
+          fontWeight: 400,
+        },
+      },
+    },
+    Heading: {
+      variants: {
+        'Heading-1-700': {
+          color: 'gray.800',
+          fontSize: '2.75rem',
+          fontWeight: 700,
+        },
+        'Heading-2-600': {
+          color: 'gray.800',
+          fontSize: '2.25rem',
+          fontWeight: 600,
+        },
+        'Heading-3-600': {
+          color: 'gray.800',
+          fontSize: '2rem',
+          fontWeight: 600,
+        },
+        'Heading-3-500': {
+          color: 'gray.800',
+          fontSize: '2rem',
+          fontWeight: 500,
+        },
+        'Heading-4-600': {
+          color: 'gray.800',
+          fontSize: '1.75rem',
+          fontWeight: 600,
+        },
+        'Heading-4-500': {
+          color: 'gray.800',
+          fontSize: '1.75rem',
+          fontWeight: 500,
+        },
+        'Heading-5-600': {
+          color: 'gray.800',
+          fontSize: '1.5rem',
+          fontWeight: 600,
+        },
+        'Heading-5-500': {
+          color: 'gray.800',
+          fontSize: '1.5rem',
+          fontWeight: 500,
+        },
+        'Heading-6-600': {
+          color: 'gray.800',
+          fontSize: '1.25rem',
+          fontWeight: 600,
+        },
+        'Heading-6-500': {
+          color: 'gray.800',
+          fontSize: '1.25rem',
+          fontWeight: 500,
+        },
+        'Heading-7-600': {
+          color: 'gray.800',
+          fontSize: '1rem',
+          fontWeight: 600,
+        },
+        'Heading-7-500': {
+          color: 'gray.800',
+          fontSize: '1rem',
+          fontWeight: 500,
+        },
+      },
+    },
+    Text: {
+      variants: {
+        'body-1-400': {
+          color: 'gray.700',
+          fontSize: '1rem',
+          fontWeight: 400,
+        },
+        'body-1-600': {
+          color: 'gray.700',
+          fontSize: '1rem',
+          fontWeight: 600,
+        },
+        'body-2-400': {
+          color: 'gray.700',
+          fontSize: '0.875rem',
+          fontWeight: 400,
+        },
+        'body-2-500': {
+          color: 'gray.700',
+          fontSize: '0.875rem',
+          fontWeight: 500,
         },
       },
     },

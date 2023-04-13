@@ -1,3 +1,4 @@
+import { error } from "console";
 import AppDataSource from "../../data-source";
 import Advertisement from "../../entities/advertisement.entity";
 import {
@@ -6,6 +7,7 @@ import {
   iAdvertisementRes,
 } from "../../interfaces/advertisements.interface";
 import { advertisementResSchema } from "../../schemas/advertisement.schema";
+import AppError from "../../errors/AppError";
 
 const updateAdvertisementService = async (
   data: iAdvertisementReqUpdate,
@@ -16,12 +18,15 @@ const updateAdvertisementService = async (
   const findAdvertisement = await advertisementRepository.findOneBy({
     id: paramsId,
   });
+ 
+  if (!findAdvertisement){
+    throw new AppError("This advertisement doesn't exist")
+  }
 
-  const updatedAdvertisement: Advertisement = advertisementRepository.create({
+  const updatedAdvertisement: Advertisement = await advertisementRepository.save({
     ...findAdvertisement,
     ...data,
   });
-  await advertisementRepository.save(updatedAdvertisement);
 
   const validatedAdvertisement = advertisementResSchema.parse(updatedAdvertisement);
 
