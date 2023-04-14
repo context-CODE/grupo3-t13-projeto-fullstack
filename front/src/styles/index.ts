@@ -8,7 +8,8 @@ const theme = extendTheme({
       300: '#5126EA',
       400: '#4529E6',
     },
-    gray: {
+    grey: {
+      10: '#FDFDFD',
       50: '#F8F9FA',
       100: '#F1F3F5',
       200: '#E9ECEF',
@@ -21,7 +22,7 @@ const theme = extendTheme({
       900: '#0B0D0D',
     },
     white: '#FFFFFF',
-    sucess: {
+    success: {
       100: '#DDF3E4',
       200: '#CCEBD7',
       300: '#18794E',
@@ -43,6 +44,9 @@ const theme = extendTheme({
           bg: 'brand.400',
           borderRadius: 'sm',
           color: 'white',
+          height: {base: '38px', md: '48px'}, 
+          fontSize: {base: '0.875rem', md: '1rem'},
+          fontWeight: '600',
           _hover: {
             bg: 'brand.300',
           },
@@ -51,34 +55,49 @@ const theme = extendTheme({
           bg: 'brand.200',
           borderRadius: 'sm',
           color: 'white',
+          height: {base: '38px', md: '48px'}, 
+          fontSize: {base: '0.875rem', md: '1rem'},
+          fontWeight: '600',
           cursor: 'default',
         },
         disable: {
-          bg: 'gray.400',
+          bg: 'grey.400',
           borderRadius: 'sm',
           color: 'white',
+          height: {base: '38px', md: '48px'}, 
+          fontSize: {base: '0.875rem', md: '1rem'},
+          fontWeight: '600',
           cursor: 'default',
         },
-        darkGray: {
-          bg: 'gray.900',
+        darkGrey: {
+          bg: 'grey.900',
           borderRadius: 'sm',
           color: 'white',
+          height: {base: '38px', md: '48px'}, 
+          fontSize: {base: '0.875rem', md: '1rem'},
+          fontWeight: '600',
           _hover: {
-            bg: 'gray.800',
+            bg: 'grey.800',
           },
         },
-        lightGray: {
-          bg: 'gray.300',
+        lightGrey: {
+          bg: 'grey.300',
           borderRadius: 'sm',
-          color: 'gray.700',
+          color: 'grey.700',
+          height: {base: '38px', md: '48px'}, 
+          fontSize: {base: '0.875rem', md: '1rem'},
+          fontWeight: '600',
           _hover: {
-            bg: 'gray.400',
+            bg: 'grey.400',
           },
         },
         white: {
           bg: 'white',
           borderRadius: 'sm',
-          color: 'gray.900',
+          color: 'grey.900',
+          height: {base: '38px', md: '48px'}, 
+          fontSize: {base: '0.875rem', md: '1rem'},
+          fontWeight: '600',
         },
         outline: {
           bg: 'none',
@@ -86,26 +105,35 @@ const theme = extendTheme({
           color: 'brand.400',
           border: '2px',
           borderColor: 'brand.400',
+          height: {base: '38px', md: '48px'}, 
+          fontSize: {base: '0.875rem', md: '1rem'},
+          fontWeight: '600',
         },
         outlineLight: {
           bg: 'none',
           borderRadius: 'sm',
           color: 'white',
           border: '2px',
-          borderColor: 'white',
+          borderColor: 'grey.500',
+          height: {base: '38px', md: '48px'}, 
+          fontSize: {base: '0.875rem', md: '1rem'},
+          fontWeight: '600',
           _hover: {
             bg: 'white',
-            color: 'gray.900',
+            color: 'grey.900',
           },
         },
         outlineDark: {
           bg: 'none',
           borderRadius: 'sm',
-          color: 'gray.900',
+          color: 'grey.900',
           border: '2px',
-          borderColor: 'gray.900',
+          borderColor: 'grey.900',
+          height: '38px', 
+          fontSize: '0.875rem',
+          fontWeight: '600',
           _hover: {
-            bg: 'gray.900',
+            bg: 'grey.900',
             color: 'white',
           },
         },
@@ -113,16 +141,22 @@ const theme = extendTheme({
           bg: 'alert.100',
           borderRadius: 'sm',
           color: 'alert.300',
+          height: {base: '38px', md: '48px'}, 
+          fontSize: {base: '0.875rem', md: '1rem'},
+          fontWeight: '600',
           _hover: {
             bg: 'alert.200',
           },
         },
-        sucess: {
-          bg: 'sucess.100',
+        success: {
+          bg: 'success.100',
           borderRadius: 'sm',
-          color: 'sucess.300',
+          color: 'success.300',
+          height: {base: '38px', md: '48px'}, 
+          fontSize: {base: '0.875rem', md: '1rem'},
+          fontWeight: '600',
           _hover: {
-            bg: 'sucess.200',
+            bg: 'success.200',
           },
         },
       },
@@ -132,12 +166,12 @@ const theme = extendTheme({
         default: {
           bg: 'none',
           borderRadius: 'sm',
-          color: 'gray.900',
+          color: 'grey.900',
           padding: '12px',
           fontWeight: 'bold',
           _hover: {
             textDecoration: 'none',
-            bg: 'gray.100',
+            bg: 'grey.100',
           },
         },
       },
@@ -148,18 +182,19 @@ const theme = extendTheme({
           field: {
             bg: 'none',
             outline: '2px solid',
-            outlineColor: 'gray.600',
+            outlineColor: 'grey.600',
             borderRadius: 'base',
+            height: {base: '38px', md: '48px'},
             _placeholder: {
-              color: 'gray.600',
+              color: 'grey.600',
             },
             _hover: {
-              bg: 'gray.100',
+              bg: 'grey.100',
             },
             _focus: {
               bg: 'white',
               outlineColor: 'brand.400',
-              color: 'gray.900',
+              color: 'grey.900',
             },
           },
         },
@@ -174,24 +209,124 @@ const theme = extendTheme({
           field: {
             bg: 'none',
             outline: '2px solid',
-            outlineColor: 'gray.600',
+            outlineColor: 'grey.600',
             borderRadius: 'base',
             _placeholder: {
-              color: 'gray.600',
+              color: 'grey.600',
             },
             _hover: {
-              bg: 'gray.100',
+              bg: 'grey.100',
             },
             _focus: {
               bg: 'white',
               outlineColor: 'brand.400',
-              color: 'gray.900',
+              color: 'grey.900',
             },
           },
         },
       },
       defaultProps: {
         variant: 'default',
+      },
+    },
+    Tag: {
+      baseStyle: {
+        container: {
+          bg: 'brand.100',
+          color: 'brand.400',
+          borderRadius: 'base',
+          fontSize: '0.875rem',
+          fontWeight: 400,
+          height: '32px',
+        },
+      },
+    },
+    Heading: {
+      variants: {
+        'Heading-1-700': {
+          color: 'grey.800',
+          fontSize: '2.75rem',
+          fontWeight: 700,
+        },
+        'Heading-2-600': {
+          color: 'grey.800',
+          fontSize: '2.25rem',
+          fontWeight: 600,
+        },
+        'Heading-3-600': {
+          color: 'grey.800',
+          fontSize: '2rem',
+          fontWeight: 600,
+        },
+        'Heading-3-500': {
+          color: 'grey.800',
+          fontSize: '2rem',
+          fontWeight: 500,
+        },
+        'Heading-4-600': {
+          color: 'grey.800',
+          fontSize: '1.75rem',
+          fontWeight: 600,
+        },
+        'Heading-4-500': {
+          color: 'grey.800',
+          fontSize: '1.75rem',
+          fontWeight: 500,
+        },
+        'Heading-5-600': {
+          color: 'grey.800',
+          fontSize: '1.5rem',
+          fontWeight: 600,
+        },
+        'Heading-5-500': {
+          color: 'grey.800',
+          fontSize: '1.5rem',
+          fontWeight: 500,
+        },
+        'Heading-6-600': {
+          color: 'grey.800',
+          fontSize: '1.25rem',
+          fontWeight: 600,
+        },
+        'Heading-6-500': {
+          color: 'grey.800',
+          fontSize: '1.25rem',
+          fontWeight: 500,
+        },
+        'Heading-7-600': {
+          color: 'grey.800',
+          fontSize: '1rem',
+          fontWeight: 600,
+        },
+        'Heading-7-500': {
+          color: 'grey.800',
+          fontSize: '1rem',
+          fontWeight: 500,
+        },
+      },
+    },
+    Text: {
+      variants: {
+        'body-1-400': {
+          color: 'grey.700',
+          fontSize: '1rem',
+          fontWeight: 400,
+        },
+        'body-1-600': {
+          color: 'grey.700',
+          fontSize: '1rem',
+          fontWeight: 600,
+        },
+        'body-2-400': {
+          color: 'grey.700',
+          fontSize: '0.875rem',
+          fontWeight: 400,
+        },
+        'body-2-500': {
+          color: 'grey.700',
+          fontSize: '0.875rem',
+          fontWeight: 500,
+        },
       },
     },
   },

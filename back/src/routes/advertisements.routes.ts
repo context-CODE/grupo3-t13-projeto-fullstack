@@ -5,8 +5,10 @@ import {
   advertisementReqSchema,
   advertisementReqUpdateSchema,
 } from "../schemas/advertisement.schema";
-import updateAdvertisementController from "../controllers/announcements/updateAdvertisement.controller";
-import deleteAdvertisementController from "../controllers/announcements/deleteAdvertisement.controller";
+import updateAdvertisementController from "../controllers/advertisements/updateAdvertisement.controller";
+import deleteAdvertisementController from "../controllers/advertisements/deleteAdvertisement.controller";
+import listAdvertisementsController from "../controllers/advertisements/listAdvertisement.controller";
+import retrieveAdvertisementController from "../controllers/advertisements/retrieveAdvertisement.controller";
 
 const advertisementRouter = Router();
 
@@ -15,6 +17,8 @@ advertisementRouter.post(
   ensureIsValidDataMiddleware(advertisementReqSchema),
   createAdvertisementController
 );
+advertisementRouter.get("", listAdvertisementsController);
+advertisementRouter.get("/:id", retrieveAdvertisementController);
 advertisementRouter.patch(
   "/:id",
   ensureIsValidDataMiddleware(advertisementReqUpdateSchema),
