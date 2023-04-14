@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import deleteAdvertisementService from "../../services/announcements/deleteAdvertisement.service";
+import deleteAdvertisementService from "../../services/advertisements/deleteAdvertisement.service";
+
 
 
 const deleteAdvertisementController = async (req: Request, res: Response) => {
