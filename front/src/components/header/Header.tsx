@@ -1,4 +1,4 @@
-import { Box, Button, HStack, Link, Menu, MenuButton, MenuItem, MenuList, Text, useDisclosure } from "@chakra-ui/react"
+import { Box, Button, HStack, Image, Link, Menu, MenuButton, MenuItem, MenuList, Text, useDisclosure } from "@chakra-ui/react"
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons"
 
 interface IHeaderProps {
@@ -14,9 +14,7 @@ const Header = () => {
         <Box w={'100vw'} h={'80px'} bg={'grey.10'} borderBottom={'2px solid'} borderColor={'grey.300'} fontSize={24} display={'flex'} flexDirection={'row'} alignItems={'center'} justifyContent={'space-between'}>
             <Box w={'70vw'} pl={'60px'}>
                 <Box w={'160px'} bgGradient={'linear(to right,#0B0D0D, #4529E6)'} bgClip={'text'}>
-                    <Text fontWeight={"bold"}> 
-                        Motors <Text as={'span'} color={'brand.400'} fontSize={16}>shop</Text>
-                    </Text>
+                <Image src='/assets/Motors-shop-header.svg' alt="header img"/>
                 </Box>
             </Box>
             <HStack display={{base:'none', md:'flex'}} w={'30vw'} alignItems={'center'} justifyContent={'space-around'} borderLeft={'2px solid'} borderColor={'grey.300'} h={'100%'}>
