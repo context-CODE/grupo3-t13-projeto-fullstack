@@ -12,7 +12,7 @@ const Footer = () => {
             <Text fontWeight={"bold"} fontSize={24}> 
                         Motors <Text as={'span'} fontSize={16}>shop</Text>
                     </Text>
-            <Text>© 2023 - Todos os direitos reservados.</Text>
+            <Text variant={'body-2-400'}>© 2023 - Todos os direitos reservados.</Text>
             <IconButton icon={<ChevronUpIcon/>} aria-label={"Voltar ao Topo"} bg={'grey.800'} onClick={scrollToTop}/>
         </Box>
     )

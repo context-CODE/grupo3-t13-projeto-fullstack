@@ -39,7 +39,7 @@ const HeaderLoggedContent = ({name, isLogged}: IHeaderProps) => {
                 <Box bg={'brand.300'} w={'32px'} h={'32px'} color={'white'} borderRadius={'180px'} display={'flex'} alignItems={'center'} justifyContent={'center'}>
                     <Text fontWeight={'bold'} fontSize={18}>{initials}</Text>
                 </Box>
-                <Text fontSize={'md'}>
+                <Text variant={'body-1-400'}>
                     {name}
                 </Text>
             </HStack>

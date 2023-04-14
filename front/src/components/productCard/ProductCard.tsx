@@ -11,8 +11,8 @@ const ProductCard = () => {
             w={'312px'}
             />
             <Stack mt='5' spacing='3'>
-            <Heading size='sm'>Living room Sofa</Heading>
-            <Text color={'grey.700'} fontSize={'sm'}>
+            <Heading variant={'Heading-7-600'}>Living room Sofa</Heading>
+            <Text variant={'body-2-400'}>
                 This sofa is perfect for modern tropical spaces, baroque inspired
                 spaces, earthy  ...
             </Text>
@@ -20,7 +20,7 @@ const ProductCard = () => {
                 <Box bg={'brand.300'} w={'32px'} h={'32px'} color={'white'} borderRadius={'180px'} display={'flex'} alignItems={'center'} justifyContent={'center'}>
                     <Text fontWeight={'bold'} fontSize={18}>RP</Text>
                 </Box>
-                <Text fontSize={'sm'}>
+                <Text variant={'body-2-500'}>
                     Roberto Pontes
                 </Text>
             </HStack>
@@ -32,7 +32,7 @@ const ProductCard = () => {
                     <Tag>0 KM</Tag>
                     <Tag>2019</Tag>
                 </Box>
-                <Text fontWeight={'bold'}>R$ 00.000,00</Text>
+                <Text variant={'heading-7-500'}>R$ 00.000,00</Text>
             </HStack>
         </CardFooter>
         </Card>
