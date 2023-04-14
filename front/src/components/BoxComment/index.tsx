@@ -13,13 +13,13 @@ const BoxComment = ({ name, image }: iBoxComment) => {
       alignItems={'center'}
       justifyContent={'center'}
       gap={'20px'}
-      bg={'white'}
+      bg="grey.10"
       padding={'20px 10px'}
       w="90%"
       maxW={{ base: '283px', md: '663px' }}
       minW={{ base: '283px', md: '663px' }}
     >
-      <Box display={'flex'} gap="10px" bg={'white'} w="90%" alignItems="center">
+      <Box display={'flex'} gap="10px" bg={'white'} w="97%" alignItems="center">
         <Avatar src={image} />
         <Text textAlign={'center'} variant={'body-2-500'}>
           {name}
@@ -30,9 +30,9 @@ const BoxComment = ({ name, image }: iBoxComment) => {
         flexDir={'column'}
         border={{ md: '1px', base: 'none' }}
         alignItems={{ base: 'flex-start', md: 'flex-end' }}
-        borderColor={{ base: '#E9ECEF', md: '#E9ECEF' }}
+        borderColor={{ base: 'grey.200', md: 'grey.200' }}
         borderRadius={'4px'}
-        minW={'90%'}
+        minW={'97%'}
         gap={{ base: '10px', md: 'none' }}
       >
         <Textarea
@@ -42,17 +42,17 @@ const BoxComment = ({ name, image }: iBoxComment) => {
           overflow="none"
           h={{ base: '150' }}
           borderStyle={{ md: 'none', base: '1px' }}
-          borderColor={{ base: '#E9ECEF', md: 'none' }}
+          borderColor={{ base: 'grey.200', md: 'none' }}
           borderRadius={{ base: '4px', md: 'none' }}
           w="97%"
           mt="2%"
           resize={'none'}
         />
         <Button
-          bg={'#4529E6'}
-          _hover={{ bg: 'black' }}
+          bg="brand.400"
+          _hover={{ bg: 'grey.900' }}
           p={'12px 22px'}
-          color={'white'}
+          color="white"
           w="20%"
           maxWidth={'108px'}
           minWidth={'108px'}
@@ -62,13 +62,13 @@ const BoxComment = ({ name, image }: iBoxComment) => {
           Comentar
         </Button>
       </Box>
-      <Box display={'flex'} gap="10px" w={'90%'} flexWrap={'wrap'}>
+      <Box display={'flex'} gap="10px" w={'97%'} flexWrap={'wrap'}>
         <Text
           p={'5px 10px'}
           fontSize="12px"
           borderRadius="24px"
-          bg="#E9ECEF"
-          color=" #868E96"
+          bg="grey.200"
+          color="grey.600"
         >
           Gostei muito!
         </Text>
@@ -76,8 +76,8 @@ const BoxComment = ({ name, image }: iBoxComment) => {
           p={'5px 10px'}
           fontSize="12px"
           borderRadius="24px"
-          bg="#E9ECEF"
-          color=" #868E96"
+          bg="grey.200"
+          color="grey.600"
         >
           Incrível
         </Text>
@@ -85,8 +85,8 @@ const BoxComment = ({ name, image }: iBoxComment) => {
           p={'5px 10px'}
           borderRadius="24px"
           fontSize="12px"
-          bg="#E9ECEF"
-          color=" #868E96"
+          bg="grey.200"
+          color=" grey.600"
         >
           Recomendarei para meus amigos!
         </Text>
