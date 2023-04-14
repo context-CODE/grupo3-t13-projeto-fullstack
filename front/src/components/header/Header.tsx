@@ -17,10 +17,10 @@ const Header = () => {
                 <Image src='/assets/Motors-shop-header.svg' alt="header img"/>
                 </Box>
             </Box>
-            <HStack display={{base:'none', md:'flex'}} w={'30vw'} alignItems={'center'} justifyContent={'space-around'} borderLeft={'2px solid'} borderColor={'grey.300'} h={'100%'}>
+            <HStack display={{base:'none', md:'flex'}} w={'390px'}  alignItems={'center'} justifyContent={'space-between'} borderLeft={'2px solid'} borderColor={'grey.300'} h={'100%'} pr={'60px'} pl={'44px'}>
                 <HeaderLoggedContent name={'Roberto Pontes'} isLogged={false}/>
             </HStack>
-            <Box display={{base:'flex', md:'none'}} w={'30vw'} justifyContent={'flex-end'} pr={'6px'}>
+            <Box display={{base:'flex', md:'none'}} w={'30vw'} justifyContent={'flex-end'} pr={'0'}>
                 <ResponsiveMenu/>
             </Box>
         </Box>
@@ -43,7 +43,7 @@ const HeaderLoggedContent = ({name, isLogged}: IHeaderProps) => {
             </HStack>
         ) : (
             <>
-                <Link fontSize={'16px'} color={'brand.400'} fontWeight={600}>Fazer Login</Link>
+                <Text variant={'body-1-600'} _hover={{cursor: 'pointer'}}>Fazer Login</Text>
                 <Button variant={'outlineDark'}>Cadastrar</Button>
             </>
         )
@@ -56,9 +56,9 @@ const ResponsiveMenu = () => {
             <MenuButton as={Button} bg={'grey-10'}>
                 <HamburgerIcon/>
             </MenuButton>
-            <MenuList>
-                <MenuItem bg={'grey-10'} fontSize={'sm'}>Fazer Login</MenuItem>
-                <MenuItem><Button variant={'outlineDark'}>Cadastrar</Button></MenuItem>
+            <MenuList w={'100vw'} justifyContent={'center'} py={2}>
+                <MenuItem bg={'grey.10'}><Text variant={'body-1-600'}>Fazer Login</Text></MenuItem>
+                <MenuItem><Button variant={'outlineDark'} w={'374px'}>Cadastrar</Button></MenuItem>
             </MenuList>
         </Menu>
     )

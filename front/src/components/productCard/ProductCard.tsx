@@ -2,15 +2,15 @@ import { Box, Card, CardBody, CardFooter, HStack, Heading, Image, Stack, Tag, Te
 
 const ProductCard = () => {
     return (
-        <Card maxW='315px' maxH={'350px'}>
-        <CardBody p={'0.25rem'}>
+        <Card maxW='312px' maxH={'350px'} gap={1}>
+        <CardBody p={0}>
             <Image
             src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
             alt='Green double couch with wooden legs'
             h={'150px'}
             w={'312px'}
             />
-            <Stack mt='5' spacing='3'>
+            <Stack mt={'5'} spacing={'1'}>
             <Heading variant={'Heading-7-600'}>Living room Sofa</Heading>
             <Text variant={'body-2-400'}>
                 This sofa is perfect for modern tropical spaces, baroque inspired
@@ -26,7 +26,7 @@ const ProductCard = () => {
             </HStack>
             </Stack>
         </CardBody>
-        <CardFooter p={'0.25rem'}>
+        <CardFooter p={0}>
             <HStack w={'100%'} display={'flex'} justifyContent={'space-between'}>
                 <Box display={'flex'} gap={'2'}>
                     <Tag>0 KM</Tag>
