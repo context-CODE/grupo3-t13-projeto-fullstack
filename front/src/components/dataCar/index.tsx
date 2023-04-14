@@ -18,7 +18,7 @@ export const DataCar = () => {
                                 <Tag>2013</Tag>  
                                 <Tag>0 KM</Tag>
                             </Flex>
-                            <Text color={'gray.800'} variant={{ base:'Heading-6-600', sm:'Heading-7-500'}}>
+                            <Text color={'grey.800'} variant={{ base:'Heading-6-600', sm:'Heading-7-500'}}>
                                 R$ 00.000,00
                             </Text>
                         </Flex>
