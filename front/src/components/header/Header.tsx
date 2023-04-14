@@ -20,7 +20,7 @@ const Header = () => {
                 </Box>
             </Box>
             <HStack display={{base:'none', md:'flex'}} w={'30vw'} alignItems={'center'} justifyContent={'space-around'} borderLeft={'2px solid'} borderColor={'grey.300'} h={'100%'}>
-                <HeaderLoggedContent name={'Roberto Pontes'} isLogged={false}/>
+                <HeaderLoggedContent name={'User Shop'} isLogged={false}/>
             </HStack>
             <Box display={{base:'flex', md:'none'}} w={'30vw'} justifyContent={'flex-end'} pr={'6px'}>
                 <ResponsiveMenu/>
