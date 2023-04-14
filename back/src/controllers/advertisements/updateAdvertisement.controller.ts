@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import updateAdvertisementService from "../../services/announcements/updateAdvertisement.service";
+import updateAdvertisementService from "../../services/advertisements/updateAdvertisement.service";
+
 
 
 const updateAdvertisementController = async (req: Request, res: Response) => {
@@ -8,7 +9,7 @@ const updateAdvertisementController = async (req: Request, res: Response) => {
     req.body,
     paramsId
   );
-  return res.status(201).send(updatedAdvertisement);
+  return res.status(200).send(updatedAdvertisement);
 };
 
 export default updateAdvertisementController;
