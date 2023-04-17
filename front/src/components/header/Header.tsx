@@ -58,7 +58,7 @@ const ResponsiveMenu = () => {
             </MenuButton>
             <MenuList w={'100vw'} justifyContent={'center'} py={2}>
                 <MenuItem bg={'grey.10'}><Text variant={'body-1-600'}>Fazer Login</Text></MenuItem>
-                <MenuItem><Button variant={'outlineDark'} w={'374px'}>Cadastrar</Button></MenuItem>
+                <MenuItem><Button variant={'outlineLight'} w={'374px'}>Cadastrar</Button></MenuItem>
             </MenuList>
         </Menu>
     )
