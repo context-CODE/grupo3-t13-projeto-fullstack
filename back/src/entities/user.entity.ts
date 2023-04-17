@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import Address from "./address.entity";
 
 @Entity("users")
 export default class User {
@@ -49,4 +50,7 @@ export default class User {
     length: 150,
   })
   password: string;
+
+  @OneToOne(() => Address, (address) => address.user)
+  address: Address;
 }
