@@ -1,9 +1,9 @@
 import {
   Column,
   Entity,
-  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import User from "./user.entity";
 
@@ -48,7 +48,9 @@ export default class Address {
   })
   complement: string;
 
+  @UpdateDateColumn()
+  updated_at: Date;
+
   @OneToOne(() => User, (user) => user.address)
-  @JoinColumn()
   user: User;
 }
