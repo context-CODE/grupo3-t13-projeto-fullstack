@@ -1,7 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import Advertisement from "./advertisement.entity";
 
 @Entity("image_gallery")
-export default class imageGallery {
+export default class ImageGallery {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
@@ -10,4 +11,7 @@ export default class imageGallery {
     length: 150,
   })
   image_url: string;
+
+  @ManyToOne(() => Advertisement, (advertisement) => advertisement.imageGallery)
+  advertisement: Advertisement;
 }
