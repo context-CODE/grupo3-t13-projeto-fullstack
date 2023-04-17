@@ -9,7 +9,7 @@ export default class Address {
     type: "varchar",
     length: 8,
   })
-  zipCode: string;
+  zip_code: string;
 
   @Column({
     type: "varchar",
