@@ -1,9 +1,12 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import Address from "./address.entity";
 import Advertisement from "./advertisement.entity";
@@ -58,9 +61,16 @@ export default class User {
   })
   password: string;
 
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
+
   @OneToMany(() => Advertisement, (advertisement) => advertisement.user)
   advertisements: Advertisement[];
 
   @OneToOne(() => Address, (address) => address.user)
+  @JoinColumn()
   address: Address;
 }
