@@ -1,5 +1,12 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import Address from "./address.entity";
+import Advertisement from "./advertisement.entity";
 
 @Entity("users")
 export default class User {
@@ -50,6 +57,9 @@ export default class User {
     length: 150,
   })
   password: string;
+
+  @OneToMany(() => Advertisement, (advertisement) => advertisement.user)
+  advertisements: Advertisement[];
 
   @OneToOne(() => Address, (address) => address.user)
   address: Address;
