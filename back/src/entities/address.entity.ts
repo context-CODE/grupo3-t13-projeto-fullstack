@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import User from "./user.entity";
 
 @Entity("adresses")
 export default class Address {
@@ -40,4 +47,8 @@ export default class Address {
     nullable: true,
   })
   complement: string;
+
+  @OneToOne(() => User, (user) => user.address)
+  @JoinColumn()
+  user: User;
 }
