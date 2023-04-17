@@ -18,6 +18,12 @@ export default class User {
 
   @Column({
     type: "varchar",
+    length: 150,
+  })
+  profile_img: string;
+
+  @Column({
+    type: "varchar",
     length: 60,
   })
   name: string;
@@ -45,7 +51,7 @@ export default class User {
   @Column({
     type: "date",
   })
-  birthday: string;
+  birthdate: string;
 
   @Column({ type: "text", nullable: true })
   description: string;
