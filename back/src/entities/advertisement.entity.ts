@@ -2,9 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import ImageGallery from "./imageGallery.entity";
+import User from "./user.entity";
 
 @Entity("advertisements")
 export default class Advertisement {
@@ -46,4 +50,10 @@ export default class Advertisement {
 
   @UpdateDateColumn({ type: "timestamp" })
   updated_at: Date;
+
+  @ManyToOne(() => User, (user) => user.advertisements)
+  user: User;
+
+  @OneToMany(() => ImageGallery, (imageGallery) => imageGallery.advertisement)
+  imageGallery: ImageGallery[];
 }
