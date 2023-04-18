@@ -2,7 +2,7 @@ import { Box, Card, CardBody, CardFooter, HStack, Heading, Image, Stack, Tag, Te
 
 const ProductCard = () => {
     return (
-        <Card maxW='312px' maxH={'350px'} gap={'16px'}>
+        <Card maxW='312px' maxH={'350px'} gap={'16px'} shadow={'none'}>
         <CardBody p={0}>
             <Image
             src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
@@ -10,7 +10,7 @@ const ProductCard = () => {
             h={'150px'}
             w={'312px'}
             />
-            <Stack mt={'5'} spacing={'16px'}>
+            <Stack mt={'4'} spacing={'16px'}>
             <Heading variant={'Heading-7-600'}>Living room Sofa</Heading>
             <Text variant={'body-2-400'}>
                 This sofa is perfect for modern tropical spaces, baroque inspired
@@ -21,7 +21,7 @@ const ProductCard = () => {
                     <Text variant={'body-2-500'} color={"white"}>RP</Text>
                 </Box>
                 <Text variant={'body-2-500'}>
-                    Roberto Pontes
+                    User Shop
                 </Text>
             </HStack>
             </Stack>
@@ -32,7 +32,7 @@ const ProductCard = () => {
                     <Tag>0 KM</Tag>
                     <Tag>2019</Tag>
                 </Box>
-                <Text variant={'heading-7-500'} fontWeight={'bold'}>R$ 00.000,00</Text>
+                <Text variant={'Heading-7-500'} fontWeight={'bold'}>R$ 00.000,00</Text>
             </HStack>
         </CardFooter>
         </Card>
