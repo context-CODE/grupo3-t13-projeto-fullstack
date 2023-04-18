@@ -1,4 +1,4 @@
-import api from '../services/api';
+import api from '@/services/index';
 import 'react-toastify/dist/ReactToastify.css';
 import {
   iProviderProps,
@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }: iProviderProps) => {
 
   const registerUser = async (data: iUserReq) => {
     try {
-      const response: iUserRes = await api.post('/users', data);
+      const newUser: iUserRes = await api.post('/users', data);
       toast.success('🦄 Registration successfully completed!', {
         position: 'top-right',
         autoClose: 2000,
@@ -42,48 +42,48 @@ export const AuthProvider = ({ children }: iProviderProps) => {
         progress: undefined,
         theme: 'dark',
       });
-      setUser(response);
+      setUser(newUser);
       router.push('/');
     } catch (error) {
       console.log(error);
     }
   };
 
-  const login = async (data: iUserLogin) => {
-    api
-      .post('/login', data)
-      .then((response) => {
-        setCookie(null, 'car.token', response.data.token, {
-          maxAge: 60 * 60 * 24 * 3,
-          path: '/',
-        });
-        setCookie(null, 'car.user', response.data.userName, {
-          maxAge: 60 * 60 * 24 * 3,
-          path: '/',
-        });
-        setCookie(null, 'car.id', response.data.id, {
-          maxAge: 60 * 60 * 24 * 3,
-          path: '/',
-        });
-        setAvatar(response.data.avatar);
-        router.push('/dashboard');
-        toast({
-          title: 'success',
-          variant: 'solid',
-          position: 'top-right',
-          isClosable: true,
-          render: () => (
-            <Box
-              color={'gray.50'}
-              p={3}
-              bg={'green.600'}
-              fontWeight={'bold'}
-              borderRadius={'md'}
-            >
-              Login successfully executed!
-            </Box>
-          ),
-        });
+  const login = (data: iUserLogin) => {
+    try {
+      api.post('/login', data)
+        .then((response) => {
+          setCookie(null, 'car.token', response.data.token, {
+            maxAge: 60 * 60 * 24 * 3,
+            path: '/',
+          });
+          setCookie(null, 'car.user', response.data.userName, {
+            maxAge: 60 * 60 * 24 * 3,
+            path: '/',
+          });
+          setCookie(null, 'car.id', response.data.id, {
+            maxAge: 60 * 60 * 24 * 3,
+            path: '/',
+          });
+          setAvatar(response.data.avatar);
+          router.push('/profile');
+          toast({
+            title: 'success',
+            variant: 'solid',
+            position: 'top-right',
+            isClosable: true,
+            render: () => (
+              <Box
+                color={'gray.50'}
+                p={3}
+                bg={'green.600'}
+                fontWeight={'bold'}
+                borderRadius={'md'}
+              >
+                Login successfully executed!
+              </Box>
+            ),
+          });
       })
       .catch((error) => {
         console.log(error);
