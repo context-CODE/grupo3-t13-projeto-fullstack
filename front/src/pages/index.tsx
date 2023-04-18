@@ -1,10 +1,8 @@
-
 import { Box, Heading } from '@chakra-ui/react';
-
 
 export default function Home() {
   return (
-    <Box p={"16px"}>
+    <Box>
       <Heading>Home</Heading>
     </Box>
   );
