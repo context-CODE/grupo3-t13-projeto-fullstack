@@ -15,8 +15,8 @@ export interface iAuthContext {
   registerUser: (data: iUserReq) => void;
   getUserProfile: () => void;
   login: (data: iUserLogin) => void;
-  user: iUserRes | null;
-  setUser: React.Dispatch<React.SetStateAction<iUserRes | null>>;
+  user: iUserRes;
+  setUser: React.Dispatch<React.SetStateAction<iUserRes>>;
   avatar: string;
   setAvatar: React.Dispatch<React.SetStateAction<string | ''>>;
 }
@@ -24,7 +24,7 @@ export interface iAuthContext {
 const AuthContext = createContext<iAuthContext>({} as iAuthContext);
 
 export const AuthProvider = ({ children }: iProviderProps) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({} as iUserRes);
   const [avatar, setAvatar] = useState('');
   const toast = useToast();
   const router = useRouter();
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }: iProviderProps) => {
         theme: 'dark',
       });
       setUser(newUser);
-      router.push('/');
+      router.push('/login');
     } catch (error) {
       console.log(error);
     }
@@ -66,7 +66,7 @@ export const AuthProvider = ({ children }: iProviderProps) => {
             path: '/',
           });
           setAvatar(response.data.avatar);
-          router.push('/profile');
+          router.push('/');
           toast({
             title: 'success',
             variant: 'solid',
@@ -92,7 +92,7 @@ export const AuthProvider = ({ children }: iProviderProps) => {
 
   const getUserProfile = async () => {
     try {
-      const userProfile: iUserRes = await api.get('/profile');
+      const userProfile:iUserRes = await api.get('/profile');
       toast.success('🦄 Profile successfully selected!', {
         position: 'top-right',
         autoClose: 2000,
