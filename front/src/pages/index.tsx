@@ -1,9 +1,9 @@
-import { FilterAdvertisements } from '@/components/FilterAd';
+// import { FilterAdvertisements } from '@/components/FilterAd';
 import CardList from '@/components/homepage/CardList';
 import { Box } from '@chakra-ui/react';
 export default function Home() {
   return (
-    <Box display={'flex'} justifyContent={'center'} w={'100vw'}>
+    <Box display={'flex'} justifyContent={'center'} w={'100vw'} bg={'white'}>
       <Box
         w={'1200px'}
         minW={'375px'}
