@@ -33,6 +33,10 @@ const Header = () => {
       flexDirection={'row'}
       alignItems={'center'}
       justifyContent={'space-between'}
+      pos="fixed"
+      top="0"
+      left="0"
+      zIndex={'1000'}
     >
       <Box w={'70vw'} pl={'60px'}>
         <Box
