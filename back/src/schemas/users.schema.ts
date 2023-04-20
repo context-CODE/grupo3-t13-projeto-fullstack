@@ -4,10 +4,10 @@ import { addressReqSchema } from "./addresses.schema";
 const usersReqSchema = z.object({
   name: z.string().max(60),
   email: z.string().max(60),
-  passworod: z.string().max(150),
+  password: z.string().max(150),
   cpf: z.string().max(11),
-  phone: z.string().max(18),
-  birthdate: z.date(),
+  phone_number: z.string().max(18),
+  birthdate: z.string(),
   profile_img: z.string().max(127),
   is_advertiser: z.boolean(),
   address: addressReqSchema,
@@ -18,6 +18,8 @@ const usersResSchema = usersReqSchema.extend({
     id: z.string().uuid(),
     created_at: z.date(),
     updated_at: z.date(),
+}).omit({
+    password: true,
 });
 
 const usersReqUpdateSchema = usersReqSchema.partial();
