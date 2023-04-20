@@ -5,7 +5,7 @@ const addressReqSchema = z.object({
   state: z.string().max(2),
   city: z.string().max(25),
   street: z.string().max(40),
-  number: z.number(),
+  number: z.string().transform((value) => Number(value)),
   complement: z.string().max(128),
 });
 

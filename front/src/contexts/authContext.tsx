@@ -34,7 +34,11 @@ export const AuthProvider = ({ children }: iProviderProps) => {
 
   const registerUser = async (data: iRegisterFormData) => {
     try {
-      const newUser: iUserRes = await api.post('/users', data);
+      const newUser: iUserRes = await api.post('/users', data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       toast({
         title: 'success',
         variant: 'solid',
@@ -48,7 +52,7 @@ export const AuthProvider = ({ children }: iProviderProps) => {
             fontWeight={'bold'}
             borderRadius={'md'}
           >
-            Registrations successfully completed!
+            Registration successfully completed!
           </Box>
         ),
       });
@@ -68,15 +72,7 @@ export const AuthProvider = ({ children }: iProviderProps) => {
             maxAge: 60 * 60 * 24 * 3,
             path: '/',
           });
-          // setCookie(null, 'car.user', response.data.name, {
-          //   maxAge: 60 * 60 * 24 * 3,
-          //   path: '/',
-          // });
-          // setCookie(null, 'car.id', response.data.id, {
-          //   maxAge: 60 * 60 * 24 * 3,
-          //   path: '/',
-          // });
-          // setAvatar(response.data.profile_img);
+
           router.push('/');
           toast({
             title: 'success',
@@ -147,4 +143,4 @@ export const AuthProvider = ({ children }: iProviderProps) => {
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuthContext = () => useContext(AuthContext);

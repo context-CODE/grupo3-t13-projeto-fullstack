@@ -1,4 +1,4 @@
-import { iAuthContext } from '@/contexts/authContext';
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { registerFormSchema } from '@/schemas/auth.schema';
 import { iRegisterFormData } from '@/types/auth.context';
 import {
@@ -12,34 +12,56 @@ import {
   Text,
   Textarea,
 } from '@chakra-ui/react';
-import React, { useContext } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers';
-import { AuthContext } from '../../contexts/authContext';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useAuthContext } from '../../contexts/authContext';
 
 const RegisterForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<iRegisterFormData>({ resolver: zodResolver(registerFormSchema) });
 
-  const { registerUser } = useContext<iAuthContext>(AuthContext);
+  const { registerUser } = useAuthContext();
 
   const onSubmitForm = async (formData: iRegisterFormData) => {
+    console.log(formData);
     await registerUser(formData);
   };
+  console.log(errors);
 
   return (
-    <Flex flexDir="column" gap="16px" padding={'48px'}>
+    <Flex
+      flexDir="column"
+      gap="16px"
+      padding={'48px'}
+      display="flex"
+      maxW={{ base: '374px', md: '411px' }}
+      minW={{ base: '315px', md: '411px' }}
+      bg="grey.10"
+    >
       <Heading variant="Heading-5-500">Cadastro</Heading>
-      <form onSubmit={() => handleSubmit(onSubmitForm)}>
-        <Heading variant="body-2-500">Informações pesooais</Heading>
+      <form onSubmit={handleSubmit(onSubmitForm)}>
+        <Heading variant="body-2-500">Informações pessoais</Heading>
 
         <FormControl isRequired>
           <FormLabel>Nome</FormLabel>
           <Input placeholder="Ex: Samuel Leão" {...register('name')} />
           {errors.name && <Text color="red">{errors.name.message}</Text>}
+        </FormControl>
+
+        <FormControl isRequired>
+          <FormLabel>Imagem de perfil</FormLabel>
+          <Input
+            placeholder="Adicione uma imagem para seu perfil"
+            {...register('profile_img')}
+          />
+          {errors.profile_img && (
+            <Text color="red">{errors.profile_img.message}</Text>
+          )}
         </FormControl>
 
         <FormControl isRequired>
@@ -160,8 +182,18 @@ const RegisterForm = () => {
         </Box>
 
         <Heading variant="body-2-500">Tipo de conta</Heading>
-        <Button variant="default">Comprador</Button>
-        <Button variant="disable">Anunciante</Button>
+        <Button
+          variant="default"
+          onClick={() => setValue('is_advertiser', false)}
+        >
+          Comprador
+        </Button>
+        <Button
+          variant="disable"
+          onClick={() => setValue('is_advertiser', false)}
+        >
+          Anunciante
+        </Button>
 
         <FormControl isRequired>
           <FormLabel>Senha</FormLabel>
@@ -182,7 +214,7 @@ const RegisterForm = () => {
           )}
         </FormControl>
 
-        <Button type="submit" variant="disable">
+        <Button type="submit" variant="default">
           Finalizar cadastro
         </Button>
       </form>

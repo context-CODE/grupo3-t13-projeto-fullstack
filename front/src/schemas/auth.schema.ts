@@ -6,11 +6,13 @@ const registerFormSchema = z.object({
   email: z.string().max(60),
   cpf: z.string().max(11),
   phone_number: z.string().max(18),
-  birthdate: z.date(),
+  birthdate: z.string(),
   description: z.string(),
+  is_advertiser: z.boolean().default(false),
   address: addressReqSchema,
   password: z.string().max(150),
   confirm_password: z.string().max(150),
+  profile_img: z.string().max(150),
 });
 
 const registerResSchema = registerFormSchema
