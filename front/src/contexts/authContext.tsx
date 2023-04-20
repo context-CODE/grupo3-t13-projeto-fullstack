@@ -5,6 +5,7 @@ import {
   iUserLogin,
   iUserRes,
   iUserReq,
+  iRegisterFormData,
 } from '@/types/auth.context';
 import { Box, useToast } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
@@ -29,7 +30,7 @@ export const AuthProvider = ({ children }: iProviderProps) => {
   const toast = useToast();
   const router = useRouter();
 
-  const registerUser = async (data: iUserReq) => {
+  const registerUser = async (data: iRegisterFormData) => {
     try {
       const newUser: iUserRes = await api.post('/users', data);
       toast.success('🦄 Registration successfully completed!', {

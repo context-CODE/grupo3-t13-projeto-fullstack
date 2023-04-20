@@ -3,6 +3,7 @@ import { DeepPartial, Repository } from 'typeorm';
 import { z } from 'zod';
 import User from '../../../back/src/entities/user.entity';
 import {
+  registerFormSchema,
   userReqSchema,
   userResSchema,
 } from '../schemas/auth.schema';
@@ -20,9 +21,7 @@ export type iProviderProps {
   children: ReactNode;
 }
 
-export type iRegisterFormData {
-  name: string;
-}
+export type iRegisterFormData = z.infer<typeof registerFormSchema>
 
 export type iUserEntity = Repository<User>;
 
