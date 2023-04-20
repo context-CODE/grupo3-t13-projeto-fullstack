@@ -140,6 +140,21 @@ const theme = extendTheme({
             color: 'white',
           },
         },
+        outlineGrey: {
+          bg: 'none',
+          borderRadius: 'sm',
+          color: 'grey.900',
+          border: '2px',
+          borderColor: 'grey.500',
+          height: '38px',
+          fontSize: '0.875rem',
+          fontWeight: '600',
+          _hover: {
+            bg: 'grey.900',
+            borderColor: 'grey.900',
+            color: 'white',
+          },
+        },
         alert: {
           bg: 'alert.100',
           borderRadius: 'sm',

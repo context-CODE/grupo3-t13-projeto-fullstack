@@ -101,7 +101,7 @@ const HeaderLoggedContent = ({ name, isLogged }: IHeaderProps) => {
       <Text variant={'body-1-600'} _hover={{ cursor: 'pointer' }}>
         Fazer Login
       </Text>
-      <Button variant={'outlineLight'}>Cadastrar</Button>
+      <Button variant={'outlineGrey'}>Cadastrar</Button>
     </>
   );
 };
@@ -117,7 +117,7 @@ const ResponsiveMenu = () => {
           <Text variant={'body-1-600'}>Fazer Login</Text>
         </MenuItem>
         <MenuItem>
-          <Button variant={'outlineLight'} w={'374px'}>
+          <Button variant={'outlineGrey'} w={'374px'}>
             Cadastrar
           </Button>
         </MenuItem>
