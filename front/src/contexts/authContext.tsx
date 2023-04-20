@@ -52,9 +52,10 @@ export const AuthProvider = ({ children }: iProviderProps) => {
 
   const login = (data: iUserLogin) => {
     try {
-      api.post('/login', data)
+      api
+        .post('/auth', data)
         .then((response) => {
-          setCookie(null, 'car.token', response.data.token, {
+          setCookie(null, 'car.token', response.data.token!, {
             maxAge: 60 * 60 * 24 * 3,
             path: '/',
           });
@@ -85,15 +86,18 @@ export const AuthProvider = ({ children }: iProviderProps) => {
               </Box>
             ),
           });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const getUserProfile = async () => {
     try {
-      const userProfile:iUserRes = await api.get('/profile');
+      const userProfile: iUserRes = await api.get('/profile');
       toast.success('🦄 Profile successfully selected!', {
         position: 'top-right',
         autoClose: 2000,
