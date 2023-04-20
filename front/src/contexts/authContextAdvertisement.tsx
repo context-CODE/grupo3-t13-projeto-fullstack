@@ -18,6 +18,7 @@ export interface iAuthAdvertisementContext {
   SubDeleteAdvertisements: (id: string) => void | unknown;
   SubUpdateAdvertisements: (id: string) => void | unknown;
   SubRetrieveAdvertisements: (id: string) => void | unknown;
+  advertisementFilter: (advertisementModel: string) => void;
 }
 
 const AuthAdvertisementContext = createContext<iAuthAdvertisementContext>(
@@ -81,6 +82,14 @@ const AuthProviderAdvertisement = ({
     }
   }
 
+  function advertisementFilter(advertisementModel: string) {
+    const filteredList = advertList.filter(
+      (advert: iAdvertisement) =>
+        advert.model.toLowerCase() === advertisementModel.toLowerCase()
+    );
+    return filteredList;
+  }
+
   return (
     <AuthAdvertisementContext.Provider
       value={{
@@ -92,6 +101,7 @@ const AuthProviderAdvertisement = ({
         SubDeleteAdvertisements,
         SubUpdateAdvertisements,
         SubRetrieveAdvertisements,
+        advertisementFilter,
       }}
     >
       {children}
