@@ -1,23 +1,12 @@
 import { createContext, useContext, useState } from 'react';
 import api from '@/services/index';
-import { iAdvertiseResponse } from '@/types/advertisement.context';
+import {
+  iAdvertisement,
+  iAdvertisementRes,
+} from '@/types/advertisement.context';
 
 export interface iApiError {
   error: string;
-}
-
-export interface iAdvertisement {
-  brand: string;
-  model: string;
-  year: number;
-  fuel: string;
-  color: string;
-  quilometers: string;
-  price: string;
-  cover_img: string;
-  description?: string;
-  is_available: boolean;
-  user_id: string;
 }
 
 export interface iAuthAdvertisementContext {
@@ -40,13 +29,13 @@ const AuthProviderAdvertisement = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [advertisement, setAdvertisement] = useState({} as iAdvertiseResponse);
+  const [advertisement, setAdvertisement] = useState({} as iAdvertisementRes);
   const [advertList, setAdvertList] = useState([]);
-  const [existAdvert, setExistAdvert] = useState({} as iAdvertiseResponse);
+  const [existAdvert, setExistAdvert] = useState({} as iAdvertisementRes);
 
   async function SubCreateAdvertisements(data: iAdvertisement) {
     try {
-      const newAdvert: iAdvertiseResponse = await api.post(
+      const newAdvert: iAdvertisementRes = await api.post(
         '/advertisements',
         data
       );
@@ -83,7 +72,7 @@ const AuthProviderAdvertisement = ({
 
   async function SubRetrieveAdvertisements(id: string) {
     try {
-      const findAdvert: iAdvertiseResponse = await api.get(
+      const findAdvert: iAdvertisementRes = await api.get(
         `advertisements/${id}`
       );
       setExistAdvert(findAdvert);
