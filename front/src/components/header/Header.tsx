@@ -3,7 +3,6 @@ import {
   Button,
   HStack,
   Image,
-  Link,
   Menu,
   MenuButton,
   MenuItem,

@@ -9,7 +9,15 @@ interface LayoutPageProps {
 
 const LayoutPage = ({ children }: LayoutPageProps) => {
   return (
-    <Container p={0} m={0}>
+    <Container
+      p={0}
+      m={0}
+      marginBottom={{ base: '40px', md: '65px' }}
+      display={'flex'}
+      flexDirection={'column'}
+      minW={'100vw'}
+      overflowX={'hidden'}
+    >
       <Header />
       {children}
       <Footer />

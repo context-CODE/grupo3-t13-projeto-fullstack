@@ -22,6 +22,7 @@ const ProductCard = () => {
       maxH={'350px'}
       rowGap={'16px'}
       shadow={'none'}
+      bgColor={'transparent'}
     >
       <CardBody p={0} m={0}>
         <Image

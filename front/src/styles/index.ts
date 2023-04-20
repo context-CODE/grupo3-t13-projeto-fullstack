@@ -108,13 +108,16 @@ const theme = extendTheme({
           height: { base: '38px', md: '48px' },
           fontSize: { base: '0.875rem', md: '1rem' },
           fontWeight: '600',
+          _hover: {
+            bg: 'brand.100',
+          },
         },
         outlineLight: {
           bg: 'none',
           borderRadius: 'sm',
           color: 'white',
           border: '2px',
-          borderColor: 'grey.500',
+          borderColor: 'white',
           height: { base: '38px', md: '48px' },
           fontSize: { base: '0.875rem', md: '1rem' },
           fontWeight: '600',
@@ -287,6 +290,7 @@ const theme = extendTheme({
           color: 'grey.800',
           fontSize: '1.25rem',
           fontWeight: 600,
+          lineHeight: '25px',
         },
         'Heading-6-500': {
           color: 'grey.800',
@@ -312,6 +316,7 @@ const theme = extendTheme({
           color: 'grey.700',
           fontSize: '1rem',
           fontWeight: 400,
+          lineHeight: '28px',
         },
         'body-1-600': {
           color: 'grey.700',
