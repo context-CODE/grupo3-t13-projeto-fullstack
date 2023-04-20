@@ -9,5 +9,20 @@
   "files.autoSaveDelay": 1000,
   "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs": "active",
-  "cSpell.words": ["middlewares", "chakra", "Lexend"]
+  "cSpell.words": [
+    "Celular",
+    "chakra",
+    "cidade",
+    "Confirmar",
+    "conta",
+    "descrição",
+    "Digitar",
+    "endereço",
+    "Estado",
+    "Leão",
+    "Lexend",
+    "middlewares",
+    "nascimento",
+    "Senha"
+  ]
 }

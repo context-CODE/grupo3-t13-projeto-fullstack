@@ -1,21 +1,23 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import api from '@/services/index';
-import 'react-toastify/dist/ReactToastify.css';
+
 import {
+  iAuthReq,
   iProviderProps,
-  iUserLogin,
-  iUserRes,
-  iUserReq,
   iRegisterFormData,
 } from '@/types/auth.context';
+import { iUserRes } from '@/types/user.context';
 import { Box, useToast } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { setCookie } from 'nookies';
 import { createContext, useContext, useState } from 'react';
 
 export interface iAuthContext {
-  registerUser: (data: iUserReq) => void;
-  getUserProfile: () => void;
-  login: (data: iUserLogin) => void;
+  registerUser: (data: iRegisterFormData) => Promise<void>;
+  getUserProfile: () => Promise<void>;
+  login: (data: iAuthReq) => void;
   user: iUserRes;
   setUser: React.Dispatch<React.SetStateAction<iUserRes>>;
   avatar: string;
@@ -33,41 +35,48 @@ export const AuthProvider = ({ children }: iProviderProps) => {
   const registerUser = async (data: iRegisterFormData) => {
     try {
       const newUser: iUserRes = await api.post('/users', data);
-      toast.success('🦄 Registration successfully completed!', {
+      toast({
+        title: 'success',
+        variant: 'solid',
         position: 'top-right',
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'dark',
+        isClosable: true,
+        render: () => (
+          <Box
+            color={'gray.50'}
+            p={3}
+            bg={'green.600'}
+            fontWeight={'bold'}
+            borderRadius={'md'}
+          >
+            Registrations successfully completed!
+          </Box>
+        ),
       });
       setUser(newUser);
-      router.push('/login');
+      await router.push('/auth');
     } catch (error) {
       console.log(error);
     }
   };
 
-  const login = (data: iUserLogin) => {
+  const login = (data: iAuthReq) => {
     try {
       api
         .post('/auth', data)
         .then((response) => {
-          setCookie(null, 'car.token', response.data.token!, {
+          setCookie(null, 'car.token', response.data.token, {
             maxAge: 60 * 60 * 24 * 3,
             path: '/',
           });
-          setCookie(null, 'car.user', response.data.userName, {
-            maxAge: 60 * 60 * 24 * 3,
-            path: '/',
-          });
-          setCookie(null, 'car.id', response.data.id, {
-            maxAge: 60 * 60 * 24 * 3,
-            path: '/',
-          });
-          setAvatar(response.data.avatar);
+          // setCookie(null, 'car.user', response.data.name, {
+          //   maxAge: 60 * 60 * 24 * 3,
+          //   path: '/',
+          // });
+          // setCookie(null, 'car.id', response.data.id, {
+          //   maxAge: 60 * 60 * 24 * 3,
+          //   path: '/',
+          // });
+          // setAvatar(response.data.profile_img);
           router.push('/');
           toast({
             title: 'success',
@@ -82,7 +91,7 @@ export const AuthProvider = ({ children }: iProviderProps) => {
                 fontWeight={'bold'}
                 borderRadius={'md'}
               >
-                Login successfully executed!
+                Login successfully executed !
               </Box>
             ),
           });
@@ -98,18 +107,25 @@ export const AuthProvider = ({ children }: iProviderProps) => {
   const getUserProfile = async () => {
     try {
       const userProfile: iUserRes = await api.get('/profile');
-      toast.success('🦄 Profile successfully selected!', {
+      toast({
+        title: 'success',
+        variant: 'solid',
         position: 'top-right',
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'dark',
+        isClosable: true,
+        render: () => (
+          <Box
+            color={'gray.50'}
+            p={3}
+            bg={'green.600'}
+            fontWeight={'bold'}
+            borderRadius={'md'}
+          >
+            Profile successfully selected!
+          </Box>
+        ),
       });
       setUser(userProfile);
-      router.push('/');
+      await router.push('/profile');
     } catch (error) {
       console.log(error);
     }

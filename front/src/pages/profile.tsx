@@ -1,1 +1,4 @@
-// Arquivo criado para exibição da pasta acima no repositório
+const Profile = () => {
+  return <h1>PROFILE</h1>;
+};
+export default Profile;
