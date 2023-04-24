@@ -25,7 +25,9 @@ const authService = async (payload: iAuthReq): Promise<iAuthRes> => {
     throw new AppError("Email or password wrong", 401);
   }
 
-  const token = jwt.sign({}, process.env.TOKEN_SECRET_KEY!, {
+  const token = jwt.sign({
+    isAdvertiser: user.is_advertiser,
+  }, process.env.TOKEN_SECRET_KEY!, {
     expiresIn: "24h",
     subject: user.id,
   });
