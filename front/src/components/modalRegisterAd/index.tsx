@@ -18,7 +18,6 @@ import {
   ModalOverlay,
   Text,
   VStack,
-  useDisclosure,
 } from '@chakra-ui/react';
 import { DeleteIcon } from '@chakra-ui/icons';
 import { useForm, useFieldArray } from 'react-hook-form';
@@ -26,6 +25,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { ChangeEvent, useState } from 'react';
 import axios from 'axios';
+import api from '@/services';
+import { useToast } from '@chakra-ui/react';
 
 interface iCar {
   id: string;
@@ -57,7 +58,7 @@ const modalRegisterAdSchema = z.object({
     .transform((val) => Number(val))
     .refine((val) => val >= 0, 'Número menor que 0'),
   description: z.string().nonempty('Campo vazio'),
-  cover_image: z
+  image: z
     .string()
     .max(150, 'Máximo 150 caracteres')
     .nonempty('Defina uma imagem de capa'),
@@ -72,8 +73,18 @@ const modalRegisterAdSchema = z.object({
 });
 type iModalRegisterAdSchema = z.infer<typeof modalRegisterAdSchema>;
 
-export const ModalRegisterAd = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+interface IModalRegisterAdProps {
+  isOpen: boolean;
+  onOpen: () => void;
+  onClose: () => void;
+}
+
+export const ModalRegisterAd = ({
+  onOpen,
+  isOpen,
+  onClose,
+}: IModalRegisterAdProps) => {
+  const toast = useToast();
   const [carList, setCarList] = useState<iCar[]>([]);
   const [filterBrand, setFilterBrand] = useState('');
   const [filterModel, setFilterModel] = useState('');
@@ -124,8 +135,26 @@ export const ModalRegisterAd = () => {
     }
   };
 
-  const submit = (dataAd: iModalRegisterAdSchema) => {
-    console.log(dataAd);
+  const submit = async (dataAd: iModalRegisterAdSchema) => {
+    try {
+      await api.post('/advertisements', dataAd);
+      toast({
+        title: 'Anúncio criado com sucesso.',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+        position: 'top-right',
+      });
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: 'Ocorreu um erro.',
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+        position: 'top-right',
+      });
+    }
   };
 
   const getCarList = async (): Promise<void> => {
@@ -373,11 +402,11 @@ export const ModalRegisterAd = () => {
                   <Input
                     type="text"
                     placeholder="Ex: https://image.com"
-                    {...register('cover_image')}
+                    {...register('image')}
                   />
-                  {errors.cover_image && (
+                  {errors.image && (
                     <FormHelperText color="alert.300">
-                      {errors.cover_image?.message}
+                      {errors.image?.message}
                     </FormHelperText>
                   )}
                 </FormControl>
