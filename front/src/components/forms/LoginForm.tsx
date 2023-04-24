@@ -1,105 +1,142 @@
-// import {
-//   Flex,
-//   FormControl,
-//   FormErrorMessage,
-//   FormHelperText,
-//   FormLabel,
-//   Heading,
-//   Input,
-// } from '@chakra-ui/react';
-// import React, { useContext, useEffect, useCallback } from 'react';
-// import { useForm } from 'react-hook-form';
-// import { yupResolver } from '@hookform/resolvers/yup';
-// import { AuthContext } from '@/contexts/AuthContext';
-// import { iLoginReq } from '@/types/services/loginService.types';
-// import { loginClientSchema } from '@/schemas';
+import {
+  Button,
+  Flex,
+  FormControl,
+  FormErrorMessage,
+  FormHelperText,
+  FormLabel,
+  Heading,
+  Input,
+  Link,
+  Spinner,
+} from '@chakra-ui/react';
+import React, { FormEvent } from 'react';
+import { FieldError, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useAuthContext } from '@/contexts/authContext';
+import { iLoginReq } from '@/types/auth.context';
+import { loginReqSchema } from '@/schemas/auth.schema';
 
-// const { loginSubmit, loginError, loading, userData } = useContext(AuthContext);
+// const memorizedReset = useCallback(reset, [reset]);
+// useEffect(() => {
+//   userData && memorizedReset({ email: userData.email });
+// }, [userData, memorizedReset]);
 
-// const {
-//   register,
-//   handleSubmit,
-//   reset,
-//   formState: { errors },
-// } = useForm({
-//   resolver: yupResolver(loginClientSchema),
-//   mode: 'onSubmit',
-// });
-
-// // const memorizedReset = useCallback(reset, [reset]);
-// // useEffect(() => {
-// //   userData && memorizedReset({ email: userData.email });
-// // }, [userData, memorizedReset]);
-
-// const emailError: boolean =
-//   errors.email ||
-//   Object.keys(loginError).includes('email') ||
-//   (loginError.message?.toLowerCase().includes('email') as boolean) ||
-//   (loginError.message?.toLowerCase().includes('client') as boolean);
-
-// const passwordError =
-//   errors.password ||
-//   Object.keys(loginError).includes('password') ||
-//   loginError.message?.toLowerCase().includes('password');
-
-// // const onFormSubmit: SubmitHandler<iLoginReq> = (formData): void => {
-// //   void loginSubmit(formData, () => {
-// //     reset();
-// //   });
-// // };
-
-// const onFormSubmit = (formData: iLoginReq) => {
+// const onFormSubmit: SubmitHandler<iLoginReq> = (formData): void => {
 //   void loginSubmit(formData, () => {
 //     reset();
 //   });
 // };
 
-// const LoginForm = () => {
-//   return (
-//     <Flex>
-//       <Heading variant={'Heading-5-500'}>Login</Heading>
-//       <FormControl id={'email'} isRequired isInvalid={emailError}>
-//         <FormLabel>Usuário</FormLabel>
-//         <Input
-//           required
-//           type={'email'}
-//           placeholder={'Digitar usuário'}
-//           variant={'filled'}
-//           // mb={!emailError ? 6 : 0}
-//           {...register('email')}
-//         />
-//         {!emailError ? (
-//           <FormHelperText mb={6} fontSize={12} pl={1}>
-//             Digite seu e-mail
-//           </FormHelperText>
-//         ) : (
-//           <FormErrorMessage mb={6} fontSize={12} pl={1}>
-//             {/* Errors aqui */}
-//           </FormErrorMessage>
-//         )}
-//       </FormControl>
-//       <FormControl id={'password'} isRequired isInvalid={passwordError}>
-//         <FormLabel>Senha</FormLabel>
-//         <Input
-//           required
-//           type={'password'}
-//           placeholder={'********'}
-//           variant={'filled'}
-//           // mb={!passwordError ? 6 : 0}
-//           {...register('password')}
-//         />
-//         {!passwordError ? (
-//           <FormHelperText mb={6} fontSize={12} pl={1}>
-//             Digite sua senha
-//           </FormHelperText>
-//         ) : (
-//           <FormErrorMessage mb={6} fontSize={12} pl={1}>
-//             {/* Errors aqui */}
-//           </FormErrorMessage>
-//         )}
-//       </FormControl>
-//     </Flex>
-//   );
-// };
+const LoginForm = () => {
+  const { loginUser, loginError, loading } = useAuthContext();
 
-// export default LoginForm;
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<iLoginReq>({
+    resolver: zodResolver(loginReqSchema),
+    mode: 'onSubmit',
+  });
+
+  const emailError =
+    errors.email ||
+    Object.keys(loginError).includes('email') ||
+    (loginError.message?.toLowerCase().includes('email') as boolean);
+
+  const passwordError =
+    errors.password ||
+    Object.keys(loginError).includes('password') ||
+    loginError.message?.toLowerCase().includes('password');
+
+  const onFormSubmit = async (formData: iLoginReq) => {
+    console.log('chegou no onFormSubmit');
+    await loginUser(formData, () => {
+      reset();
+    });
+  };
+
+  return (
+    <Flex
+      as={'form'}
+      onSubmit={void handleSubmit(onFormSubmit)}
+      w={{ base: '90%', sm: '412px' }}
+      h={'fit-content'}
+      p={'44px 48px'}
+      direction={'column'}
+      gap={'32px'}
+      bg={'white'}
+      borderRadius={'4px'}
+      my={{ base: '70px', md: 'none' }}
+    >
+      <Heading variant={'Heading-5-500'} fontWeight={'bold'}>
+        Login
+      </Heading>
+      <Flex flexDirection={'column'} gap={'20px'}>
+        <Flex flexDirection={'column'} gap={'20px'}>
+          <FormControl id={'email'} isRequired isInvalid={emailError}>
+            <FormLabel variant={'default'}>Usuário</FormLabel>
+            <Input
+              required
+              type={'email'}
+              placeholder={'name@mail.com'}
+              {...register('email')}
+              variant={'default'}
+            />
+            {!emailError ? (
+              <FormHelperText mb={2} fontSize={12} pl={1}>
+                Digite seu e-mail
+              </FormHelperText>
+            ) : (
+              <FormErrorMessage mb={2} fontSize={12} pl={1}>
+                {errors.email?.message ||
+                  (loginError.message?.toLowerCase().includes('email') &&
+                    loginError.message) ||
+                  (loginError.email && loginError.email)}
+              </FormErrorMessage>
+            )}
+          </FormControl>
+          <FormControl id={'password'} isRequired isInvalid={passwordError}>
+            <FormLabel variant={'default'}>Senha</FormLabel>
+            <Input
+              required
+              type={'password'}
+              placeholder={'********'}
+              {...register('password')}
+            />
+            {!passwordError ? (
+              <FormHelperText mb={2} fontSize={12} pl={1}>
+                Digite sua senha
+              </FormHelperText>
+            ) : (
+              <FormErrorMessage mb={2} fontSize={12} pl={1}>
+                {errors.password?.message ||
+                  (loginError.message?.toLowerCase().includes('password') &&
+                    loginError.message) ||
+                  (loginError.password && loginError.password)}
+              </FormErrorMessage>
+            )}
+          </FormControl>
+          <Link variant={'simple_2'} mt={'-10px'} alignSelf={'flex-end'}>
+            Esqueci minha senha
+          </Link>
+        </Flex>
+        <Flex flexDir={'column'} gap={'24px'}>
+          <Button type="submit" variant={'default'}>
+            {loading ? <Spinner size="sm" /> : 'Entrar'}
+          </Button>
+          <Link variant={'simple_1'} href="/register" alignSelf={'center'}>
+            Ainda não possui conta?
+          </Link>
+          <Link variant={'btnOutlineGrey'} href="/register">
+            Cadastrar
+          </Link>
+        </Flex>
+      </Flex>
+    </Flex>
+  );
+};
+
+export default LoginForm;

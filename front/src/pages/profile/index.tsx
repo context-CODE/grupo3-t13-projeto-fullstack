@@ -11,8 +11,8 @@ const ProfilePage = () => {
         p={0}
         position={'relative'}
         bg={'grey.50'}
-        minH={'100vh'}
-        w={'100vw'}
+        // minH={'100vh'}
+        w={'100%'}
         flexDirection={'column'}
         alignItems={'center'}
       >

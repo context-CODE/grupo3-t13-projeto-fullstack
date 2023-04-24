@@ -2,13 +2,15 @@ import { ReactNode } from 'react';
 
 import { z } from 'zod';
 
-import { authReqSchema, registerFormSchema } from '../schemas/auth.schema';
+import {
+  loginReqSchema,
+  loginResSchema,
+  registerFormSchema,
+} from '../schemas/auth.schema';
 
-export type iAuthReq = z.infer<typeof authReqSchema>;
+export type iLoginReq = z.infer<typeof loginReqSchema>;
 
-export type iAuthRes = {
-  token: string;
-};
+export type iLoginRes = z.infer<typeof loginResSchema>;
 
 export type iProviderProps = {
   children: ReactNode;

@@ -25,9 +25,19 @@ const registerResSchema = registerFormSchema
     password: true,
   });
 
-const authReqSchema = z.object({
+const loginReqSchema = z.object({
   email: z.string().email(),
   password: z.string(),
 });
 
-export { registerFormSchema, registerResSchema, authReqSchema };
+const loginResSchema = z.object({
+  token: z.string(),
+  refresh: z.string(),
+});
+
+export {
+  registerFormSchema,
+  registerResSchema,
+  loginReqSchema,
+  loginResSchema,
+};
