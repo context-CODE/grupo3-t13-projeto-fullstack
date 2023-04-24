@@ -2,9 +2,38 @@ import CardList from '@/components/CardList';
 import { FilterAdvertisements } from '@/components/FilterAd';
 import LayoutPage from '@/components/LayoutPage';
 import ControlPagination from '@/components/controlPagination';
+import api from '@/services';
 import { Box, Flex, Heading } from '@chakra-ui/react';
+import { GetStaticProps } from 'next';
 
-export default function Home() {
+export interface IAd {
+  id: string;
+  brand: string;
+  model: string;
+  year: number;
+  fuel: string;
+  color: string;
+  kilometers: number;
+  price: number;
+  description: string;
+  image: string;
+}
+
+interface IPropsHome {
+  advertisements: IAd[];
+}
+
+export const getStaticProps: GetStaticProps<IPropsHome> = async () => {
+  const { data } = await api.get<IAd[]>('/advertisements');
+
+  return {
+    props: {
+      advertisements: data,
+    },
+  };
+};
+
+export default function Home({ advertisements }: IPropsHome) {
   return (
     <LayoutPage>
       <Flex
@@ -54,7 +83,7 @@ export default function Home() {
         </Flex>
         <Flex justifyContent={'space-between'} gap={'100px'} mx={'60px'}>
           <FilterAdvertisements />
-          <CardList />
+          <CardList advertisements={advertisements} />
         </Flex>
         <ControlPagination />
       </Flex>
