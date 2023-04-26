@@ -1,4 +1,4 @@
-import {z} from "zod";
+import { z } from "zod";
 import { addressReqSchema } from "./addresses.schema";
 
 const usersReqSchema = z.object({
@@ -14,18 +14,25 @@ const usersReqSchema = z.object({
   description: z.string().nullable(),
 });
 
-const usersResSchema = usersReqSchema.extend({
+const usersResSchema = usersReqSchema
+  .extend({
     id: z.string().uuid(),
     created_at: z.date(),
     updated_at: z.date(),
-}).omit({
+  })
+  .omit({
     password: true,
-});
+  });
 
 const usersReqUpdateSchema = usersReqSchema.partial();
 
+const userReqResetPasswordSchema = z.object({
+  email: z.string().email().nonempty(),
+});
+
 export {
-    usersReqSchema,
-    usersResSchema,
-    usersReqUpdateSchema,
-}
+  usersReqSchema,
+  usersResSchema,
+  usersReqUpdateSchema,
+  userReqResetPasswordSchema,
+};
