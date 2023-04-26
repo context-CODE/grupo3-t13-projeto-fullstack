@@ -26,13 +26,18 @@ const usersResSchema = usersReqSchema
 
 const usersReqUpdateSchema = usersReqSchema.partial();
 
-const userReqResetPasswordSchema = z.object({
+const userReqSendMailResetPassword = z.object({
   email: z.string().email().nonempty(),
+});
+
+const userReqResetPassword = z.object({
+  password: z.string().max(150).nonempty(),
 });
 
 export {
   usersReqSchema,
   usersResSchema,
   usersReqUpdateSchema,
-  userReqResetPasswordSchema,
+  userReqSendMailResetPassword,
+  userReqResetPassword,
 };
