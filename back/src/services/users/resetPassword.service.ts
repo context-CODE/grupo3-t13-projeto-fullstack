@@ -1,4 +1,4 @@
-import { hashSync } from "bcryptjs";
+import { hash } from "bcryptjs";
 import AppDataSource from "../../data-source";
 import User from "../../entities/user.entity";
 import AppError from "../../errors/AppError";
@@ -18,12 +18,14 @@ const resetPasswordService = async (
     throw new AppError("User not found", 404);
   }
 
+  const newPassword = await hash(password, Number(process.env.SALT_HASH!));
+
   await userRepo.update(
     {
       reset_token: resetToken,
     },
     {
-      password: hashSync(password, process.env.SALT_HASH),
+      password: newPassword,
       reset_token: "",
     }
   );
