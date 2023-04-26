@@ -5,16 +5,26 @@ import ensureAuthMiddleware from "../middlewares/authentication/ensureAuth.middl
 import ensureIsAdvertiser from "../middlewares/authorization/ensureIsAdvertiser.middleware";
 import resetPasswordSendMailController from "../controllers/users/resetPasswordSendMail.controller";
 import ensureIsValidDataMiddleware from "../middlewares/formHandling/ensureIsValidData.middleware";
-import { userReqResetPasswordSchema } from "../schemas/users.schema";
+import {
+  userReqSendMailResetPassword,
+  userReqResetPassword,
+} from "../schemas/users.schema";
+import resetPasswordController from "../controllers/users/resetPassword.controller";
 
 const usersRoutes = Router();
 
 usersRoutes.post("", createUserController);
 usersRoutes.post(
   "/resetPassword",
-  ensureIsValidDataMiddleware(userReqResetPasswordSchema),
+  ensureIsValidDataMiddleware(userReqSendMailResetPassword),
   resetPasswordSendMailController
 );
+usersRoutes.post(
+  "/resetPassword/:reset_token",
+  ensureIsValidDataMiddleware(userReqResetPassword),
+  resetPasswordController
+);
+
 usersRoutes.get(
   "/profile",
   ensureAuthMiddleware,
