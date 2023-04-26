@@ -20,7 +20,7 @@ const sendMail = async ({ to, subject, text }: IEmailRequest) => {
   });
 };
 
-const getTemplateMail = async (
+const getTemplateMail = (
   userEmail: string,
   userName: string,
   protocol: string,
