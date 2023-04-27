@@ -67,6 +67,11 @@ export default class User {
   })
   password: string;
 
+  @Column({
+    nullable: true,
+  })
+  reset_token: string;
+
   @CreateDateColumn()
   created_at: Date;
 
