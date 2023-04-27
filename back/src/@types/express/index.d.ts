@@ -6,6 +6,10 @@ declare global {
       user: {
         id: string;
         isAdvertiser: boolean;
+      },
+      pagination: {
+        limit: number,
+        offset: number
       };
     }
   }
