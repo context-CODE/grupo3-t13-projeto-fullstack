@@ -9,6 +9,7 @@ import updateAdvertisementController from "../controllers/advertisements/updateA
 import deleteAdvertisementController from "../controllers/advertisements/deleteAdvertisement.controller";
 import listAdvertisementsController from "../controllers/advertisements/listAdvertisement.controller";
 import retrieveAdvertisementController from "../controllers/advertisements/retrieveAdvertisement.controller";
+import ensurePaginationMiddleware from "../middlewares/pagination/ensurePagination.middleware";
 
 const advertisementRouter = Router();
 
@@ -17,7 +18,7 @@ advertisementRouter.post(
   ensureIsValidDataMiddleware(advertisementReqSchema),
   createAdvertisementController
 );
-advertisementRouter.get("", listAdvertisementsController);
+advertisementRouter.get("", ensurePaginationMiddleware,listAdvertisementsController);
 advertisementRouter.get("/:id", retrieveAdvertisementController);
 advertisementRouter.patch(
   "/:id",
