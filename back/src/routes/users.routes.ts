@@ -10,6 +10,7 @@ import {
   userReqResetPassword,
 } from "../schemas/users.schema";
 import resetPasswordController from "../controllers/users/resetPassword.controller";
+import deleteUserController from "../controllers/users/deleteUser.controller";
 
 const usersRoutes = Router();
 
@@ -24,12 +25,18 @@ usersRoutes.post(
   ensureIsValidDataMiddleware(userReqResetPassword),
   resetPasswordController
 );
-
 usersRoutes.get(
   "/profile",
   ensureAuthMiddleware,
   ensureIsAdvertiser,
   retrieveUserController
 );
+usersRoutes.delete(
+  "/profile",
+  ensureAuthMiddleware,
+  deleteUserController
+)
+
+
 
 export default usersRoutes;
