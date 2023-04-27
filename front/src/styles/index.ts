@@ -42,7 +42,7 @@ const theme = extendTheme({
       variants: {
         default: {
           bg: 'brand.400',
-          borderRadius: 'sm',
+          borderRadius: '4px',
           color: 'white',
           height: { base: '38px', md: '48px' },
           fontSize: { base: '0.875rem', md: '1rem' },
@@ -53,7 +53,7 @@ const theme = extendTheme({
         },
         defaultDisable: {
           bg: 'brand.200',
-          borderRadius: 'sm',
+          borderRadius: '4px',
           color: 'white',
           height: { base: '38px', md: '48px' },
           fontSize: { base: '0.875rem', md: '1rem' },
@@ -62,7 +62,7 @@ const theme = extendTheme({
         },
         disable: {
           bg: 'grey.400',
-          borderRadius: 'sm',
+          borderRadius: '4px',
           color: 'white',
           height: { base: '38px', md: '48px' },
           fontSize: { base: '0.875rem', md: '1rem' },
@@ -71,7 +71,7 @@ const theme = extendTheme({
         },
         darkGrey: {
           bg: 'grey.900',
-          borderRadius: 'sm',
+          borderRadius: '4px',
           color: 'white',
           height: { base: '38px', md: '48px' },
           fontSize: { base: '0.875rem', md: '1rem' },
@@ -82,7 +82,7 @@ const theme = extendTheme({
         },
         lightGrey: {
           bg: 'grey.300',
-          borderRadius: 'sm',
+          borderRadius: '4px',
           color: 'grey.700',
           height: { base: '38px', md: '48px' },
           fontSize: { base: '0.875rem', md: '1rem' },
@@ -93,7 +93,7 @@ const theme = extendTheme({
         },
         white: {
           bg: 'white',
-          borderRadius: 'sm',
+          borderRadius: '4px',
           color: 'grey.900',
           height: { base: '38px', md: '48px' },
           fontSize: { base: '0.875rem', md: '1rem' },
@@ -101,20 +101,23 @@ const theme = extendTheme({
         },
         outline: {
           bg: 'none',
-          borderRadius: 'sm',
+          borderRadius: '4px',
           color: 'brand.400',
           border: '2px',
           borderColor: 'brand.400',
           height: { base: '38px', md: '48px' },
           fontSize: { base: '0.875rem', md: '1rem' },
           fontWeight: '600',
+          _hover: {
+            bg: 'brand.100',
+          },
         },
         outlineLight: {
           bg: 'none',
-          borderRadius: 'sm',
+          borderRadius: '4px',
           color: 'white',
           border: '2px',
-          borderColor: 'grey.500',
+          borderColor: 'white',
           height: { base: '38px', md: '48px' },
           fontSize: { base: '0.875rem', md: '1rem' },
           fontWeight: '600',
@@ -125,7 +128,7 @@ const theme = extendTheme({
         },
         outlineDark: {
           bg: 'none',
-          borderRadius: 'sm',
+          borderRadius: '4px',
           color: 'grey.900',
           border: '2px',
           borderColor: 'grey.900',
@@ -137,9 +140,24 @@ const theme = extendTheme({
             color: 'white',
           },
         },
+        outlineGrey: {
+          bg: 'none',
+          borderRadius: '4px',
+          color: 'grey.900',
+          border: '2px',
+          borderColor: 'grey.500',
+          height: '38px',
+          fontSize: '0.875rem',
+          fontWeight: '600',
+          _hover: {
+            bg: 'grey.900',
+            borderColor: 'grey.900',
+            color: 'white',
+          },
+        },
         alert: {
           bg: 'alert.100',
-          borderRadius: 'sm',
+          borderRadius: '4px',
           color: 'alert.300',
           height: { base: '38px', md: '48px' },
           fontSize: { base: '0.875rem', md: '1rem' },
@@ -150,7 +168,7 @@ const theme = extendTheme({
         },
         success: {
           bg: 'success.100',
-          borderRadius: 'sm',
+          borderRadius: '4px',
           color: 'success.300',
           height: { base: '38px', md: '48px' },
           fontSize: { base: '0.875rem', md: '1rem' },
@@ -165,7 +183,7 @@ const theme = extendTheme({
       variants: {
         default: {
           bg: 'none',
-          borderRadius: 'sm',
+          borderRadius: '4px',
           color: 'grey.900',
           padding: '12px',
           fontWeight: 'bold',
@@ -173,6 +191,70 @@ const theme = extendTheme({
             textDecoration: 'none',
             bg: 'grey.100',
           },
+        },
+        simple_1: {
+          bg: 'none',
+          fontSize: '14px',
+          fontWeight: '400',
+          lineHeight: '24px',
+          color: 'grey.700',
+        },
+        simple_2: {
+          bg: 'none',
+          fontSize: '14px',
+          fontWeight: '500',
+          lineHeight: '24px',
+          color: 'grey.700',
+        },
+        btnOutlineGrey: {
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          bg: 'none',
+          borderRadius: '4px',
+          color: 'grey.900',
+          border: '2px',
+          borderColor: 'grey.500',
+          height: { base: '38px', md: '48px' },
+          fontSize: { base: '0.875rem', md: '1rem' },
+          fontWeight: '600',
+
+          _hover: {
+            bg: 'grey.900',
+            borderColor: 'grey.900',
+            color: 'white',
+            textDecoration: 'none',
+          },
+        },
+        btnOutlineGreyHeader: {
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          bg: 'none',
+          borderRadius: '4px',
+          color: 'grey.900',
+          border: '2px',
+          borderColor: 'grey.500',
+          height: '38px',
+          fontSize: '0.875rem',
+          fontWeight: '600',
+
+          _hover: {
+            bg: 'grey.900',
+            borderColor: 'grey.900',
+            color: 'white',
+            textDecoration: 'none',
+          },
+        },
+      },
+    },
+    FormLabel: {
+      variants: {
+        default: {
+          fontSize: '14px',
+          fontWeight: '500',
+          lineHeight: '17px',
+          color: 'grey.800',
         },
       },
     },
@@ -182,18 +264,19 @@ const theme = extendTheme({
           field: {
             bg: 'none',
             outline: '2px solid',
-            outlineColor: 'grey.600',
-            borderRadius: 'base',
+            outlineColor: 'grey.200',
+            borderRadius: '4px',
             height: { base: '38px', md: '48px' },
             _placeholder: {
               color: 'grey.600',
             },
             _hover: {
               bg: 'grey.100',
+              outlineColor: 'grey.100',
             },
             _focus: {
               bg: 'white',
-              outlineColor: 'brand.400',
+              outlineColor: 'brand.300',
               color: 'grey.900',
             },
           },
@@ -248,8 +331,18 @@ const theme = extendTheme({
           fontSize: '2.75rem',
           fontWeight: 700,
         },
+        'Heading-1-700-white': {
+          color: 'white',
+          fontSize: '2.75rem',
+          fontWeight: 700,
+        },
         'Heading-2-600': {
           color: 'grey.800',
+          fontSize: '2.25rem',
+          fontWeight: 600,
+        },
+        'Heading-2-600-white': {
+          color: 'white',
           fontSize: '2.25rem',
           fontWeight: 600,
         },
@@ -260,6 +353,11 @@ const theme = extendTheme({
         },
         'Heading-3-500': {
           color: 'grey.800',
+          fontSize: '2rem',
+          fontWeight: 500,
+        },
+        'Heading-3-500-white': {
+          color: 'white',
           fontSize: '2rem',
           fontWeight: 500,
         },
@@ -283,10 +381,16 @@ const theme = extendTheme({
           fontSize: '1.5rem',
           fontWeight: 500,
         },
+        'Heading-5-500-white': {
+          color: 'white',
+          fontSize: '1.5rem',
+          fontWeight: 500,
+        },
         'Heading-6-600': {
           color: 'grey.800',
           fontSize: '1.25rem',
           fontWeight: 600,
+          lineHeight: '25px',
         },
         'Heading-6-500': {
           color: 'grey.800',
@@ -312,6 +416,7 @@ const theme = extendTheme({
           color: 'grey.700',
           fontSize: '1rem',
           fontWeight: 400,
+          lineHeight: '28px',
         },
         'body-1-600': {
           color: 'grey.700',
