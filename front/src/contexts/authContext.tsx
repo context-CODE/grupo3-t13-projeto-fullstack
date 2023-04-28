@@ -103,7 +103,7 @@ export const AuthProvider = ({ children }: iProviderProps) => {
         ),
       });
       setUser(newUser);
-      await router.push('/auth');
+      await router.push('/login');
     } catch (error) {
       console.log(error);
     }
@@ -150,7 +150,7 @@ export const AuthProvider = ({ children }: iProviderProps) => {
         //     data: { message },
         //   },
         // } = error;
-        // const { message } = error.response?.data;
+        const { message } = error.response?.data;
         setError(message, setLoginError);
 
         setUser({} as iUserRes);
@@ -190,6 +190,7 @@ export const AuthProvider = ({ children }: iProviderProps) => {
       console.log(error);
     }
   };
+
   return (
     <AuthContext.Provider
       value={{

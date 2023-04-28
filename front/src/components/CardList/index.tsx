@@ -1,11 +1,16 @@
 import { Flex } from '@chakra-ui/react';
 import ProductCard from '../productCard/ProductCard';
+import { IAd } from '@/pages';
 
-const CardList = ({ maxW = '1032px' }) => {
+interface ICardListProps {
+  advertisements: IAd[];
+}
+
+const CardList = ({ advertisements }: ICardListProps) => {
   return (
     <Flex
       minW={{ base: '95vw', sm: 'auto' }}
-      maxW={maxW}
+      maxW={'1032px'}
       columnGap={{ base: '12px', sm: '48px' }}
       rowGap={'78px'}
       wrap={{ base: 'nowrap', sm: 'wrap' }}
@@ -15,18 +20,9 @@ const CardList = ({ maxW = '1032px' }) => {
       m={{ base: '0 0 0 5%', sm: '52px 0 0 0' }}
       overflowX={'auto'}
     >
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
+      {advertisements.map((ad) => (
+        <ProductCard key={ad.id} advertisement={ad} />
+      ))}
     </Flex>
   );
 };
