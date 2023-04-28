@@ -11,7 +11,11 @@ import {
 } from "../schemas/users.schema";
 import resetPasswordSendMailController from "../controllers/users/resetPasswordSendMail.controller";
 import resetPasswordController from "../controllers/users/resetPassword.controller";
+
+import retrieveUserAdvertisementsController from "../controllers/users/retrieveUserAdvertisements.controller";
+
 import deleteUserController from "../controllers/users/deleteUser.controller";
+
 
 const usersRoutes = Router();
 
@@ -40,11 +44,18 @@ usersRoutes.get(
   ensureIsAdvertiser,
   retrieveUserController
 );
+
+usersRoutes.get(
+  "/:id/advertisements",
+  retrieveUserAdvertisementsController
+)
+
 usersRoutes.delete(
   "/profile",
   ensureAuthMiddleware,
   deleteUserController
 )
+
 
 
 
