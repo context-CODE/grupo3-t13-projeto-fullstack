@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { addressReqSchema } from "./addresses.schema";
+import { advertisementResSchema } from "./advertisement.schema";
 
 const usersReqSchema = z.object({
   name: z.string().max(60),
@@ -26,6 +27,17 @@ const usersResSchema = usersReqSchema
 
 const usersReqUpdateSchema = usersReqSchema.partial();
 
+const userAdvertisementsResSchema = z.object({
+  id: z.string(), 
+  name: z.string(),
+  is_advertiser: z.boolean(),
+  profile_img: z.string(),
+  description: z.string(),
+  advertisements: z.array(advertisementResSchema.omit({
+    user: true,
+  }))
+});
+
 const userReqSendMailResetPassword = z.object({
   email: z.string().email().nonempty(),
 });
@@ -40,4 +52,5 @@ export {
   usersReqUpdateSchema,
   userReqSendMailResetPassword,
   userReqResetPassword,
+  userAdvertisementsResSchema,
 };

@@ -10,11 +10,13 @@ import deleteAdvertisementController from "../controllers/advertisements/deleteA
 import listAdvertisementsController from "../controllers/advertisements/listAdvertisement.controller";
 import retrieveAdvertisementController from "../controllers/advertisements/retrieveAdvertisement.controller";
 import ensurePaginationMiddleware from "../middlewares/pagination/ensurePagination.middleware";
+import ensureAuthMiddleware from "../middlewares/authentication/ensureAuth.middleware";
 
 const advertisementRouter = Router();
 
 advertisementRouter.post(
   "",
+  ensureAuthMiddleware,
   ensureIsValidDataMiddleware(advertisementReqSchema),
   createAdvertisementController
 );
