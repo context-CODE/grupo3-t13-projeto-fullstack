@@ -10,27 +10,10 @@ const usersReqSchema = z.object({
   birthdate: z.string(),
   profile_img: z.string().max(127),
   is_advertiser: z.boolean(),
-  address: addressReqSchema,
   description: z.string().nullable(),
+  address: addressReqSchema,
 });
-
-const usersResSchema = usersReqSchema
-  .extend({
-    id: z.string().uuid(),
-    created_at: z.date(),
-    updated_at: z.date(),
-  })
-  .omit({
-    password: true,
-  });
 
 const usersReqUpdateSchema = usersReqSchema.partial();
 
-const usersListResSchema = usersResSchema.array();
-
-export {
-  usersReqSchema,
-  usersResSchema,
-  usersReqUpdateSchema,
-  usersListResSchema,
-};
+export { usersReqSchema, usersReqUpdateSchema };

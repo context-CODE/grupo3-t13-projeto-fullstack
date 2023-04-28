@@ -6,14 +6,9 @@ const addressReqSchema = z.object({
   city: z.string().max(25),
   street: z.string().max(40),
   number: z.string().transform((value) => Number(value)),
-  complement: z.string().max(128),
-});
-
-const addressResSchema = addressReqSchema.extend({
-  id: z.string().uuid(),
-  updated_at: z.date(),
+  complement: z.string().max(128).nullable(),
 });
 
 const addressReqUpdateSchema = addressReqSchema.partial();
 
-export { addressReqSchema, addressResSchema, addressReqUpdateSchema };
+export { addressReqSchema, addressReqUpdateSchema };
