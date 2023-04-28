@@ -18,6 +18,7 @@ const usersReqSchema = z.object({
 const usersResSchema = usersReqSchema
   .extend({
     id: z.string().uuid(),
+    birthdate: z.string().regex(/(\d{2})[-.\/](\d{2})[-.\/](\d{4})/),
     created_at: z.date(),
     updated_at: z.date(),
   })
