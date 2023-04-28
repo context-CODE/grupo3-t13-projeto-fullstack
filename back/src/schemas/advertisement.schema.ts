@@ -1,5 +1,4 @@
 import { z } from "zod";
-import errorMap from "zod/lib/locales/en";
 
 const advertisementReqSchema = z.object({
   brand: z.string().max(60),
@@ -18,6 +17,7 @@ const advertisementResSchema = advertisementReqSchema.extend({
   is_available: z.boolean(),
   created_at: z.date(),
   updated_at: z.date(),
+  user: z.object({id: z.string(), name: z.string()})
 });
 
 const advertisementReqUpdateSchema = advertisementReqSchema.partial();
