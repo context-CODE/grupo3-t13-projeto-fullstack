@@ -257,6 +257,9 @@ const theme = extendTheme({
           color: 'grey.800',
         },
       },
+      defaultProps: {
+        variant: 'default',
+      },
     },
     Input: {
       variants: {
