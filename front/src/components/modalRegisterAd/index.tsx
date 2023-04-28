@@ -27,6 +27,7 @@ import { ChangeEvent, useState } from 'react';
 import axios from 'axios';
 import api from '@/services';
 import { useToast } from '@chakra-ui/react';
+import { useAdvertisementContext } from '@/contexts/advertisementContext';
 
 interface iCar {
   id: string;
@@ -73,7 +74,7 @@ const modalRegisterAdSchema = z.object({
 });
 type iModalRegisterAdSchema = z.infer<typeof modalRegisterAdSchema>;
 
-interface IModalRegisterAdProps {
+interface iModalRegisterAdProps {
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
@@ -83,25 +84,16 @@ export const ModalRegisterAd = ({
   onOpen,
   isOpen,
   onClose,
-}: IModalRegisterAdProps) => {
+}: iModalRegisterAdProps) => {
   const toast = useToast();
+
+  const { brands } = useAdvertisementContext();
+
   const [carList, setCarList] = useState<iCar[]>([]);
   const [filterBrand, setFilterBrand] = useState('');
   const [filterModel, setFilterModel] = useState('');
   const [fipeValue, setFipeValue] = useState<string>();
-  const brands: string[] = [
-    'chevrolet',
-    'citroën',
-    'fiat',
-    'ford',
-    'honda',
-    'hyundai',
-    'nissan',
-    'peugeot',
-    'renault',
-    'toyota',
-    'volkswagen',
-  ];
+
   const brandFiltered: string[] = brands.filter((e) =>
     filterBrand === '' ? false : e.includes(filterBrand.toLowerCase())
   );
