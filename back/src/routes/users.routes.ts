@@ -8,6 +8,8 @@ import ensureIsValidDataMiddleware from "../middlewares/formHandling/ensureIsVal
 import {
   userReqSendMailResetPassword,
   userReqResetPassword,
+  usersReqSchema,
+  usersReqUpdateSchema,
 } from "../schemas/users.schema";
 import resetPasswordSendMailController from "../controllers/users/resetPasswordSendMail.controller";
 import resetPasswordController from "../controllers/users/resetPassword.controller";
@@ -21,11 +23,13 @@ const usersRoutes = Router();
 
 usersRoutes.post(
     "", 
+    ensureIsValidDataMiddleware(usersReqSchema),
     createUserController
     );
 usersRoutes.patch(
     "/profile", 
-    ensureAuthMiddleware, 
+    ensureAuthMiddleware,
+    ensureIsValidDataMiddleware(usersReqUpdateSchema), 
     updateUserController
     );
 usersRoutes.post(
@@ -55,8 +59,5 @@ usersRoutes.delete(
   ensureAuthMiddleware,
   deleteUserController
 )
-
-
-
 
 export default usersRoutes;
