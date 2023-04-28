@@ -1,5 +1,5 @@
 import LayoutPage from '@/components/LayoutPage';
-// import CardList from '@/components/CardList';
+import CardList from '@/components/CardList';
 import { Box, Flex, Heading, useDisclosure } from '@chakra-ui/react';
 import UserInfoCard from '@/components/profilePage/UserInfoCard';
 import ControlPagination from '@/components/controlPagination';
@@ -36,7 +36,7 @@ const ProfilePage = () => {
           >
             Anúncios
           </Heading>
-          {/* <CardList maxW="1392px" /> */}
+          <CardList maxW="1392px" />
           <ControlPagination />
         </Flex>
       </LayoutPage>

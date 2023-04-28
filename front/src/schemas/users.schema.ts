@@ -14,6 +14,13 @@ const usersReqSchema = z.object({
   address: addressReqSchema,
 });
 
-const usersReqUpdateSchema = usersReqSchema.partial();
+const usersReqUpdateSchema = z.object({
+  name: z.string().max(60).optional(),
+  email: z.string().max(60).optional(),
+  cpf: z.string().max(11).optional(),
+  phone_number: z.string().max(18).optional(),
+  birthdate: z.string().optional(),
+  description: z.string().nullable().optional(),
+});
 
 export { usersReqSchema, usersReqUpdateSchema };
