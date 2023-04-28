@@ -2,38 +2,40 @@ import CardList from '@/components/CardList';
 import { FilterAdvertisements } from '@/components/FilterAd';
 import LayoutPage from '@/components/LayoutPage';
 import ControlPagination from '@/components/controlPagination';
+import {
+  iAdvertisement,
+  useAdvertisementContext,
+} from '@/contexts/advertisementContext';
 import api from '@/services';
 import { Box, Flex, Heading } from '@chakra-ui/react';
-import { GetStaticProps } from 'next';
-
-export interface IAd {
-  id: string;
-  brand: string;
-  model: string;
-  year: number;
-  fuel: string;
-  color: string;
-  kilometers: number;
-  price: number;
-  description: string;
-  image: string;
-}
+import { GetServerSideProps } from 'next';
+import { useEffect } from 'react';
 
 interface IPropsHome {
-  advertisements: IAd[];
+  advertisements: iAdvertisement[];
 }
 
-export const getStaticProps: GetStaticProps<IPropsHome> = async () => {
-  const { data } = await api.get<IAd[]>('/advertisements');
+export const getServerSideProps: GetServerSideProps<IPropsHome> = async () => {
+  const res = await api.get('/advertisements?limit=12');
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+  const advertisements: iAdvertisement[] = await res.data.advertisements;
 
   return {
     props: {
-      advertisements: data,
+      advertisements: advertisements,
     },
   };
 };
 
 export default function Home({ advertisements }: IPropsHome) {
+  const { setAdvertisements } = useAdvertisementContext();
+
+  useEffect(() => {
+    setAdvertisements(advertisements);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <LayoutPage>
       <Flex
@@ -83,7 +85,7 @@ export default function Home({ advertisements }: IPropsHome) {
         </Flex>
         <Flex justifyContent={'space-between'} gap={'100px'} mx={'60px'}>
           <FilterAdvertisements />
-          <CardList advertisements={advertisements} />
+          <CardList />
         </Flex>
         <ControlPagination />
       </Flex>
