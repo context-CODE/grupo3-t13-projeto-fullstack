@@ -24,9 +24,11 @@ interface iFilter {
   model: string;
   color: string;
   fuel: string;
-  year: string;
-  kilometers: string;
-  price: string;
+  year: number;
+  minKm: string;
+  maxKm: string;
+  minPrice: string;
+  maxPrice: string;
 }
 
 interface iAdvertisementContext {
@@ -35,6 +37,8 @@ interface iAdvertisementContext {
   brands: string[];
   filter: iFilter;
   addFilter(filterObj: Partial<iFilter>): void;
+  filterIsActive: boolean;
+  toggleFilter(): void;
 }
 
 interface iAdvertisementProviderProps {
@@ -47,14 +51,17 @@ export const AdvertisementProvider = ({
   children,
 }: iAdvertisementProviderProps) => {
   const [advertisements, setAdvertisements] = useState<iAdvertisement[]>();
+  const [filterIsActive, setFilterIsActive] = useState(false);
   const [filter, setFilter] = useState<iFilter>({
     brand: '',
     model: '',
     color: '',
     fuel: '',
-    year: '',
-    price: '',
-    kilometers: '',
+    year: NaN,
+    minKm: '',
+    maxKm: '',
+    minPrice: '',
+    maxPrice: '',
   });
   const brands: string[] = [
     'chevrolet',
@@ -82,11 +89,36 @@ export const AdvertisementProvider = ({
       }
     });
   };
-  console.log(filter);
+
+  const toggleFilter = () => {
+    setFilterIsActive(!filterIsActive);
+
+    if (!filterIsActive) {
+      setFilter({
+        brand: '',
+        model: '',
+        color: '',
+        fuel: '',
+        year: NaN,
+        minKm: '',
+        maxKm: '',
+        minPrice: '',
+        maxPrice: '',
+      });
+    }
+  };
 
   return (
     <AdvertisementContext.Provider
-      value={{ advertisements, setAdvertisements, brands, filter, addFilter }}
+      value={{
+        advertisements,
+        setAdvertisements,
+        brands,
+        filter,
+        addFilter,
+        filterIsActive,
+        toggleFilter,
+      }}
     >
       {children}
     </AdvertisementContext.Provider>
