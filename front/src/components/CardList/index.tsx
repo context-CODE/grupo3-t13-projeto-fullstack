@@ -3,7 +3,7 @@ import ProductCard from '../productCard/ProductCard';
 import { useAdvertisementContext } from '@/contexts/advertisementContext';
 
 const CardList = () => {
-  const { advertisements, filter } = useAdvertisementContext();
+  const { advertisements, filter, filterIsActive } = useAdvertisementContext();
 
   const filteredAdvertisements = advertisements?.filter((ad) => {
     let match = true;
@@ -24,16 +24,28 @@ const CardList = () => {
       match = false;
     }
 
-    if (filter.year && ad.year !== parseInt(filter.year)) {
+    if (filter.year && ad.year !== filter.year) {
       match = false;
     }
 
-    if (filter.kilometers && ad.kilometers !== parseInt(filter.kilometers)) {
+    if (filter.minKm && ad.kilometers < Number(filter.minKm)) {
       match = false;
     }
 
-    if (filter.price && ad.price !== parseInt(filter.price)) {
+    if (filter.maxKm && ad.kilometers > Number(filter.maxKm)) {
       match = false;
+    }
+
+    if (filter.minPrice && ad.price < Number(filter.minPrice)) {
+      match = false;
+    }
+
+    if (filter.maxPrice && ad.price > Number(filter.maxPrice)) {
+      match = false;
+    }
+
+    if (!filterIsActive) {
+      match = true;
     }
 
     return match;
