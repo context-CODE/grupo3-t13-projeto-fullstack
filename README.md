@@ -192,15 +192,7 @@ POST/users/resetPassword/:reset_token - Redefine a senha de um usuário com base
  
   ```
  {
-
- }
- ```
-
- ### PATCH/comments/:id - Atualiza dados de um comentário(podem ser atualizados entre apenas 1 atá todos os dados conforme abaixo)   
- 
-  ```
- {
-	
+   "description": "Ótimo carro, desempenho incrível.",
  }
  ```
 
@@ -208,7 +200,7 @@ POST/users/resetPassword/:reset_token - Redefine a senha de um usuário com base
  
   ```
  {
-
+   "email": "lebre_updated@gmail.com"
  }
  ```
 
@@ -216,7 +208,7 @@ POST/users/resetPassword/:reset_token - Redefine a senha de um usuário com base
  
   ```
  {
-	
+   "password": "12345"
  }
  ```
 
