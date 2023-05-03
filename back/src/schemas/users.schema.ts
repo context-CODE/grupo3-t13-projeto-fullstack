@@ -8,7 +8,7 @@ const usersReqSchema = z.object({
   password: z.string().max(150),
   cpf: z.string().min(11).max(11),
   phone_number: z.string().regex(/^(\d{2}\s\d{5}\-\d{4})$/),
-  birthdate: z.string().regex(/(\d{4})[-.\/](\d{2})[-.\/](\d{2})/),
+  birthdate: z.string().regex(/(\d{2})[-.\/](\d{2})[-.\/](\d{4})/),
   profile_img: z.string().max(127),
   is_advertiser: z.boolean(),
   address: addressReqSchema,
@@ -18,7 +18,6 @@ const usersReqSchema = z.object({
 const usersResSchema = usersReqSchema
   .extend({
     id: z.string().uuid(),
-    birthdate: z.string().regex(/(\d{2})[-.\/](\d{2})[-.\/](\d{4})/),
     created_at: z.date(),
     updated_at: z.date(),
   })
@@ -27,6 +26,12 @@ const usersResSchema = usersReqSchema
   });
 
 const usersReqUpdateSchema = usersReqSchema.partial();
+
+const usersResUpdateSchema = usersReqUpdateSchema.extend({
+  birthdate: z.string().regex(/(\d{4})[-.\/](\d{2})[-.\/](\d{2})/),
+}).omit({
+  password: true,
+})
 
 const userAdvertisementsResSchema = z.object({
   id: z.string(), 
@@ -54,4 +59,5 @@ export {
   userReqSendMailResetPassword,
   userReqResetPassword,
   userAdvertisementsResSchema,
+  usersResUpdateSchema,
 };

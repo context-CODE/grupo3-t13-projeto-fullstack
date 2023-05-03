@@ -1,8 +1,8 @@
 import AppDataSource from "../../data-source";
 import User from "../../entities/user.entity";
 import AppError from "../../errors/AppError";
-import { iUserEntity, iUserReqUpdate, iUserRes } from "../../interfaces/users.interface";
-import { usersResSchema } from "../../schemas/users.schema";
+import { iUserReqUpdate, iUserRes } from "../../interfaces/users.interface";
+import { usersResUpdateSchema } from "../../schemas/users.schema";
 
 const updateUserService = async (updateData: iUserReqUpdate, userId: string): Promise<iUserRes> => {
     const userRepository = AppDataSource.getRepository(User)
@@ -39,8 +39,7 @@ const updateUserService = async (updateData: iUserReqUpdate, userId: string): Pr
             address: true
         }
     })
-
-    return usersResSchema.parse(updatedUser) as iUserRes
+    return usersResUpdateSchema.parse(updatedUser) as iUserRes
 }
 
 export default updateUserService
