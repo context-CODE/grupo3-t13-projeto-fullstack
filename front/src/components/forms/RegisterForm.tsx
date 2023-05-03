@@ -43,7 +43,7 @@ const RegisterForm = () => {
       padding={'48px'}
       display={'flex'}
       bg={'grey.10'}
-      font-size={'24px'}
+      fontSize={'24px'}
     >
       <Heading variant={'Heading-5-500'} fontWeight={'bold'}>
         Cadastro

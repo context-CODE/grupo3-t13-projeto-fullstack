@@ -193,7 +193,7 @@ export const AuthProvider = ({ children }: iProviderProps) => {
 
   const updateUser = async (data: iUserReqUpdate) => {
     try {
-      const newUser: iUserRes = await api.patch(`/users/${user.id}`, data, {
+      const updatedUser: iUserRes = await api.patch(`/users/${user.id}`, data, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -215,7 +215,7 @@ export const AuthProvider = ({ children }: iProviderProps) => {
           </Box>
         ),
       });
-      setUser(newUser);
+      setUser(updatedUser);
       await router.push('/');
     } catch (error) {
       console.log(error);

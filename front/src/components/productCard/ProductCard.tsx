@@ -1,4 +1,4 @@
-import { IAd } from '@/pages';
+import { iAdvertisement } from '@/contexts/advertisementContext';
 import {
   Box,
   Card,
@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 
 interface IProductCardsProps {
-  advertisement: IAd;
+  advertisement: iAdvertisement;
 }
 
 const ProductCard = ({ advertisement }: IProductCardsProps) => {
@@ -38,7 +38,7 @@ const ProductCard = ({ advertisement }: IProductCardsProps) => {
         />
         <Stack mt={'4'} spacing={'16px'}>
           <Heading isTruncated variant={'Heading-7-600'}>
-            {advertisement.brand}
+            {advertisement.brand} - {advertisement.model}
           </Heading>
           <Text
             noOfLines={2}

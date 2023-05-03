@@ -1,12 +1,44 @@
 import { Flex } from '@chakra-ui/react';
 import ProductCard from '../productCard/ProductCard';
-import { IAd } from '@/pages';
+import { useAdvertisementContext } from '@/contexts/advertisementContext';
 
-interface ICardListProps {
-  advertisements: IAd[];
-}
+const CardList = () => {
+  const { advertisements, filter } = useAdvertisementContext();
 
-const CardList = ({ advertisements }: ICardListProps) => {
+  const filteredAdvertisements = advertisements?.filter((ad) => {
+    let match = true;
+
+    if (filter.brand && ad.brand.toLowerCase() !== filter.brand.toLowerCase()) {
+      match = false;
+    }
+
+    if (filter.model && ad.model.toLowerCase() !== filter.model.toLowerCase()) {
+      match = false;
+    }
+
+    if (filter.color && ad.color.toLowerCase() !== filter.color.toLowerCase()) {
+      match = false;
+    }
+
+    if (filter.fuel && ad.fuel.toLowerCase() !== filter.fuel.toLowerCase()) {
+      match = false;
+    }
+
+    if (filter.year && ad.year !== parseInt(filter.year)) {
+      match = false;
+    }
+
+    if (filter.kilometers && ad.kilometers !== parseInt(filter.kilometers)) {
+      match = false;
+    }
+
+    if (filter.price && ad.price !== parseInt(filter.price)) {
+      match = false;
+    }
+
+    return match;
+  });
+
   return (
     <Flex
       minW={{ base: '95vw', sm: 'auto' }}
@@ -20,9 +52,9 @@ const CardList = ({ advertisements }: ICardListProps) => {
       m={{ base: '0 0 0 5%', sm: '52px 0 0 0' }}
       overflowX={'auto'}
     >
-      {/* {advertisements.map((ad) => (
+      {filteredAdvertisements?.map((ad) => (
         <ProductCard key={ad.id} advertisement={ad} />
-      ))} */}
+      ))}
     </Flex>
   );
 };
