@@ -55,7 +55,7 @@ usersRoutes.get(
 )
 
 usersRoutes.delete(
-  "",
+  "/:id",
   ensureAuthMiddleware,
   deleteUserController
 )
