@@ -43,7 +43,7 @@ const RegisterForm = () => {
       padding={'48px'}
       display={'flex'}
       bg={'grey.10'}
-      font-size={'24px'}
+      fontSize={'24px'}
     >
       <Heading variant={'Heading-5-500'} fontWeight={'bold'}>
         Cadastro
@@ -211,7 +211,7 @@ const RegisterForm = () => {
           <Button
             w={{ base: '139px', sm: '152px' }}
             variant={'outlineGrey'}
-            onClick={() => setValue('is_advertiser', false)}
+            onClick={() => setValue('is_advertiser', true)}
           >
             Anunciante
           </Button>

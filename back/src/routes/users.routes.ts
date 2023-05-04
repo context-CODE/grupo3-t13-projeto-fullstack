@@ -27,7 +27,7 @@ usersRoutes.post(
     createUserController
     );
 usersRoutes.patch(
-    "/profile", 
+    "/:id", 
     ensureAuthMiddleware,
     ensureIsValidDataMiddleware(usersReqUpdateSchema), 
     updateUserController
@@ -55,7 +55,7 @@ usersRoutes.get(
 )
 
 usersRoutes.delete(
-  "/profile",
+  "/:id",
   ensureAuthMiddleware,
   deleteUserController
 )

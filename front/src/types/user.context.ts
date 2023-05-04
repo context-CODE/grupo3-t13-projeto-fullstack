@@ -1,12 +1,10 @@
 import { z } from 'zod';
-import { usersReqSchema } from '../schemas/users.schema';
-import { DeepPartial } from '@chakra-ui/react';
+import { usersReqSchema, usersReqUpdateSchema } from '../schemas/users.schema';
 import { iAddressReq } from './address.context';
 
 export type iUserReq = z.infer<typeof usersReqSchema>;
 
-export type iUserReqUpdate = DeepPartial<iUserReq>;
-
+export type iUserReqUpdate = z.infer<typeof usersReqUpdateSchema>;
 export interface iUserRes {
   id: string;
   name: string;

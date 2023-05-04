@@ -5,7 +5,7 @@ const deleteUserController = async (req: Request, res: Response) => {
     const userId = req.user.id
     const response = await deleteUserService(userId)
 
-    return res.send(response)
+    return res.status(204).send(response)
 }
 
 export default deleteUserController
