@@ -80,6 +80,10 @@ interface iModalRegisterAdProps {
   onClose: () => void;
 }
 
+interface Fuel {
+  [key: number]: string;
+}
+
 export const ModalRegisterAd = ({
   onOpen,
   isOpen,
@@ -171,6 +175,14 @@ export const ModalRegisterAd = ({
       currency: 'BRL',
     });
     setFipeValue(fipeVal);
+
+    const fuel: Fuel = {
+      1: 'flex',
+      2: 'híbrido',
+      3: 'elétrico',
+    };
+
+    setValue('fuel', fuel[car.fuel]);
   };
 
   const getfilterBrand = (e: ChangeEvent<HTMLInputElement>) => {
