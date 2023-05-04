@@ -112,7 +112,6 @@ export const AuthProvider = ({ children }: iProviderProps) => {
   const loginUser = async (dataLoginForm: iLoginReq, callback: () => void) => {
     try {
       setLoading(true);
-      console.log('chegou aqui');
       const { data } = await api.post<iLoginRes>('/auth', dataLoginForm);
       const { token } = data;
       setCookie(null, 'car.token', token, {

@@ -20,9 +20,9 @@ const CardList = ({ advertisements }: ICardListProps) => {
       m={{ base: '0 0 0 5%', sm: '52px 0 0 0' }}
       overflowX={'auto'}
     >
-      {advertisements.map((ad) => (
+      {/* {advertisements.map((ad) => (
         <ProductCard key={ad.id} advertisement={ad} />
-      ))}
+      ))} */}
     </Flex>
   );
 };

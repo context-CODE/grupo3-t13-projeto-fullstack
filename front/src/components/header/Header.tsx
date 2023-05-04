@@ -12,6 +12,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import { useAuthContext } from '@/contexts/authContext';
 
 interface IHeaderProps {
   name?: string;
@@ -23,6 +24,8 @@ interface ResponsiveMenuProps {
 }
 
 const Header = () => {
+  const { user } = useAuthContext();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -48,8 +51,9 @@ const Header = () => {
           bgGradient={'linear(to right,#0B0D0D, #4529E6)'}
           bgClip={'text'}
         >
-          {/* tem que envolver em um link para '/' */}
-          <Image src="/assets/Motors-shop-header.svg" alt="header img" />
+          <Link href="/">
+            <Image src="/assets/Motors-shop-header.svg" alt="header img" />
+          </Link>
         </Box>
       </Box>
       <HStack
@@ -64,7 +68,7 @@ const Header = () => {
         pr={'60px'}
         pl={'44px'}
       >
-        <HeaderLoggedContent name={'User Shop'} isLogged={false} />
+        <HeaderLoggedContent name={user.name} isLogged={!!user.email} />
       </HStack>
       <Box
         display={{ base: 'flex', md: 'none' }}
@@ -105,11 +109,9 @@ const HeaderLoggedContent = ({ name, isLogged }: IHeaderProps) => {
     </HStack>
   ) : (
     <>
-      <Text variant={'body-1-600'} _hover={{ cursor: 'pointer' }}>
-        {' '}
-        {/* tem que fazer outra variant de Link*/}
+      <Link variant={'header'} href="/login">
         Fazer Login
-      </Text>
+      </Link>
       <Link variant={'btnOutlineGreyHeader'} px={'18px'} href="/register">
         Cadastrar
       </Link>
