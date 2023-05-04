@@ -3,6 +3,7 @@ import { z } from "zod";
 import Advertisement from "../entities/advertisement.entity";
 import {
   advertisementReqSchema,
+  advertisementReqUpdateSchema,
   advertisementResSchema,
 } from "../schemas/advertisement.schema";
 

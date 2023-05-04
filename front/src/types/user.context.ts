@@ -1,11 +1,21 @@
 import { z } from 'zod';
-import { usersReqSchema, usersResSchema } from '../schemas/users.schema';
-
-import User from '../../../back/src/entities/user.entity';
-import { DeepPartial, Repository } from 'typeorm';
-
-export type iUserEntity = Repository<User>;
+import { usersReqSchema, usersReqUpdateSchema } from '../schemas/users.schema';
+import { iAddressReq } from './address.context';
 
 export type iUserReq = z.infer<typeof usersReqSchema>;
-export type iUserRes = z.infer<typeof usersResSchema>;
-export type iUserReqUpdate = DeepPartial<iUserReq>;
+
+export type iUserReqUpdate = z.infer<typeof usersReqUpdateSchema>;
+export interface iUserRes {
+  id: string;
+  name: string;
+  email: string;
+  cpf: string;
+  phone_number: string;
+  birthdate: string;
+  profile_img: string;
+  is_advertiser: boolean;
+  description?: string;
+  created_at: Date;
+  updated_at: Date;
+  address: iAddressReq;
+}

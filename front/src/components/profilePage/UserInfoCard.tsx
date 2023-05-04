@@ -1,6 +1,10 @@
 import { Button, Flex, Heading, Image, Tag, Text } from '@chakra-ui/react';
 
-const UserInfoCard = () => {
+interface IUserInfoCardProps {
+  onOpen: () => void;
+}
+
+const UserInfoCard = ({ onOpen }: IUserInfoCardProps) => {
   return (
     <Flex
       zIndex={'10'}
@@ -35,8 +39,11 @@ const UserInfoCard = () => {
           ever since the 1500s sada sdd asdsadsad asdsad asdsadsa sad sadasd
         </Text>
       </Flex>
-      <Button variant={'outline'} maxW={'160px'}>
+      <Button variant={'outline'} maxW={'160px'} onClick={() => onOpen()}>
         Criar anuncio
+      </Button>
+      <Button variant={'outline'} maxW={'160px'} onClick={() => onOpen()}>
+        Editar perfil
       </Button>
     </Flex>
   );

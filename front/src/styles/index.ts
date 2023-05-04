@@ -132,7 +132,7 @@ const theme = extendTheme({
           color: 'grey.900',
           border: '2px',
           borderColor: 'grey.900',
-          height: '38px',
+          height: { base: '38px', md: '48px' },
           fontSize: '0.875rem',
           fontWeight: '600',
           _hover: {
@@ -146,7 +146,7 @@ const theme = extendTheme({
           color: 'grey.900',
           border: '2px',
           borderColor: 'grey.500',
-          height: '38px',
+          height: { base: '38px', md: '48px' },
           fontSize: '0.875rem',
           fontWeight: '600',
           _hover: {

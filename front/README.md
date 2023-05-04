@@ -1,8 +1,6 @@
-# README
+# 🏆 Projeto Full-Stack - **FRONTEND**
 
 ## Índice
-
-- [README](#readme)
   - [Índice](#índice)
   - [Introdução](#introdução)
   - [Pré-requisitos](#pré-requisitos)

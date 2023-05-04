@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
 import listAdvertisementService from "../../services/advertisements/listAdvertisement.service";
+import QueryString from 'qs'
 
 const listAdvertisementsController = async (req: Request, res: Response) => {
-  const listAdvertisements = await listAdvertisementService();
+  const pagination = req.pagination
+  const listAdvertisements = await listAdvertisementService(pagination);
   return res.status(200).send(listAdvertisements);
 };
 

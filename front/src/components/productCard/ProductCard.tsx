@@ -1,3 +1,4 @@
+import { iAdvertisement } from '@/contexts/advertisementContext';
 import {
   Box,
   Card,
@@ -12,7 +13,11 @@ import {
   Text,
 } from '@chakra-ui/react';
 
-const ProductCard = () => {
+interface IProductCardsProps {
+  advertisement: iAdvertisement;
+}
+
+const ProductCard = ({ advertisement }: IProductCardsProps) => {
   return (
     <Card
       display={'flex'}
@@ -26,14 +31,19 @@ const ProductCard = () => {
     >
       <CardBody p={0} m={0}>
         <Image
-          src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+          src={advertisement.image}
           alt="Green double couch with wooden legs"
           h={'152px'}
           w={'312px'}
+          objectFit={'cover'}
         />
         <Stack mt={'4'} spacing={'16px'}>
-          <Heading isTruncated variant={'Heading-7-600'}>
-            Living room Sofa f sdfsd dsf sdf sdf sdfsd sdf sdf
+          <Heading
+            isTruncated
+            variant={'Heading-7-600'}
+            textTransform={'capitalize'}
+          >
+            {advertisement.brand} - {advertisement.model}
           </Heading>
           <Text
             noOfLines={2}
@@ -42,9 +52,7 @@ const ProductCard = () => {
             maxH={'48px'}
             w={'312px'}
           >
-            This sofa is perfect for modern tropical spaces, baroque inspired
-            spaces, earthy ...sad asdasd as as asdasdasd asdasdasd asdasdasdas
-            asdasd asdas asd as asdsada asd asdasdas d
+            {advertisement.description}
           </Text>
           <HStack _hover={{ cursor: 'pointer' }}>
             <Flex
@@ -67,11 +75,14 @@ const ProductCard = () => {
       <CardFooter p={0}>
         <HStack w={'100%'} display={'flex'} justifyContent={'space-between'}>
           <Box display={'flex'} columnGap={'2'}>
-            <Tag>0 KM</Tag>
-            <Tag>2019</Tag>
+            <Tag>{advertisement.kilometers} KM</Tag>
+            <Tag>{advertisement.year}</Tag>
           </Box>
           <Text variant={'Heading-7-500'} fontWeight={'bold'}>
-            R$ 00.000,00
+            {advertisement.price.toLocaleString('pt-BR', {
+              style: 'currency',
+              currency: 'BRL',
+            })}
           </Text>
         </HStack>
       </CardFooter>

@@ -16,21 +16,12 @@ const registerFormSchema = z.object({
   profile_img: z.string().max(150),
 });
 
-const registerResSchema = registerFormSchema
-  .extend({
-    id: z.string().uuid(),
-    created_at: z.date(),
-    updated_at: z.date(),
-  })
-  .omit({
-    password: true,
-  });
-
 const loginReqSchema = z.object({
   email: z.string().email(),
   password: z.string(),
 });
 
+<<<<<<< HEAD
 const loginResSchema = z.object({
   token: z.string(),
   refresh: z.string(),
@@ -68,3 +59,6 @@ const userReqUpdateSchema = userReqSchema.partial();
 const userListResSchema = userResSchema.array();
 
 export { userReqSchema, userResSchema, userReqUpdateSchema, userListResSchema };
+=======
+export { registerFormSchema, loginReqSchema };
+>>>>>>> c8efdbdeff86d93ceb6b40d5ea3032181b6ab330

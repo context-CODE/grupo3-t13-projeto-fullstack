@@ -9,15 +9,18 @@ import updateAdvertisementController from "../controllers/advertisements/updateA
 import deleteAdvertisementController from "../controllers/advertisements/deleteAdvertisement.controller";
 import listAdvertisementsController from "../controllers/advertisements/listAdvertisement.controller";
 import retrieveAdvertisementController from "../controllers/advertisements/retrieveAdvertisement.controller";
+import ensurePaginationMiddleware from "../middlewares/pagination/ensurePagination.middleware";
+import ensureAuthMiddleware from "../middlewares/authentication/ensureAuth.middleware";
 
 const advertisementRouter = Router();
 
 advertisementRouter.post(
   "",
+  ensureAuthMiddleware,
   ensureIsValidDataMiddleware(advertisementReqSchema),
   createAdvertisementController
 );
-advertisementRouter.get("", listAdvertisementsController);
+advertisementRouter.get("", ensurePaginationMiddleware,listAdvertisementsController);
 advertisementRouter.get("/:id", retrieveAdvertisementController);
 advertisementRouter.patch(
   "/:id",
