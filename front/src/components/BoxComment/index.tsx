@@ -15,8 +15,7 @@ const BoxComment = ({ name, image }: iBoxComment) => {
       gap={'20px'}
       bg="grey.10"
       padding={'20px 10px'}
-      w="90%"
-      maxW={{ base: '283px', md: '663px' }}
+      w={{ base: '100%', md: '50%' }}
       minW={{ base: '283px', md: '663px' }}
     >
       <Box display={'flex'} gap="10px" bg={'white'} w="97%" alignItems="center">

@@ -19,6 +19,7 @@ const Comment = ({ name, comment, date, image }: iComment) => {
       padding={'20px'}
       borderRadius={'5px'}
     >
+      <Text>Comentários</Text>
       <Box display="flex" gap="10px" alignItems="center">
         <Avatar src={image} />
         <Text textAlign={'center'} variant={'body-2-500'} color="grey.800">
