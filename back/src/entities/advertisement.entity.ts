@@ -9,6 +9,7 @@ import {
 } from "typeorm";
 import ImageGallery from "./imageGallery.entity";
 import User from "./user.entity";
+import Comment from "./comments.entity";
 
 @Entity("advertisements")
 export default class Advertisement {
@@ -56,4 +57,7 @@ export default class Advertisement {
 
   @OneToMany(() => ImageGallery, (imageGallery) => imageGallery.advertisement)
   imageGallery: ImageGallery[];
+
+  @OneToMany(() => Comment, (comment) => comment.advertisement)
+  comments: Comment[];
 }
