@@ -11,8 +11,17 @@ import listAdvertisementsController from "../controllers/advertisements/listAdve
 import retrieveAdvertisementController from "../controllers/advertisements/retrieveAdvertisement.controller";
 import ensurePaginationMiddleware from "../middlewares/pagination/ensurePagination.middleware";
 import ensureAuthMiddleware from "../middlewares/authentication/ensureAuth.middleware";
+import { commentReqSchema } from "../schemas/comments.schema";
+import createCommentController from "../controllers/comments/createComment.controller";
 
 const advertisementRouter = Router();
+
+advertisementRouter.post(
+  "/:id/comments",
+  ensureAuthMiddleware,
+  ensureIsValidDataMiddleware(commentReqSchema),
+  createCommentController
+);
 
 advertisementRouter.post(
   "",
@@ -20,13 +29,21 @@ advertisementRouter.post(
   ensureIsValidDataMiddleware(advertisementReqSchema),
   createAdvertisementController
 );
-advertisementRouter.get("", ensurePaginationMiddleware,listAdvertisementsController);
+
+advertisementRouter.get(
+  "",
+  ensurePaginationMiddleware,
+  listAdvertisementsController
+);
+
 advertisementRouter.get("/:id", retrieveAdvertisementController);
+
 advertisementRouter.patch(
   "/:id",
   ensureIsValidDataMiddleware(advertisementReqUpdateSchema),
   updateAdvertisementController
 );
+
 advertisementRouter.delete("/:id", deleteAdvertisementController);
 
 export default advertisementRouter;

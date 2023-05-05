@@ -91,9 +91,7 @@ export const AdvertisementProvider = ({
   };
 
   const toggleFilter = () => {
-    setFilterIsActive(!filterIsActive);
-
-    if (!filterIsActive) {
+    if (filterIsActive) {
       setFilter({
         brand: '',
         model: '',
@@ -106,6 +104,8 @@ export const AdvertisementProvider = ({
         maxPrice: '',
       });
     }
+
+    setFilterIsActive(!filterIsActive);
   };
 
   return (

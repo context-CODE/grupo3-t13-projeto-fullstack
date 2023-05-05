@@ -10,6 +10,7 @@ import {
 } from "typeorm";
 import Address from "./address.entity";
 import Advertisement from "./advertisement.entity";
+import Comment from "./comments.entity";
 
 @Entity("users")
 export default class User {
@@ -84,4 +85,7 @@ export default class User {
   @OneToOne(() => Address, (address) => address.user)
   @JoinColumn()
   address: Address;
+
+  @OneToMany(() => Comment, (comment) => comment.user)
+  comments: Comment[]
 }

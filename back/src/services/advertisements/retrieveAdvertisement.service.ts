@@ -8,9 +8,16 @@ const retrieveAdvertisementService = async (
 ): Promise<iAdvertisementRes> => {
   const advertisementRepository = AppDataSource.getRepository(Advertisement);
 
-  const findAdvertisement = await advertisementRepository.findOneBy({
-    id: id,
+  const findAdvertisement = await advertisementRepository.findOne({
+    where: {
+      id: id,
+    },
+    relations: {
+      user: true,
+      comments: true,
+    },
   });
+
   const advertisement = advertisementResSchema.parse(findAdvertisement);
 
   return advertisement as iAdvertisementRes;
