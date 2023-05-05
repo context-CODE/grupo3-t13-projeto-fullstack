@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { addressReqSchema } from "./addresses.schema";
+import { advertisementResSchema } from "./advertisement.schema";
 
 const usersReqSchema = z.object({
   name: z.string().max(60),
@@ -7,7 +8,7 @@ const usersReqSchema = z.object({
   password: z.string().max(150),
   cpf: z.string().min(11).max(11),
   phone_number: z.string().regex(/^(\d{2}\s\d{5}\-\d{4})$/),
-  birthdate: z.string().regex(/(\d{4})[-.\/](\d{2})[-.\/](\d{2})/),
+  birthdate: z.string().regex(/(\d{2})[-.\/](\d{2})[-.\/](\d{4})/),
   profile_img: z.string().max(127),
   is_advertiser: z.boolean(),
   address: addressReqSchema,
@@ -17,7 +18,6 @@ const usersReqSchema = z.object({
 const usersResSchema = usersReqSchema
   .extend({
     id: z.string().uuid(),
-    birthdate: z.string().regex(/(\d{2})[-.\/](\d{2})[-.\/](\d{4})/),
     created_at: z.date(),
     updated_at: z.date(),
   })
@@ -26,6 +26,23 @@ const usersResSchema = usersReqSchema
   });
 
 const usersReqUpdateSchema = usersReqSchema.partial();
+
+const usersResUpdateSchema = usersReqUpdateSchema.extend({
+  birthdate: z.string().regex(/(\d{4})[-.\/](\d{2})[-.\/](\d{2})/),
+}).omit({
+  password: true,
+})
+
+const userAdvertisementsResSchema = z.object({
+  id: z.string(), 
+  name: z.string(),
+  is_advertiser: z.boolean(),
+  profile_img: z.string(),
+  description: z.string(),
+  advertisements: z.array(advertisementResSchema.omit({
+    user: true,
+  }))
+});
 
 const userReqSendMailResetPassword = z.object({
   email: z.string().email().nonempty(),
@@ -41,4 +58,6 @@ export {
   usersReqUpdateSchema,
   userReqSendMailResetPassword,
   userReqResetPassword,
+  userAdvertisementsResSchema,
+  usersResUpdateSchema,
 };

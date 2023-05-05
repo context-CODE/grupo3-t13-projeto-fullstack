@@ -10,7 +10,7 @@ import {
   iProviderProps,
   iRegisterFormData,
 } from '@/types/auth.context';
-import { iUserRes } from '@/types/user.context';
+import { iUserReqUpdate, iUserRes } from '@/types/user.context';
 import { Box, useToast } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { setCookie } from 'nookies';
@@ -27,6 +27,7 @@ export interface iAuthContext {
   setLoading: Dispatch<SetStateAction<boolean>>;
   registerUser: (data: iRegisterFormData) => Promise<void>;
   getUserProfile: () => Promise<void>;
+  updateUser: (data: iUserReqUpdate) => Promise<void>;
   loginUser: (data: iLoginReq, callback: () => void) => Promise<void>;
   user: iUserRes;
   setUser: React.Dispatch<React.SetStateAction<iUserRes>>;
@@ -190,6 +191,37 @@ export const AuthProvider = ({ children }: iProviderProps) => {
     }
   };
 
+  const updateUser = async (data: iUserReqUpdate) => {
+    try {
+      const updatedUser: iUserRes = await api.patch(`/users/${user.id}`, data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      toast({
+        title: 'success',
+        variant: 'solid',
+        position: 'top-right',
+        isClosable: true,
+        render: () => (
+          <Box
+            color={'gray.50'}
+            p={3}
+            bg={'green.600'}
+            fontWeight={'bold'}
+            borderRadius={'md'}
+          >
+            Update successfully completed!
+          </Box>
+        ),
+      });
+      setUser(updatedUser);
+      await router.push('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -197,6 +229,7 @@ export const AuthProvider = ({ children }: iProviderProps) => {
         setLoading,
         registerUser,
         getUserProfile,
+        updateUser,
         loginUser,
         user,
         setUser,

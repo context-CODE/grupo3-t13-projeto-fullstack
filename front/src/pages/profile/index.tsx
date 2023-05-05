@@ -1,9 +1,10 @@
 import LayoutPage from '@/components/LayoutPage';
-// import CardList from '@/components/CardList';
+import CardList from '@/components/CardList';
 import { Box, Flex, Heading, useDisclosure } from '@chakra-ui/react';
 import UserInfoCard from '@/components/profilePage/UserInfoCard';
 import ControlPagination from '@/components/controlPagination';
 import { ModalRegisterAd } from '@/components/modalRegisterAd';
+import ModalUpdateUser from '@/components/modalUpdateUser';
 
 const ProfilePage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -36,11 +37,12 @@ const ProfilePage = () => {
           >
             Anúncios
           </Heading>
-          {/* <CardList maxW="1392px" /> */}
+          <CardList maxW="1392px" />
           <ControlPagination />
         </Flex>
       </LayoutPage>
       <ModalRegisterAd isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
+      <ModalUpdateUser isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
     </>
   );
 };

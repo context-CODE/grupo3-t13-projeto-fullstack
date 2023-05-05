@@ -15,8 +15,12 @@ const updateAdvertisementService = async (
 ): Promise<iAdvertisementRes> => {
   const advertisementRepository: iAdvertisementEntity =
     AppDataSource.getRepository(Advertisement);
-  const findAdvertisement = await advertisementRepository.findOneBy({
-    id: paramsId,
+  const findAdvertisement = await advertisementRepository.findOne({
+    where: {
+      id: paramsId
+    }, relations: {
+      user: true
+    }
   });
  
   if (!findAdvertisement){

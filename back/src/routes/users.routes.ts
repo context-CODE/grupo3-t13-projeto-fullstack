@@ -8,19 +8,28 @@ import ensureIsValidDataMiddleware from "../middlewares/formHandling/ensureIsVal
 import {
   userReqSendMailResetPassword,
   userReqResetPassword,
+  usersReqSchema,
+  usersReqUpdateSchema,
 } from "../schemas/users.schema";
 import resetPasswordSendMailController from "../controllers/users/resetPasswordSendMail.controller";
 import resetPasswordController from "../controllers/users/resetPassword.controller";
+
+import retrieveUserAdvertisementsController from "../controllers/users/retrieveUserAdvertisements.controller";
+
+import deleteUserController from "../controllers/users/deleteUser.controller";
+
 
 const usersRoutes = Router();
 
 usersRoutes.post(
     "", 
+    ensureIsValidDataMiddleware(usersReqSchema),
     createUserController
     );
 usersRoutes.patch(
-    "/profile", 
-    ensureAuthMiddleware, 
+    "/:id", 
+    ensureAuthMiddleware,
+    ensureIsValidDataMiddleware(usersReqUpdateSchema), 
     updateUserController
     );
 usersRoutes.post(
@@ -39,5 +48,16 @@ usersRoutes.get(
   ensureIsAdvertiser,
   retrieveUserController
 );
+
+usersRoutes.get(
+  "/:id/advertisements",
+  retrieveUserAdvertisementsController
+)
+
+usersRoutes.delete(
+  "/:id",
+  ensureAuthMiddleware,
+  deleteUserController
+)
 
 export default usersRoutes;

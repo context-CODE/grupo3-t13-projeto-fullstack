@@ -16,7 +16,10 @@ const listAdvertisementService = async (pagination: Request["pagination"]): Prom
   const advertisementRepository: iAdvertisementEntity = AppDataSource.getRepository(Advertisement);
   const [advertisements, count] = await advertisementRepository.findAndCount({
     skip: pagination.offset,
-    take: pagination.limit
+    take: pagination.limit,
+    relations: {
+      user: true
+    }
   });
 
   if (pagination.offset == 0) {

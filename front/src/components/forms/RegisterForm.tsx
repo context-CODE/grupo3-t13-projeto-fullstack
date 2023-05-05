@@ -211,7 +211,7 @@ const RegisterForm = () => {
           <Button
             w={{ base: '139px', sm: '152px' }}
             variant={'outlineGrey'}
-            onClick={() => setValue('is_advertiser', false)}
+            onClick={() => setValue('is_advertiser', true)}
           >
             Anunciante
           </Button>

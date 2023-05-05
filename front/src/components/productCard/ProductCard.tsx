@@ -1,4 +1,4 @@
-import { IAd } from '@/pages';
+import { iAdvertisement } from '@/contexts/advertisementContext';
 import {
   Box,
   Card,
@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 
 interface IProductCardsProps {
-  advertisement: IAd;
+  advertisement: iAdvertisement;
 }
 
 const ProductCard = ({ advertisement }: IProductCardsProps) => {
@@ -35,10 +35,15 @@ const ProductCard = ({ advertisement }: IProductCardsProps) => {
           alt="Green double couch with wooden legs"
           h={'152px'}
           w={'312px'}
+          objectFit={'cover'}
         />
         <Stack mt={'4'} spacing={'16px'}>
-          <Heading isTruncated variant={'Heading-7-600'}>
-            {advertisement.brand}
+          <Heading
+            isTruncated
+            variant={'Heading-7-600'}
+            textTransform={'capitalize'}
+          >
+            {advertisement.brand} - {advertisement.model}
           </Heading>
           <Text
             noOfLines={2}
@@ -70,11 +75,11 @@ const ProductCard = ({ advertisement }: IProductCardsProps) => {
       <CardFooter p={0}>
         <HStack w={'100%'} display={'flex'} justifyContent={'space-between'}>
           <Box display={'flex'} columnGap={'2'}>
-            <Tag>{advertisement.kilometers}</Tag>
+            <Tag>{advertisement.kilometers} KM</Tag>
             <Tag>{advertisement.year}</Tag>
           </Box>
           <Text variant={'Heading-7-500'} fontWeight={'bold'}>
-            {(advertisement.price / 100).toLocaleString('pt-BR', {
+            {advertisement.price.toLocaleString('pt-BR', {
               style: 'currency',
               currency: 'BRL',
             })}

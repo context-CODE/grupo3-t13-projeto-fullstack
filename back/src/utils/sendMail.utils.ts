@@ -13,7 +13,7 @@ const sendMail = async ({ to, subject, text }: IEmailRequest) => {
   });
 
   await tranporter.sendMail({
-    from: "",
+    from: process.env.SMTP_USER,
     to,
     subject,
     html: text,
