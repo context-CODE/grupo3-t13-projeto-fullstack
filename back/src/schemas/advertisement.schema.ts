@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { commentResSchema } from "./comments.schema";
 
 const advertisementReqSchema = z.object({
   brand: z.string().max(60),
@@ -17,7 +18,8 @@ const advertisementResSchema = advertisementReqSchema.extend({
   is_available: z.boolean(),
   created_at: z.date(),
   updated_at: z.date(),
-  user: z.object({id: z.string(), name: z.string()})
+  user: z.object({ id: z.string(), name: z.string() }),
+  comments: z.array(commentResSchema.omit({ user: true, advertisement: true })),
 });
 
 const advertisementReqUpdateSchema = advertisementReqSchema.partial();

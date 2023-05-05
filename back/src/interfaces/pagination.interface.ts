@@ -1,10 +1,10 @@
-import Advertisement from "../entities/advertisement.entity"
+import { iAdvertisementRes } from "./advertisements.interface";
 
 type iPaginatedResponse = {
-    count: number,
-    next: string|null,
-    previous: string|null,
-    advertisements: Advertisement|Advertisement[]
-}
+  count: number;
+  next: string | null;
+  previous: string | null;
+  advertisements: iAdvertisementRes | iAdvertisementRes[];
+};
 
 export default iPaginatedResponse;
