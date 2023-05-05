@@ -10,11 +10,14 @@ const retrieveAdvertisementService = async (
 
   const findAdvertisement = await advertisementRepository.findOne({
     where: {
-      id: id
-    }, relations: {
-      user: true
-    }
+      id: id,
+    },
+    relations: {
+      user: true,
+      comments: true,
+    },
   });
+
   const advertisement = advertisementResSchema.parse(findAdvertisement);
 
   return advertisement as iAdvertisementRes;
