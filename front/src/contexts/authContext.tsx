@@ -28,6 +28,7 @@ export interface iAuthContext {
   registerUser: (data: iRegisterFormData) => Promise<void>;
   getUserProfile: () => Promise<void>;
   updateUser: (data: iUserReqUpdate) => Promise<void>;
+  deleteUser: () => Promise<void>;
   loginUser: (data: iLoginReq, callback: () => void) => Promise<void>;
   user: iUserRes;
   setUser: React.Dispatch<React.SetStateAction<iUserRes>>;
@@ -216,7 +217,38 @@ export const AuthProvider = ({ children }: iProviderProps) => {
         ),
       });
       setUser(updatedUser);
-      await router.push('/');
+      await router.push('/profile');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteUser = async () => {
+    try {
+      await api.delete(`/users/${user.id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      toast({
+        title: 'success',
+        variant: 'solid',
+        position: 'top-right',
+        isClosable: true,
+        render: () => (
+          <Box
+            color={'gray.50'}
+            p={3}
+            bg={'green.600'}
+            fontWeight={'bold'}
+            borderRadius={'md'}
+          >
+            User deleted successfully!
+          </Box>
+        ),
+      });
+      setUser({});
+      await router.push('/profile');
     } catch (error) {
       console.log(error);
     }
@@ -230,6 +262,7 @@ export const AuthProvider = ({ children }: iProviderProps) => {
         registerUser,
         getUserProfile,
         updateUser,
+        deleteUser,
         loginUser,
         user,
         setUser,

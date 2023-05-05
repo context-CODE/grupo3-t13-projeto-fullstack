@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import {
   FormControl,
@@ -16,14 +17,12 @@ import { Button, Flex, Heading, Input, Text, Textarea } from '@chakra-ui/react';
 
 interface iModalUpdateUserProps {
   isOpen: boolean;
-  onOpen: () => void;
   onClose: () => void;
 }
 
 const ModalUpdateUser = ({
-  onOpen,
-  isOpen,
-  onClose,
+  isOpen = { isOpen },
+  onClose = { onClose },
 }: iModalUpdateUserProps) => {
   const {
     register,
@@ -33,7 +32,7 @@ const ModalUpdateUser = ({
     resolver: zodResolver(usersReqUpdateSchema),
   });
 
-  const { updateUser } = useAuthContext();
+  const { updateUser, deleteUser } = useAuthContext();
 
   const submit = async (formData: iUserReqUpdate) => {
     console.log(formData);
@@ -43,7 +42,7 @@ const ModalUpdateUser = ({
 
   return (
     <>
-      <Button onClick={onOpen}>Open Modal</Button>
+      <Button onClick={isOpen}></Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -67,7 +66,7 @@ const ModalUpdateUser = ({
                 Informações pessoais
               </Heading>
 
-              <FormControl isRequired margin={'20px 0 20px 0'}>
+              <FormControl margin={'20px 0 20px 0'}>
                 <FormLabel>Nome</FormLabel>
                 <Input placeholder="Ex: Samuel Leão" {...register('name')} />
                 {errors.name && (
@@ -75,7 +74,7 @@ const ModalUpdateUser = ({
                 )}
               </FormControl>
 
-              <FormControl isRequired margin={'20px 0 20px 0'}>
+              <FormControl margin={'20px 0 20px 0'}>
                 <FormLabel>Email</FormLabel>
                 <Input
                   placeholder="Ex: samuel@kenzie.com.br"
@@ -86,13 +85,13 @@ const ModalUpdateUser = ({
                 )}
               </FormControl>
 
-              <FormControl isRequired margin={'20px 0 20px 0'}>
+              <FormControl margin={'20px 0 20px 0'}>
                 <FormLabel>CPF</FormLabel>
                 <Input placeholder="000.000.000-00" {...register('cpf')} />
                 {errors.cpf && <Text color={'red'}>{errors.cpf.message}</Text>}
               </FormControl>
 
-              <FormControl isRequired margin={'20px 0 20px 0'}>
+              <FormControl margin={'20px 0 20px 0'}>
                 <FormLabel>Celular</FormLabel>
                 <Input
                   placeholder="(DDD) 90000-0000"
@@ -103,7 +102,7 @@ const ModalUpdateUser = ({
                 )}
               </FormControl>
 
-              <FormControl isRequired margin={'20px 0 20px 0'}>
+              <FormControl margin={'20px 0 20px 0'}>
                 <FormLabel>Data de nascimento</FormLabel>
                 <Input placeholder="00/00/00" {...register('birthdate')} />
                 {errors.birthdate && (
@@ -129,6 +128,7 @@ const ModalUpdateUser = ({
                   variant={'lightGrey'}
                   w={'100%'}
                   margin={'20px 0 20px 0'}
+                  onClick={onClose}
                 >
                   Cancelar
                 </Button>
@@ -138,6 +138,8 @@ const ModalUpdateUser = ({
                   variant={'alert'}
                   w={'100%'}
                   margin={'20px 0 20px 0'}
+                  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                  onClick={deleteUser}
                 >
                   Excluir Perfil
                 </Button>
@@ -147,6 +149,9 @@ const ModalUpdateUser = ({
                   variant={'default'}
                   w={'100%'}
                   margin={'20px 0 20px 0'}
+                  sx={{
+                    fontSize: { base: '0.875rem', md: '0.875rem' },
+                  }}
                 >
                   Salvar Alterações
                 </Button>
