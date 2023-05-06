@@ -12,9 +12,11 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import { useAuthContext } from '@/contexts/authContext';
+import { iUserRes } from '@/types/user.context';
 
 interface IHeaderProps {
-  name?: string;
+  userData?: iUserRes;
   isLogged?: boolean;
 }
 
@@ -23,6 +25,8 @@ interface ResponsiveMenuProps {
 }
 
 const Header = () => {
+  const { user } = useAuthContext();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -48,8 +52,9 @@ const Header = () => {
           bgGradient={'linear(to right,#0B0D0D, #4529E6)'}
           bgClip={'text'}
         >
-          {/* tem que envolver em um link para '/' */}
-          <Image src="/assets/Motors-shop-header.svg" alt="header img" />
+          <Link href="/">
+            <Image src="/assets/Motors-shop-header.svg" alt="header img" />
+          </Link>
         </Box>
       </Box>
       <HStack
@@ -64,7 +69,7 @@ const Header = () => {
         pr={'60px'}
         pl={'44px'}
       >
-        <HeaderLoggedContent name={'User Shop'} isLogged={false} />
+        <HeaderLoggedContent userData={user} isLogged={user.email && true} />
       </HStack>
       <Box
         display={{ base: 'flex', md: 'none' }}
@@ -78,8 +83,8 @@ const Header = () => {
   );
 };
 
-const HeaderLoggedContent = ({ name, isLogged }: IHeaderProps) => {
-  const splitedName = name?.split(' ');
+const HeaderLoggedContent = ({ userData, isLogged }: IHeaderProps) => {
+  const splitedName = userData?.name?.split(' ');
   const initials: string =
     splitedName && splitedName.length >= 2
       ? splitedName[0][0] + splitedName[1][0]
@@ -97,19 +102,26 @@ const HeaderLoggedContent = ({ name, isLogged }: IHeaderProps) => {
         alignItems={'center'}
         justifyContent={'center'}
       >
-        <Text fontWeight={'bold'} fontSize={18}>
-          {initials}
-        </Text>
+        {userData?.profile_img ? (
+          <Image
+            borderRadius="full"
+            boxSize={'32px'}
+            src={userData?.profile_img}
+            alt={userData?.name}
+          />
+        ) : (
+          <Text fontWeight={'bold'} fontSize={18}>
+            {initials}
+          </Text>
+        )}
       </Box>
-      <Text variant={'body-1-400'}>{name}</Text>
+      <Text variant={'body-1-400'}>{userData?.name}</Text>
     </HStack>
   ) : (
     <>
-      <Text variant={'body-1-600'} _hover={{ cursor: 'pointer' }}>
-        {' '}
-        {/* tem que fazer outra variant de Link*/}
+      <Link variant={'header'} href="/login">
         Fazer Login
-      </Text>
+      </Link>
       <Link variant={'btnOutlineGreyHeader'} px={'18px'} href="/register">
         Cadastrar
       </Link>

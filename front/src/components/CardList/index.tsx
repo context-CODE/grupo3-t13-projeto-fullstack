@@ -2,7 +2,7 @@ import { Flex } from '@chakra-ui/react';
 import ProductCard from '../productCard/ProductCard';
 import { useAdvertisementContext } from '@/contexts/advertisementContext';
 
-const CardList = () => {
+const CardList = ({ maxW = '1032px' }) => {
   const { advertisements, filter, filterIsActive } = useAdvertisementContext();
 
   const filteredAdvertisements = advertisements?.filter((ad) => {
@@ -54,7 +54,7 @@ const CardList = () => {
   return (
     <Flex
       minW={{ base: '95vw', sm: 'auto' }}
-      maxW={'1032px'}
+      maxW={maxW}
       columnGap={{ base: '12px', sm: '48px' }}
       rowGap={'78px'}
       wrap={{ base: 'nowrap', sm: 'wrap' }}

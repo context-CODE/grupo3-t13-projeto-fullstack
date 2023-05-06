@@ -4,7 +4,7 @@ type iPaginatedResponse = {
   count: number;
   next: string | null;
   previous: string | null;
-  advertisements: iAdvertisementRes | iAdvertisementRes[];
+  advertisements: iAdvertisementRes[];
 };
 
 export default iPaginatedResponse;

@@ -246,6 +246,17 @@ const theme = extendTheme({
             textDecoration: 'none',
           },
         },
+        header: {
+          bg: 'none',
+          fontSize: '1rem',
+          fontWeight: 'bold',
+          lineHeight: '28px',
+          color: 'grey.700',
+          _hover: {
+            cursor: 'pointer',
+            textDecoration: 'none',
+          },
+        },
       },
     },
     FormLabel: {
