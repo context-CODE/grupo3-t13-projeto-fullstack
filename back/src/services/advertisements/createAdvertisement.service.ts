@@ -15,22 +15,34 @@ const createAdvertisementService = async (
 ): Promise<iAdvertisementRes> => {
   const advertisementRepository: iAdvertisementEntity =
     AppDataSource.getRepository(Advertisement);
-  const userRepository: iUserEntity = AppDataSource.getRepository(User)
+  const userRepository: iUserEntity = AppDataSource.getRepository(User);
 
   const user = await userRepository.findOne({
     where: {
-      id: userId
-    }
-  })
+      id: userId,
+    },
+  });
 
-  const createdAdvertisement: Advertisement =
-    advertisementRepository.create({
-      ...newAdvertisementData, user: user!
-    });
+  const createdAdvertisement: Advertisement = advertisementRepository.create({
+    ...newAdvertisementData,
+    user: user!,
+  });
 
   await advertisementRepository.save(createdAdvertisement);
 
-  const newAdvertisement = advertisementResSchema.parse(createdAdvertisement);
+  const createdAdvertisementReturn = await advertisementRepository.findOne({
+    where: {
+      id: createdAdvertisement.id,
+    },
+    relations: {
+      comments: true,
+      user: true,
+    },
+  });
+
+  const newAdvertisement = advertisementResSchema.parse(
+    createdAdvertisementReturn
+  );
 
   return newAdvertisement as iAdvertisementRes;
 };

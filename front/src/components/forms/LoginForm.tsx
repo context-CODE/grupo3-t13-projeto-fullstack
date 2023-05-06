@@ -11,16 +11,11 @@ import {
   Spinner,
 } from '@chakra-ui/react';
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { FieldError, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuthContext } from '@/contexts/authContext';
 import { iLoginReq } from '@/types/auth.context';
 import { loginReqSchema } from '@/schemas/auth.schema';
-
-// const memorizedReset = useCallback(reset, [reset]);
-// useEffect(() => {
-//   userData && memorizedReset({ email: userData.email });
-// }, [userData, memorizedReset]);
 
 const LoginForm = () => {
   const { loginUser, loginError, loading } = useAuthContext();
@@ -35,15 +30,15 @@ const LoginForm = () => {
     mode: 'onSubmit',
   });
 
-  const emailError =
+  const emailError: boolean | FieldError =
     errors.email ||
     Object.keys(loginError).includes('email') ||
     (loginError.message?.toLowerCase().includes('email') as boolean);
 
-  const passwordError =
+  const passwordError: boolean | FieldError =
     errors.password ||
     Object.keys(loginError).includes('password') ||
-    loginError.message?.toLowerCase().includes('password');
+    (loginError.message?.toLowerCase().includes('password') as boolean);
 
   const onFormSubmit = async (formData: iLoginReq): Promise<void> => {
     await loginUser(formData, () => {

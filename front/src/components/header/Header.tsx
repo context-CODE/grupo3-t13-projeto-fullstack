@@ -13,9 +13,10 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { useAuthContext } from '@/contexts/authContext';
+import { iUserRes } from '@/types/user.context';
 
 interface IHeaderProps {
-  name?: string;
+  userData?: iUserRes;
   isLogged?: boolean;
 }
 
@@ -68,7 +69,7 @@ const Header = () => {
         pr={'60px'}
         pl={'44px'}
       >
-        <HeaderLoggedContent name={user.name} isLogged={!!user.email} />
+        <HeaderLoggedContent userData={user} isLogged={user.email && true} />
       </HStack>
       <Box
         display={{ base: 'flex', md: 'none' }}
@@ -82,8 +83,8 @@ const Header = () => {
   );
 };
 
-const HeaderLoggedContent = ({ name, isLogged }: IHeaderProps) => {
-  const splitedName = name?.split(' ');
+const HeaderLoggedContent = ({ userData, isLogged }: IHeaderProps) => {
+  const splitedName = userData?.name?.split(' ');
   const initials: string =
     splitedName && splitedName.length >= 2
       ? splitedName[0][0] + splitedName[1][0]
@@ -101,11 +102,20 @@ const HeaderLoggedContent = ({ name, isLogged }: IHeaderProps) => {
         alignItems={'center'}
         justifyContent={'center'}
       >
-        <Text fontWeight={'bold'} fontSize={18}>
-          {initials}
-        </Text>
+        {userData?.profile_img ? (
+          <Image
+            borderRadius="full"
+            boxSize={'32px'}
+            src={userData?.profile_img}
+            alt={userData?.name}
+          />
+        ) : (
+          <Text fontWeight={'bold'} fontSize={18}>
+            {initials}
+          </Text>
+        )}
       </Box>
-      <Text variant={'body-1-400'}>{name}</Text>
+      <Text variant={'body-1-400'}>{userData?.name}</Text>
     </HStack>
   ) : (
     <>

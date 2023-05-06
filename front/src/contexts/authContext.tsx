@@ -26,7 +26,7 @@ export interface iAuthContext {
   loading: boolean;
   setLoading: Dispatch<SetStateAction<boolean>>;
   registerUser: (data: iRegisterFormData) => Promise<void>;
-  getUserProfile: () => Promise<void>;
+  getUserProfile: (token: string) => Promise<void>;
   updateUser: (data: iUserReqUpdate) => Promise<void>;
   loginUser: (data: iLoginReq, callback: () => void) => Promise<void>;
   user: iUserRes;
@@ -110,6 +110,20 @@ export const AuthProvider = ({ children }: iProviderProps) => {
     }
   };
 
+  const getUserProfile = async (token: string) => {
+    try {
+      const { data } = await api.get<iUserRes>('/users/profile', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setUser(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const loginUser = async (dataLoginForm: iLoginReq, callback: () => void) => {
     try {
       setLoading(true);
@@ -123,6 +137,9 @@ export const AuthProvider = ({ children }: iProviderProps) => {
         callback();
       }
       setLoginError({});
+
+      await getUserProfile(token);
+
       router.push('/');
       toast({
         title: 'success',
@@ -144,12 +161,6 @@ export const AuthProvider = ({ children }: iProviderProps) => {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error(error);
-        // 2 soluções para o mesmo problema. Estão com problema de tipagem
-        // const {
-        //   response: {
-        //     data: { message },
-        //   },
-        // } = error;
         const { message } = error.response?.data;
         setError(message, setLoginError);
 
@@ -161,33 +172,6 @@ export const AuthProvider = ({ children }: iProviderProps) => {
       }
 
       setLoading(false);
-    }
-  };
-
-  const getUserProfile = async () => {
-    try {
-      const userProfile: iUserRes = await api.get('/profile');
-      toast({
-        title: 'success',
-        variant: 'solid',
-        position: 'top-right',
-        isClosable: true,
-        render: () => (
-          <Box
-            color={'gray.50'}
-            p={3}
-            bg={'green.600'}
-            fontWeight={'bold'}
-            borderRadius={'md'}
-          >
-            Profile successfully selected!
-          </Box>
-        ),
-      });
-      setUser(userProfile);
-      await router.push('/profile');
-    } catch (error) {
-      console.log(error);
     }
   };
 
