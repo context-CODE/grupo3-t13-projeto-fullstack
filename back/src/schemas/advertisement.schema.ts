@@ -18,13 +18,18 @@ const advertisementResSchema = advertisementReqSchema.extend({
   is_available: z.boolean(),
   created_at: z.date(),
   updated_at: z.date(),
-  user: z.object({ id: z.string(), name: z.string() }),
-  comments: z.array(commentResSchema.omit({ user: true, advertisement: true })),
+  user: z.object({
+    id: z.string(),
+    name: z.string(),
+    profile_img: z.string(),
+    description: z.string(),
+  }),
+  comments: z.array(commentResSchema.omit({ advertisement: true })),
 });
 
 const advertisementReqUpdateSchema = advertisementReqSchema.partial();
 
-const advertisementListResSchema = advertisementResSchema.array();
+const advertisementListResSchema = z.array(advertisementResSchema);
 
 export {
   advertisementReqSchema,
