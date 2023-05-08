@@ -1,77 +1,80 @@
+import { useAdvertisementContext } from '@/contexts/advertisementContext';
 import {
   Flex,
   Button,
   Card,
   CardBody,
-  Stack,
   Heading,
   Tag,
-  CardFooter,
   Image,
   Text,
 } from '@chakra-ui/react';
 
 export const DataCar = () => {
+  const { currentAdvertisement } = useAdvertisementContext();
+
   return (
     <Flex
-      maxW={{ base: '90%' }}
       flexDir={'column'}
-      display={'flex'}
-      flexDirection={'column'}
-      alignItems="center"
-      justifyContent="space-between"
-      gap={{ md: '50px', base: '10px' }}
+      gap="16px"
+      w={{ base: '100%', lg: 'calc(70% - 16px)' }}
     >
       <Flex
         bg={'white'}
-        w={{ md: '752px', base: '351px' }}
-        h={'352px'}
+        w="100%"
         justifyContent={'center'}
         alignItems={'center'}
+        borderRadius="base"
+        padding="16px"
       >
         <Image
-          src="/assets/CarDetailHome.png"
+          src={currentAdvertisement?.image}
           alt="Car photo"
-          borderRadius="lg"
-          bg="white"
-          w={{ base: '351px', md: '441px' }}
-          h={'252px'}
+          minH="328px"
+          objectFit="contain"
         />
       </Flex>
-      <Card justifyContent={'center'} w={{ base: '351px', md: '752px' }}>
-        <CardBody w="100%">
-          <Stack p={'16px'} mt={'6'} spacing={'3'}>
-            <Heading variant={'Heading-6-600'} textAlign={'center'} size="md">
-              Mercedes Benz A 200 CGI ADVANCE SEDAN Mercedes Benz A 200
-            </Heading>
-            <Flex
-              justifyContent={'space-between'}
-              flexDirection={{ base: 'column', sm: 'row' }}
-              gap={'10'}
-            >
-              <Flex flexDir="row" gap="2" alignItems={'center'}>
-                <Tag>2013</Tag>
-                <Tag>0 KM</Tag>
-              </Flex>
-              <Text
-                color={'grey.800'}
-                variant={{ base: 'Heading-6-600', sm: 'Heading-7-500' }}
-              >
-                R$ 00.000,00
-              </Text>
-            </Flex>
-          </Stack>
-        </CardBody>
 
-        <CardFooter>
-          <Button
-            justifyContent={'left'}
-            variant={'default'}
-            height={{ base: '38px', sm: '48px' }}
+      <Card>
+        <CardBody w="100%" p="16px">
+          <Heading variant={'Heading-6-600'} textTransform="capitalize">
+            {currentAdvertisement?.brand} {currentAdvertisement?.model}
+          </Heading>
+
+          <Flex
+            flexDir="column"
+            gap="16px"
+            justifyContent="flex-start"
+            w="100%"
+            mt="16px"
           >
+            <Flex gap="16px" alignItems={'center'}>
+              <Tag>{currentAdvertisement?.year}</Tag>
+              <Tag>{currentAdvertisement?.kilometers}</Tag>
+            </Flex>
+
+            <Text variant={{ base: 'Heading-6-600', sm: 'Heading-7-500' }}>
+              {currentAdvertisement?.price.toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+              })}
+            </Text>
+          </Flex>
+
+          <Button mt="16px" variant={'default'} alignSelf="start">
             Comprar
           </Button>
-        </CardFooter>
+        </CardBody>
+      </Card>
+
+      <Card>
+        <CardBody w="100%" p="16px">
+          <Heading variant="Heading-6-600">Descrição</Heading>
+
+          <Text variant="body-1-400" mt="16px">
+            {currentAdvertisement?.description}
+          </Text>
+        </CardBody>
       </Card>
     </Flex>
   );
