@@ -1,67 +1,79 @@
-import { Box, Textarea, Avatar, Button, Text } from '@chakra-ui/react';
+import { useAdvertisementContext } from '@/contexts/advertisementContext';
+import { useAuthContext } from '@/contexts/authContext';
+import { Box, Textarea, Avatar, Button, Text, Flex } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import { FormEvent, useState } from 'react';
 
-interface iBoxComment {
-  name: string;
-  image: string;
-}
+const BoxComment = () => {
+  const { user } = useAuthContext();
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  const { addCommentAd } = useAdvertisementContext();
+  const [comment, setComment] = useState('');
 
-const BoxComment = ({ name, image }: iBoxComment) => {
+  const {
+    query: { advertisementId },
+  } = useRouter();
+
+  const submit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    await addCommentAd(comment, advertisementId);
+    setComment('');
+  };
+
   return (
-    <Box
-      display={'flex'}
+    <Flex
       flexDir={'column'}
-      alignItems={'center'}
-      justifyContent={'center'}
-      gap={'20px'}
       bg="grey.10"
-      padding={'20px 10px'}
-      w={{ base: '100%', md: '50%' }}
-      minW={{ base: '283px', md: '663px' }}
+      padding="16px"
+      borderRadius="base"
+      gap="16px"
+      w={{ base: '100%', lg: 'calc(70% - 16px)' }}
     >
-      <Box display={'flex'} gap="10px" bg={'white'} w="97%" alignItems="center">
-        <Avatar src={image} />
-        <Text textAlign={'center'} variant={'body-2-500'}>
-          {name}
-        </Text>
-      </Box>
-      <Box
-        display={'flex'}
-        flexDir={'column'}
-        border={{ md: '1px', base: 'none' }}
-        alignItems={{ base: 'flex-start', md: 'flex-end' }}
-        borderColor={{ base: 'grey.200', md: 'grey.200' }}
-        borderRadius={'4px'}
-        minW={'97%'}
-        gap={{ base: '10px', md: 'none' }}
-      >
-        <Textarea
-          placeholder="Escreva aqui seu comentário"
-          fontSize="16px"
-          size="sm"
-          overflow="none"
-          h={{ base: '150' }}
-          borderStyle={{ md: 'none', base: '1px' }}
-          borderColor={{ base: 'grey.200', md: 'none' }}
-          borderRadius={{ base: '4px', md: 'none' }}
+      {Object.keys(user).length > 0 && (
+        <Box
+          display={'flex'}
+          gap="10px"
+          bg={'white'}
           w="97%"
-          mt="2%"
-          resize={'none'}
-        />
-        <Button
-          bg="brand.400"
-          _hover={{ bg: 'grey.900' }}
-          p={'12px 22px'}
-          color="white"
-          w="20%"
-          maxWidth={'108px'}
-          minWidth={'108px'}
-          mr="2%"
-          mb="2%"
+          alignItems="center"
         >
-          Comentar
-        </Button>
-      </Box>
-      <Box display={'flex'} gap="10px" w={'97%'} flexWrap={'wrap'}>
+          <Avatar name={user.name} />
+          <Text variant={'body-2-500'}>{user.name}</Text>
+        </Box>
+      )}
+
+      {/* eslint-disable-next-line @typescript-eslint/no-misused-promises*/}
+      <form onSubmit={(e) => submit(e)}>
+        <Box pos="relative">
+          <Textarea
+            disabled={Object.keys(user).length > 0 ? false : true}
+            placeholder="Carro muito confortável, foi uma ótima experiência de compra..."
+            fontSize="16px"
+            h={{ base: '150' }}
+            resize={'none'}
+            borderWidth="2px"
+            pt="16px"
+            _focusVisible={{
+              borderColor: 'brand.400',
+            }}
+            onChange={(e) => setComment(e.target.value)}
+            value={comment}
+          />
+          <Button
+            disabled={Object.keys(user).length > 0 ? false : true}
+            variant={Object.keys(user).length > 0 ? 'default' : 'disable'}
+            pos="absolute"
+            bottom="12px"
+            right="12px"
+            type="submit"
+          >
+            Comentar
+          </Button>
+        </Box>
+      </form>
+
+      {/* <Box display={'flex'} gap="10px" w={'97%'} flexWrap={'wrap'}>
         <Text
           p={'5px 10px'}
           fontSize="12px"
@@ -89,8 +101,8 @@ const BoxComment = ({ name, image }: iBoxComment) => {
         >
           Recomendarei para meus amigos!
         </Text>
-      </Box>
-    </Box>
+      </Box> */}
+    </Flex>
   );
 };
 
