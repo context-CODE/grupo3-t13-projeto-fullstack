@@ -37,7 +37,7 @@ const getDataSourceOptions = (): DataSourceOptions => {
     type: "postgres",
     url: dbUrl,
     synchronize: false,
-    logging: true,
+    logging: false,
     entities: [entitiesPath],
     migrations: [migrationsPath],
   };
