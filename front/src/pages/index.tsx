@@ -83,9 +83,9 @@ export default function Home({ advertisements }: IPropsHome) {
             A melhor plataforma de anúncios de carros do país
           </Heading>
         </Flex>
-        <Flex justifyContent={'space-between'} gap={'100px'} mx={'60px'}>
+        <Flex justifyContent={'space-between'} mx={'60px'} w={'100%'}>
           <FilterAdvertisements />
-          <CardList />
+          <CardList maxW={'1032px'} />
         </Flex>
         <ControlPagination />
       </Flex>
