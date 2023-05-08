@@ -15,7 +15,7 @@ const Footer = () => {
       color={'white'}
       py={{ base: '45px', md: 'none' }}
       h={{ base: '310px', md: '140px' }}
-      w={'100vw'}
+      w={'100%'}
       justifyContent={'space-between'}
       alignItems={'center'}
     >

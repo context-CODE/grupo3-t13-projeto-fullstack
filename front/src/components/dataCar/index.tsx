@@ -1,36 +1,81 @@
-import { Flex, Button,  Card, CardBody, Stack, Heading, Tag, CardFooter, 
-    Image, Text   } from '@chakra-ui/react'
+import { useAdvertisementContext } from '@/contexts/advertisementContext';
+import {
+  Flex,
+  Button,
+  Card,
+  CardBody,
+  Heading,
+  Tag,
+  Image,
+  Text,
+} from '@chakra-ui/react';
 
 export const DataCar = () => {
-  return (
-        <Flex maxW={{ base: '90%', sm: '440px' }} flexDir={'column'} gap='1' >
-            <Image
-            src="/assets/CarDetailHome.png"
-            alt='Car photo'
-            borderRadius='lg'
-            />
-            <Card justifyContent={'center'} >
-                <CardBody  w='100%' >
-                    <Stack p={'16px'} mt={'6'} spacing={'3'}>
-                        <Heading variant={'Heading-6-600'} textAlign={'center'} size='md'>Mercedes Benz A 200 CGI ADVANCE SEDAN Mercedes Benz A 200</Heading>         
-                        <Flex justifyContent={'space-between'} flexDirection={{ base:'column', sm:'row'}} gap={'10'}>
-                            <Flex flexDir="row" gap='2' alignItems={'center'}>
-                                <Tag>2013</Tag>  
-                                <Tag>0 KM</Tag>
-                            </Flex>
-                            <Text color={'grey.800'} variant={{ base:'Heading-6-600', sm:'Heading-7-500'}}>
-                                R$ 00.000,00
-                            </Text>
-                        </Flex>
-                    </Stack>
-                </CardBody>
-        
-                <CardFooter >
-                    <Button justifyContent={'left'} variant={'default'} height={{ base: '38px', sm: '48px' }}>
-                        Comprar                 
-                    </Button>
-                </CardFooter>
-            </Card>
-        </Flex>)
-}
+  const { currentAdvertisement } = useAdvertisementContext();
 
+  return (
+    <Flex
+      flexDir={'column'}
+      gap="16px"
+      w={{ base: '100%', lg: 'calc(70% - 16px)' }}
+    >
+      <Flex
+        bg={'white'}
+        w="100%"
+        justifyContent={'center'}
+        alignItems={'center'}
+        borderRadius="base"
+        padding="16px"
+      >
+        <Image
+          src={currentAdvertisement?.image}
+          alt="Car photo"
+          minH="328px"
+          objectFit="contain"
+        />
+      </Flex>
+
+      <Card>
+        <CardBody w="100%" p="16px">
+          <Heading variant={'Heading-6-600'} textTransform="capitalize">
+            {currentAdvertisement?.brand} {currentAdvertisement?.model}
+          </Heading>
+
+          <Flex
+            flexDir="column"
+            gap="16px"
+            justifyContent="flex-start"
+            w="100%"
+            mt="16px"
+          >
+            <Flex gap="16px" alignItems={'center'}>
+              <Tag>{currentAdvertisement?.year}</Tag>
+              <Tag>{currentAdvertisement?.kilometers}</Tag>
+            </Flex>
+
+            <Text variant={{ base: 'Heading-6-600', sm: 'Heading-7-500' }}>
+              {currentAdvertisement?.price.toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+              })}
+            </Text>
+          </Flex>
+
+          <Button mt="16px" variant={'default'} alignSelf="start">
+            Comprar
+          </Button>
+        </CardBody>
+      </Card>
+
+      <Card>
+        <CardBody w="100%" p="16px">
+          <Heading variant="Heading-6-600">Descrição</Heading>
+
+          <Text variant="body-1-400" mt="16px">
+            {currentAdvertisement?.description}
+          </Text>
+        </CardBody>
+      </Card>
+    </Flex>
+  );
+};

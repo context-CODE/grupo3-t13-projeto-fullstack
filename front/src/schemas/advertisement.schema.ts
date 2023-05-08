@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import errorMap from 'zod/lib/locales/en';
 
 const advertisementReqSchema = z.object({
   brand: z.string().max(60),

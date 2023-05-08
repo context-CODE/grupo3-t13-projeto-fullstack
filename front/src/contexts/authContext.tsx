@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-floating-promises */
 import api from '@/services/index';
 import axios from 'axios';
 
@@ -20,9 +17,11 @@ import {
   SetStateAction,
   createContext,
   useContext,
+  useEffect,
   useState,
 } from 'react';
 import { iAddressReqUpdate, iAddressRes } from '@/types/address.context';
+import nookies from 'nookies';
 
 export interface iAuthContext {
   loading: boolean;
@@ -54,6 +53,16 @@ export const AuthProvider = ({ children }: iProviderProps) => {
   const [loginError, setLoginError] = useState({});
   const toast = useToast();
   const router = useRouter();
+
+  useEffect(() => {
+    (async () => {
+      const token = nookies.get()['car.token'];
+
+      if (token) {
+        await getUserProfile(token);
+      }
+    })();
+  }, []);
 
   const setError = (
     errorResDataMessage: string | object,
@@ -182,6 +191,12 @@ export const AuthProvider = ({ children }: iProviderProps) => {
       setLoading(false);
     }
   };
+
+  // const handleLogout = () => {
+  //   removeCookie('token');
+  //   setUser({} as iUserRes);
+  //   router.push('/');
+  // };
 
   const updateUser = async (data: iUserReqUpdate) => {
     try {

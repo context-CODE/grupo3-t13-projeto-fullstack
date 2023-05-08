@@ -1,9 +1,9 @@
 import { createTransport } from "nodemailer";
-import { iEmailRequest } from "../interfaces/email.interface";
+import { IEmailRequest } from "../interfaces/email.interface";
 import Mailgen from "mailgen";
 import "dotenv/config";
 
-const sendMail = async ({ to, subject, text }: iEmailRequest) => {
+const sendMail = async ({ to, subject, text }: IEmailRequest) => {
   const tranporter = createTransport({
     host: process.env.SMTP_HOST,
     auth: {
