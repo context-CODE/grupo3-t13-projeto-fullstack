@@ -18,4 +18,8 @@ export {
   iAdvertisementReq,
   iAdvertisementRes,
   iAdvertisementReqUpdate,
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> 0946a2ad8bef42cd5036b9f2a88341004ab9077d

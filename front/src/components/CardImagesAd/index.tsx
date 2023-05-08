@@ -1,23 +1,77 @@
-import { Card, Grid, GridItem, Heading, Image } from '@chakra-ui/react';
+import {
+  Card,
+  Grid,
+  GridItem,
+  Heading,
+  Image,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
+} from '@chakra-ui/react';
 
 export const CardImagesAd = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
-    <Card bg="grey.10" w="440px" h="292px" borderRadius="base" p="16px">
-      <Heading variant="Heading-6-500" mb="32px">
-        Fotos
-      </Heading>
-      <Grid
-        h="100%"
-        templateColumns="repeat(3, 1fr)"
-        justifyContent="stretch"
-        gap="16px"
+    <>
+      <Card
+        bg="grey.10"
+        minH="200px"
+        borderRadius="base"
+        p="16px"
+        display={'flex'}
+        flexDir={'column'}
       >
-        {[0, 1, 2, 3, 4, 5].map((e) => (
-          <GridItem key={e}>
-            <Image w="100%" h="100%" src="" alt="image " />
-          </GridItem>
-        ))}
-      </Grid>
-    </Card>
+        <Heading variant="Heading-6-500" mb="16px">
+          Fotos
+        </Heading>
+        <Grid
+          h="100%"
+          templateColumns="repeat(3, 1fr)"
+          justifyContent="stretch"
+          gap="16px"
+        >
+          {[0, 1, 2, 3, 4, 5].map((e) => (
+            <GridItem
+              key={e}
+              bg="grey.200"
+              borderRadius="base"
+              p="8px"
+              onClick={onOpen}
+              cursor="pointer"
+            >
+              <Image
+                w="100%"
+                h="100%"
+                src="/assets/fiat-argo-drive.webp"
+                alt="image "
+                objectFit="contain"
+              />
+            </GridItem>
+          ))}
+        </Grid>
+      </Card>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Imagem do veículo</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Image
+              w="100%"
+              h="100%"
+              src="/assets/fiat-argo-drive.webp"
+              alt="image "
+              objectFit="contain"
+            />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
   );
 };

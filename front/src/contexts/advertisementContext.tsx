@@ -1,3 +1,4 @@
+import api from '@/services';
 import {
   Dispatch,
   SetStateAction,
@@ -5,6 +6,7 @@ import {
   useContext,
   useState,
 } from 'react';
+import nookies from 'nookies';
 
 export interface iAdvertisement {
   id: string;
@@ -17,6 +19,23 @@ export interface iAdvertisement {
   price: number;
   description: string;
   image: string;
+  is_available: boolean;
+  user: {
+    id: string;
+    name: string;
+    profile_img: string;
+    description: string;
+  };
+  comments: {
+    id: string;
+    comment: string;
+    created_at: string;
+    user: {
+      id: string;
+      name: string;
+      profile_img: string;
+    };
+  }[];
 }
 
 interface iFilter {
@@ -39,6 +58,12 @@ interface iAdvertisementContext {
   addFilter(filterObj: Partial<iFilter>): void;
   filterIsActive: boolean;
   toggleFilter(): void;
+  currentAdvertisement: iAdvertisement | undefined;
+  setCurrentAdvertisement: Dispatch<SetStateAction<iAdvertisement | undefined>>;
+  addCommentAd(
+    comment: string,
+    adId: string | string[] | undefined
+  ): Promise<void>;
 }
 
 interface iAdvertisementProviderProps {
@@ -51,6 +76,8 @@ export const AdvertisementProvider = ({
   children,
 }: iAdvertisementProviderProps) => {
   const [advertisements, setAdvertisements] = useState<iAdvertisement[]>();
+  const [currentAdvertisement, setCurrentAdvertisement] =
+    useState<iAdvertisement>();
   const [filterIsActive, setFilterIsActive] = useState(false);
   const [filter, setFilter] = useState<iFilter>({
     brand: '',
@@ -108,6 +135,35 @@ export const AdvertisementProvider = ({
     setFilterIsActive(!filterIsActive);
   };
 
+  const addCommentAd = async (
+    comment: string,
+    adId: string | string[] | undefined
+  ) => {
+    try {
+      const token = nookies.get()['car.token'];
+
+      await api.post(
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+        `advertisements/${adId}/comments`,
+        {
+          comment,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      const { data } = await api.get<iAdvertisement>(`/advertisements/${adId}`);
+
+      setCurrentAdvertisement(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AdvertisementContext.Provider
       value={{
@@ -118,6 +174,9 @@ export const AdvertisementProvider = ({
         addFilter,
         filterIsActive,
         toggleFilter,
+        currentAdvertisement,
+        setCurrentAdvertisement,
+        addCommentAd,
       }}
     >
       {children}
