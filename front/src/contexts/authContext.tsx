@@ -14,6 +14,7 @@ import { iUserReqUpdate, iUserRes } from '@/types/user.context';
 import { Box, useToast } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { setCookie } from 'nookies';
+import nookie from 'nookies';
 import {
   Dispatch,
   SetStateAction,
@@ -21,6 +22,7 @@ import {
   useContext,
   useState,
 } from 'react';
+import { iAddressReqUpdate, iAddressRes } from '@/types/address.context';
 
 export interface iAuthContext {
   loading: boolean;
@@ -29,9 +31,13 @@ export interface iAuthContext {
   getUserProfile: (token: string) => Promise<void>;
   updateUser: (data: iUserReqUpdate) => Promise<void>;
   deleteUser: () => Promise<void>;
+  updateAddress: (data: iAddressReqUpdate) => Promise<void>;
+  deleteAddress: () => Promise<void>;
   loginUser: (data: iLoginReq, callback: () => void) => Promise<void>;
   user: iUserRes;
   setUser: React.Dispatch<React.SetStateAction<iUserRes>>;
+  address: iAddressRes;
+  setAddress: React.Dispatch<React.SetStateAction<iAddressRes>>;
   avatar: string;
   setAvatar: React.Dispatch<React.SetStateAction<string | ''>>;
   loginError: object;
@@ -43,6 +49,7 @@ const AuthContext = createContext<iAuthContext>({} as iAuthContext);
 export const AuthProvider = ({ children }: iProviderProps) => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({} as iUserRes);
+  const [address, setAddress] = useState({} as iAddressRes);
   const [avatar, setAvatar] = useState('');
   const [loginError, setLoginError] = useState({});
   const toast = useToast();
@@ -178,9 +185,11 @@ export const AuthProvider = ({ children }: iProviderProps) => {
 
   const updateUser = async (data: iUserReqUpdate) => {
     try {
+      const token = nookie.get()['car.token'];
       const updatedUser: iUserRes = await api.patch(`/users/${user.id}`, data, {
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
       toast({
@@ -238,6 +247,72 @@ export const AuthProvider = ({ children }: iProviderProps) => {
     }
   };
 
+  const updateAddress = async (data: iAddressReqUpdate) => {
+    try {
+      const updatedAddress: iAddressRes = await api.patch(
+        `/users/${user.id}`,
+        data,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      toast({
+        title: 'success',
+        variant: 'solid',
+        position: 'top-right',
+        isClosable: true,
+        render: () => (
+          <Box
+            color={'gray.50'}
+            p={3}
+            bg={'green.600'}
+            fontWeight={'bold'}
+            borderRadius={'md'}
+          >
+            Address successfully completed!
+          </Box>
+        ),
+      });
+      setAddress(updatedAddress);
+      await router.push('/profile');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteAddress = async () => {
+    try {
+      await api.delete(`/users/${user.id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      toast({
+        title: 'success',
+        variant: 'solid',
+        position: 'top-right',
+        isClosable: true,
+        render: () => (
+          <Box
+            color={'gray.50'}
+            p={3}
+            bg={'green.600'}
+            fontWeight={'bold'}
+            borderRadius={'md'}
+          >
+            Address deleted successfully!
+          </Box>
+        ),
+      });
+      setAddress({});
+      await router.push('/profile');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -248,8 +323,12 @@ export const AuthProvider = ({ children }: iProviderProps) => {
         updateUser,
         deleteUser,
         loginUser,
+        updateAddress,
+        deleteAddress,
         user,
         setUser,
+        address,
+        setAddress,
         avatar,
         setAvatar,
         loginError,

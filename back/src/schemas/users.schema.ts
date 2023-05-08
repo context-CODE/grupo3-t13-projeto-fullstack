@@ -28,7 +28,10 @@ const usersResSchema = usersReqSchema
 const usersReqUpdateSchema = usersReqSchema.partial();
 
 const usersResUpdateSchema = usersReqUpdateSchema.extend({
-  birthdate: z.string().regex(/(\d{4})[-.\/](\d{2})[-.\/](\d{2})/),
+  birthdate: z.string().refine((value) => {
+    // Verifica se o valor é vazio ou corresponde ao formato "dd/mm/aaaa"
+    return !value || /^(\d{2})\/(\d{2})\/(\d{4})$/.test(value);
+  }).optional()
 }).omit({
   password: true,
 })

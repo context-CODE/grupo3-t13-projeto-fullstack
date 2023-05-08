@@ -30,6 +30,7 @@ const ProfilePage = () => {
             maxH={{ base: '331px', sm: '357px' }}
           />
           <UserInfoCard onOpen={onOpen} />
+
           <Heading
             alignSelf={{ base: 'flex-start', md: 'center' }}
             marginLeft={{ base: '60px', md: 0 }}
@@ -42,7 +43,7 @@ const ProfilePage = () => {
         </Flex>
       </LayoutPage>
       <ModalRegisterAd isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
-      <ModalUpdateUser isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
+      {/* <ModalUpdateUser isOpen={isOpen} onClose={onClose} onOpen={onOpen} /> */}
     </>
   );
 };

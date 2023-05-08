@@ -1,9 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Menu, MenuButton, MenuList, MenuItem, Button } from '@chakra-ui/react';
 
 import ModalUpdateUser from '../modalUpdateUser';
 import { useState } from 'react';
 import { HamburgerIcon } from '@chakra-ui/icons';
+import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
+import nookies from 'nookies';
 
 const UserMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,3 +37,23 @@ const UserMenu = () => {
   );
 };
 export default UserMenu;
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const cookies = nookies.get(ctx);
+  const session = await getSession(ctx);
+
+  if (!cookies['car.token'] && !session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      name: cookies['cars.user'],
+    },
+  };
+};

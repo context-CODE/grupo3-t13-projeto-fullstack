@@ -14,33 +14,38 @@ import { iUserReqUpdate } from '@/types/user.context';
 import { usersReqUpdateSchema } from '@/schemas/users.schema';
 import { useAuthContext } from '@/contexts/authContext';
 import { Button, Flex, Heading, Input, Text, Textarea } from '@chakra-ui/react';
+import { iAddressReqUpdate } from '@/types/address.context';
+import { addressReqUpdateSchema } from '@/schemas/addresses.schema';
 
-interface iModalUpdateUserProps {
+interface iModalUpdateAddressProps {
   isOpen: boolean;
+
   onClose: () => void;
 }
 
-const ModalUpdateUser = ({ isOpen, onClose }: iModalUpdateUserProps) => {
+const ModalUpdateAddress = ({
+  isOpen,
+
+  onClose,
+}: iModalUpdateAddressProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<iUserReqUpdate>({
-    resolver: zodResolver(usersReqUpdateSchema),
+  } = useForm<iAddressReqUpdate>({
+    resolver: zodResolver(addressReqUpdateSchema),
   });
 
-  const { updateUser, deleteUser } = useAuthContext();
+  const { updateAddress } = useAuthContext();
 
-  const submit = async (formData: iUserReqUpdate) => {
+  const submit = async (formData: iAddressReqUpdate) => {
     console.log(formData);
-    await updateUser(formData);
+    await updateAddress(formData);
   };
   console.log(errors);
 
   return (
     <>
-      <Button onClick={() => isOpen}></Button>
-
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -56,82 +61,72 @@ const ModalUpdateUser = ({ isOpen, onClose }: iModalUpdateUserProps) => {
             fontSize={'24px'}
           >
             <Heading variant={'Heading-5-500'} fontWeight={'bold'}>
-              Editar perfil
+              Editar endereço
             </Heading>
             <form onSubmit={handleSubmit(submit)}>
               <Heading variant={'Heading-5-500'} margin={'20px 0 20px 0'}>
-                Informações pessoais
+                Informações de endereço
               </Heading>
 
               <FormControl margin={'20px 0 20px 0'}>
-                <FormLabel>Nome</FormLabel>
-                <Input placeholder="Ex: Samuel Leão" {...register('name')} />
-                {errors.name && (
+                <FormLabel>CEP</FormLabel>
+                <Input placeholder="" {...register('zip_code')} />
+                {errors.zip_code && (
                   <Text color={'red'} fontSize={'14px'}>
-                    {errors.name.message}
+                    {errors.zip_code.message}
                   </Text>
                 )}
               </FormControl>
 
               <FormControl margin={'20px 0 20px 0'}>
-                <FormLabel>Email</FormLabel>
-                <Input
-                  placeholder="Ex: samuel@kenzie.com.br"
-                  {...register('email')}
-                />
-                {errors.email && (
+                <FormLabel>Estado</FormLabel>
+                <Input placeholder="" {...register('state')} />
+                {errors.state && (
                   <Text color={'red'} fontSize={'14px'}>
-                    {errors.email.message}
+                    {errors.state.message}
                   </Text>
                 )}
               </FormControl>
 
               <FormControl margin={'20px 0 20px 0'}>
-                <FormLabel>CPF</FormLabel>
-                <Input placeholder="000.000.000-00" {...register('cpf')} />
-                {errors.cpf && (
+                <FormLabel>Cidade</FormLabel>
+                <Input placeholder="" {...register('city')} />
+                {errors.city && (
                   <Text color={'red'} fontSize={'14px'}>
-                    {errors.cpf.message}
+                    {errors.city.message}
                   </Text>
                 )}
               </FormControl>
 
               <FormControl margin={'20px 0 20px 0'}>
-                <FormLabel>Celular</FormLabel>
-                <Input
-                  placeholder="(DDD) 90000-0000"
-                  {...register('phone_number')}
-                />
-                {errors.phone_number && (
+                <FormLabel>Rua</FormLabel>
+                <Input placeholder="" {...register('street')} />
+                {errors.street && (
                   <Text color={'red'} fontSize={'14px'}>
-                    {errors.phone_number.message}
+                    {errors.street.message}
                   </Text>
                 )}
               </FormControl>
 
               <FormControl margin={'20px 0 20px 0'}>
-                <FormLabel>Data de nascimento</FormLabel>
-                <Input placeholder="00/00/00" {...register('birthdate')} />
-                {errors.birthdate && (
+                <FormLabel>Número</FormLabel>
+                <Input placeholder="" {...register('number')} />
+                {errors.number && (
                   <Text color={'red'} fontSize={'14px'}>
-                    {errors.birthdate.message}
+                    {errors.number.message}
                   </Text>
                 )}
               </FormControl>
 
-              <Text mb={'8px'} margin={'20px 0 20px 0'}>
-                Descrição
-              </Text>
-              <Textarea
-                placeholder="Digitar descrição"
-                {...register('description')}
-                size={'sm'}
-              />
-              {errors.description && (
-                <Text color={'red'} fontSize={'14px'}>
-                  {errors.description.message}
-                </Text>
-              )}
+              <FormControl margin={'20px 0 20px 0'}>
+                <FormLabel>Complemento</FormLabel>
+                <Input placeholder="" {...register('complement')} />
+                {errors.complement && (
+                  <Text color={'red'} fontSize={'14px'}>
+                    {errors.complement.message}
+                  </Text>
+                )}
+              </FormControl>
 
               <Flex gap={'10px'}>
                 <Button
@@ -142,17 +137,6 @@ const ModalUpdateUser = ({ isOpen, onClose }: iModalUpdateUserProps) => {
                   onClick={onClose}
                 >
                   Cancelar
-                </Button>
-
-                <Button
-                  type={'button'}
-                  variant={'alert'}
-                  w={'100%'}
-                  margin={'20px 0 20px 0'}
-                  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                  onClick={deleteUser}
-                >
-                  Excluir Perfil
                 </Button>
 
                 <Button
@@ -174,4 +158,6 @@ const ModalUpdateUser = ({ isOpen, onClose }: iModalUpdateUserProps) => {
     </>
   );
 };
-export default ModalUpdateUser;
+export default ModalUpdateAddress;
+
+//  const { isOpen, onOpen, onClose } = useDisclosure();

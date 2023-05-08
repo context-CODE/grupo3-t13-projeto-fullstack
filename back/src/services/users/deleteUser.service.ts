@@ -2,12 +2,13 @@ import AppDataSource from "../../data-source"
 import Address from "../../entities/address.entity"
 import User from "../../entities/user.entity"
 import AppError from "../../errors/AppError"
-import { iUserRes } from "../../interfaces/users.interface"
+import { iAddressEntity } from "../../interfaces/address.interface"
+import { iUserEntity, iUserRes } from "../../interfaces/users.interface"
 
 
 const deleteUserService = async (userId: string) => {
-    const userRepository = AppDataSource.getRepository(User)
-    const addressRepository = AppDataSource.getRepository(Address)
+    const userRepository:iUserEntity = AppDataSource.getRepository(User)
+    const addressRepository: iAddressEntity = AppDataSource.getRepository(Address)
 
     const findUser = await userRepository.findOne({
         where: {
