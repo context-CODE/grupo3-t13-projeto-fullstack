@@ -15,8 +15,9 @@ const LayoutPage = ({ children }: LayoutPageProps) => {
       mt={'80px'}
       display={'flex'}
       flexDirection={'column'}
-      minW="100%"
+      minW={'100vw'}
       minH={'100%'}
+      overflowX={'hidden'}
     >
       <Header />
       {children}

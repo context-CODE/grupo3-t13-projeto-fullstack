@@ -1,10 +1,15 @@
+import { iAdvertiser } from '@/contexts/advertisementContext';
+import { useAuthContext } from '@/contexts/authContext';
 import { Button, Flex, Heading, Image, Tag, Text } from '@chakra-ui/react';
 
 interface IUserInfoCardProps {
+  advertiserData: iAdvertiser;
   onOpen: () => void;
 }
 
-const UserInfoCard = ({ onOpen }: IUserInfoCardProps) => {
+const UserInfoCard = ({ advertiserData, onOpen }: IUserInfoCardProps) => {
+  const { user } = useAuthContext();
+
   return (
     <Flex
       zIndex={'10'}
@@ -22,11 +27,11 @@ const UserInfoCard = ({ onOpen }: IUserInfoCardProps) => {
         <Image
           borderRadius={'full'}
           boxSize={'104px'}
-          src={'https://bit.ly/kent-c-dodds'}
-          alt={'Avatar'}
+          src={advertiserData.profile_img}
+          alt={advertiserData.name}
         />
         <Flex gap={'10px'} flexWrap={'wrap'} alignItems={'center'}>
-          <Heading variant={'Heading-6-600'}>Arlindo Cunha</Heading>
+          <Heading variant={'Heading-6-600'}>{advertiserData.name}</Heading>
           <Tag>Anunciante</Tag>
         </Flex>
         <Text
@@ -34,17 +39,17 @@ const UserInfoCard = ({ onOpen }: IUserInfoCardProps) => {
           noOfLines={{ base: 5, md: 2 }}
           variant={'body-1-400'}
         >
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry is standard dummy text
-          ever since the 1500s sada sdd asdsadsad asdsad asdsadsa sad sadasd
+          {advertiserData.description}
         </Text>
       </Flex>
-      <Button variant={'outline'} maxW={'160px'} onClick={() => onOpen()}>
-        Criar anuncio
-      </Button>
-      <Button variant={'outline'} maxW={'160px'} onClick={() => onOpen()}>
+      {advertiserData.id === user.id && (
+        <Button variant={'outline'} maxW={'160px'} onClick={() => onOpen()}>
+          Criar anuncio
+        </Button>
+      )}
+      {/* <Button variant={'outline'} maxW={'160px'} onClick={() => onOpen()}>
         Editar perfil
-      </Button>
+      </Button> */}
     </Flex>
   );
 };

@@ -29,7 +29,12 @@ export const FilterAdvertisements = () => {
   });
 
   return (
-    <Flex flexDir="column" gap="16px" mt={'52px'}>
+    <Flex
+      flexDir="column"
+      gap="16px"
+      mt={'52px'}
+      display={{ base: 'none', sm: 'flex' }}
+    >
       <Heading variant="Heading-4-600">Marca</Heading>
       <UnorderedList>
         {brands.map((brand) => (
