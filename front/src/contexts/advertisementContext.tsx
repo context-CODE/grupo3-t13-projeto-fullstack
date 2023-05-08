@@ -52,6 +52,7 @@ interface iFilter {
 
 interface iAdvertisementContext {
   advertisements: iAdvertisement[] | undefined;
+  filteredAdvertisements: iAdvertisement[] | undefined;
   setAdvertisements: Dispatch<SetStateAction<iAdvertisement[] | undefined>>;
   brands: string[];
   filter: iFilter;
@@ -103,6 +104,52 @@ export const AdvertisementProvider = ({
     'toyota',
     'volkswagen',
   ];
+
+  const filteredAdvertisements = advertisements?.filter((ad) => {
+    let match = true;
+
+    if (filter.brand && ad.brand.toLowerCase() !== filter.brand.toLowerCase()) {
+      match = false;
+    }
+
+    if (filter.model && ad.model.toLowerCase() !== filter.model.toLowerCase()) {
+      match = false;
+    }
+
+    if (filter.color && ad.color.toLowerCase() !== filter.color.toLowerCase()) {
+      match = false;
+    }
+
+    if (filter.fuel && ad.fuel.toLowerCase() !== filter.fuel.toLowerCase()) {
+      match = false;
+    }
+
+    if (filter.year && ad.year !== filter.year) {
+      match = false;
+    }
+
+    if (filter.minKm && ad.kilometers < Number(filter.minKm)) {
+      match = false;
+    }
+
+    if (filter.maxKm && ad.kilometers > Number(filter.maxKm)) {
+      match = false;
+    }
+
+    if (filter.minPrice && ad.price < Number(filter.minPrice)) {
+      match = false;
+    }
+
+    if (filter.maxPrice && ad.price > Number(filter.maxPrice)) {
+      match = false;
+    }
+
+    if (!filterIsActive) {
+      match = true;
+    }
+
+    return match;
+  });
 
   const addFilter = (filterObj: Partial<iFilter>): void => {
     const filters: string[] = Object.keys(filter);
@@ -177,6 +224,7 @@ export const AdvertisementProvider = ({
         currentAdvertisement,
         setCurrentAdvertisement,
         addCommentAd,
+        filteredAdvertisements,
       }}
     >
       {children}
