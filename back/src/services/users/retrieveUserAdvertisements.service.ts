@@ -6,6 +6,7 @@ import { userAdvertisementsResSchema } from "../../schemas/users.schema";
 const retrieveUserAdvertisementsService = async (
   userId: string
 ): Promise<iUserAdvertisements> => {
+
   const userRepository = AppDataSource.getRepository(User);
   const user = await userRepository.findOne({
     where: {
