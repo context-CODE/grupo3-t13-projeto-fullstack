@@ -29,8 +29,6 @@ export const CommentList = () => {
           gap="32px"
         >
           {currentAdvertisement?.comments?.map((comment) => {
-            // const date =
-
             return (
               <ListItem
                 key={comment.id}
