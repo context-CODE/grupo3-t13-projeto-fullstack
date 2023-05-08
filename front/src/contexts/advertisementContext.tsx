@@ -19,6 +19,14 @@ export interface iAdvertisement {
   image: string;
 }
 
+export interface iAdvertiser {
+  id: string;
+  name: string;
+  is_advertiser: boolean;
+  profile_img: string;
+  description: string;
+}
+
 interface iFilter {
   brand: string;
   model: string;
@@ -32,6 +40,8 @@ interface iFilter {
 }
 
 interface iAdvertisementContext {
+  advertiserData: iAdvertiser;
+  setAdvertiserData: Dispatch<SetStateAction<iAdvertiser>>;
   advertisements: iAdvertisement[] | undefined;
   setAdvertisements: Dispatch<SetStateAction<iAdvertisement[] | undefined>>;
   brands: string[];
@@ -52,6 +62,7 @@ export const AdvertisementProvider = ({
 }: iAdvertisementProviderProps) => {
   const [advertisements, setAdvertisements] = useState<iAdvertisement[]>();
   const [filterIsActive, setFilterIsActive] = useState(false);
+  const [advertiserData, setAdvertiserData] = useState({} as iAdvertiser);
   const [filter, setFilter] = useState<iFilter>({
     brand: '',
     model: '',
@@ -111,6 +122,8 @@ export const AdvertisementProvider = ({
   return (
     <AdvertisementContext.Provider
       value={{
+        advertiserData,
+        setAdvertiserData,
         advertisements,
         setAdvertisements,
         brands,

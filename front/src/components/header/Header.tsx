@@ -13,10 +13,12 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { useAuthContext } from '@/contexts/authContext';
-import { iUserRes } from '@/types/user.context';
+import { useEffect, useLayoutEffect } from 'react';
+import { parseCookies } from 'nookies';
 
 interface IHeaderProps {
-  userData?: iUserRes;
+  userName?: string;
+  userImage?: string;
   isLogged?: boolean;
 }
 
@@ -25,9 +27,28 @@ interface ResponsiveMenuProps {
 }
 
 const Header = () => {
-  const { user } = useAuthContext();
-
   const { isOpen, onOpen, onClose } = useDisclosure();
+  // const { user } = useAuthContext();
+
+  const cookies = parseCookies();
+  const userName = cookies['car.userName'];
+  const userId = cookies['car.userId'];
+  const userImage = cookies['car.userImage'];
+
+  // useEffect(() => {
+  //   if (user) {
+  //     document.cookie = `car.userName=${user.name}`;
+  //     document.cookie = `car.userId=${user.id}`;
+  //     document.cookie = `car.userAdvertiser=${JSON.stringify(
+  //       user.is_advertiser
+  //     )}`;
+  //     document.cookie = `car.userImage=${user.profile_img}`;
+  //     if (user.description) {
+  //       document.cookie = `car.userDescription=${user.description}`;
+  //     }
+  //     document.cookie = `car.userPhoneNumber=${user.phone_number}`;
+  //   }
+  // }, [user]);
 
   return (
     <Box
@@ -69,7 +90,11 @@ const Header = () => {
         pr={'60px'}
         pl={'44px'}
       >
-        <HeaderLoggedContent userData={user} isLogged={user.email && true} />
+        <HeaderLoggedContent
+          userName={userName}
+          userImage={userImage}
+          isLogged={userName && true}
+        />
       </HStack>
       <Box
         display={{ base: 'flex', md: 'none' }}
@@ -83,8 +108,12 @@ const Header = () => {
   );
 };
 
-const HeaderLoggedContent = ({ userData, isLogged }: IHeaderProps) => {
-  const splitedName = userData?.name?.split(' ');
+const HeaderLoggedContent = ({
+  userName,
+  userImage,
+  isLogged,
+}: IHeaderProps) => {
+  const splitedName = userName?.split(' ');
   const initials: string =
     splitedName && splitedName.length >= 2
       ? splitedName[0][0] + splitedName[1][0]
@@ -102,12 +131,12 @@ const HeaderLoggedContent = ({ userData, isLogged }: IHeaderProps) => {
         alignItems={'center'}
         justifyContent={'center'}
       >
-        {userData?.profile_img ? (
+        {userImage ? (
           <Image
             borderRadius="full"
             boxSize={'32px'}
-            src={userData?.profile_img}
-            alt={userData?.name}
+            src={userImage}
+            alt={userName}
           />
         ) : (
           <Text fontWeight={'bold'} fontSize={18}>
@@ -115,7 +144,7 @@ const HeaderLoggedContent = ({ userData, isLogged }: IHeaderProps) => {
           </Text>
         )}
       </Box>
-      <Text variant={'body-1-400'}>{userData?.name}</Text>
+      <Text variant={'body-1-400'}>{userName}</Text>
     </HStack>
   ) : (
     <>

@@ -2,7 +2,11 @@ import { Flex } from '@chakra-ui/react';
 import ProductCard from '../productCard/ProductCard';
 import { useAdvertisementContext } from '@/contexts/advertisementContext';
 
-const CardList = ({ maxW = '1032px' }) => {
+interface iCardListProps {
+  maxW: string;
+}
+
+const CardList = ({ maxW }: iCardListProps) => {
   const { advertisements, filter, filterIsActive } = useAdvertisementContext();
 
   const filteredAdvertisements = advertisements?.filter((ad) => {

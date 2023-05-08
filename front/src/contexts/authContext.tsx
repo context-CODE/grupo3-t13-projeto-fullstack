@@ -21,6 +21,7 @@ import {
   useContext,
   useState,
 } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface iAuthContext {
   loading: boolean;
@@ -118,7 +119,40 @@ export const AuthProvider = ({ children }: iProviderProps) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setUser(data);
+      console.log(data);
+
+      setCookie(null, 'car.userName', data.name, {
+        maxAge: 60 * 60 * 24 * 3,
+        path: '/',
+      });
+
+      setCookie(null, 'car.userId', data.id, {
+        maxAge: 60 * 60 * 24 * 3,
+        path: '/',
+      });
+      setCookie(
+        null,
+        'car.userAdvertiser',
+        JSON.stringify(data.is_advertiser),
+        {
+          maxAge: 60 * 60 * 24 * 3,
+          path: '/',
+        }
+      );
+      setCookie(null, 'car.userImage', data.profile_img, {
+        maxAge: 60 * 60 * 24 * 3,
+        path: '/',
+      });
+      if (data.description) {
+        setCookie(null, 'car.userDescription', data.description, {
+          maxAge: 60 * 60 * 24 * 3,
+          path: '/',
+        });
+      }
+      setCookie(null, 'car.userId', data.phone_number, {
+        maxAge: 60 * 60 * 24 * 3,
+        path: '/',
+      });
     } catch (error) {
       console.log(error);
     }
@@ -173,6 +207,12 @@ export const AuthProvider = ({ children }: iProviderProps) => {
 
       setLoading(false);
     }
+  };
+
+  const handleLogout = () => {
+    removeCookie('token');
+    setUser({} as iUserRes);
+    router.push('/');
   };
 
   const updateUser = async (data: iUserReqUpdate) => {
