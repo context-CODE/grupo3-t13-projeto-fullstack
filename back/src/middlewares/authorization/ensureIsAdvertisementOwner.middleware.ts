@@ -1,11 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 import AppDataSource from "../../data-source";
 import Advertisement from "../../entities/advertisement.entity";
+import { iAdvertisementEntity } from "../../interfaces/advertisements.interface";
 
 const ensureIsAdvertisementOwner = async (req: Request, res: Response, next: NextFunction) => {
     const {paramsId} = req.params
 
-    const advertisementRepository = AppDataSource.getRepository(Advertisement)
+    const advertisementRepository:iAdvertisementEntity = AppDataSource.getRepository(Advertisement)
 
     const retrievedAdvertisement: Advertisement|null = await advertisementRepository.findOneBy({id: paramsId})
 
@@ -17,4 +18,5 @@ const ensureIsAdvertisementOwner = async (req: Request, res: Response, next: Nex
         message: "You do not have permission to edit an advertisement that is not yours."
     })
 }
+export default ensureIsAdvertisementOwner
 
