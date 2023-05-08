@@ -16,10 +16,11 @@ interface IPropsHome {
 }
 
 export const getServerSideProps: GetServerSideProps<IPropsHome> = async () => {
-  const res = await api.get('/advertisements?limit=12');
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const { data } = await api.get('/advertisements?limit=12');
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-  const advertisements: iAdvertisement[] = await res.data.advertisements;
+  const advertisements: iAdvertisement[] = await data.advertisements;
 
   return {
     props: {
@@ -30,6 +31,7 @@ export const getServerSideProps: GetServerSideProps<IPropsHome> = async () => {
 
 export default function Home({ advertisements }: IPropsHome) {
   const { setAdvertisements } = useAdvertisementContext();
+  const { filteredAdvertisements } = useAdvertisementContext();
 
   useEffect(() => {
     setAdvertisements(advertisements);
@@ -85,7 +87,10 @@ export default function Home({ advertisements }: IPropsHome) {
         </Flex>
         <Flex justifyContent={'space-between'} mx={'60px'} w={'100%'}>
           <FilterAdvertisements />
-          <CardList maxW={'1032px'} />
+          <CardList
+            maxW={'1032px'}
+            listAdvertisement={filteredAdvertisements}
+          />
         </Flex>
         <ControlPagination />
       </Flex>
