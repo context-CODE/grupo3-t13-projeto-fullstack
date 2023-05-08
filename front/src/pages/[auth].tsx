@@ -16,16 +16,8 @@ const AuthPage = () => {
     } else if (asPath.startsWith('/register')) {
       return <RegisterForm />;
     } else {
-      return <h1>Saiu da lógica</h1>; // voltar pra return null
+      return null;
     }
-    // switch (asPath) {
-    //   case '/login':
-    //     return <LoginForm />;
-    //   case '/register':
-    //     return <RegisterForm />;
-    //   default:
-    //     return <h1>Saiu da lógica</h1>; // voltar pra return null
-    // }
   };
 
   return (

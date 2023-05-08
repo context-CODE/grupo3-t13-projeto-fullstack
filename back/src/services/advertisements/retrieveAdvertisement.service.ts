@@ -14,7 +14,9 @@ const retrieveAdvertisementService = async (
     },
     relations: {
       user: true,
-      comments: true,
+      comments: {
+        user: true,
+      },
     },
   });
 
