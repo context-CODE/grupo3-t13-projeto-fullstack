@@ -12,7 +12,7 @@ import {
   iAdvertiser,
   useAdvertisementContext,
 } from '@/contexts/advertisementContext';
-import { useMemo } from 'react';
+import { useEffect } from 'react';
 
 interface iAdvertiserPage {
   advertiserData: iAdvertiser;
@@ -27,9 +27,10 @@ const AdvertiserPage = ({
   const { setAdvertisements } = useAdvertisementContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  useMemo(() => {
+  useEffect(() => {
     setAdvertisements(advertisementsData);
-  }, [advertisementsData, setAdvertisements]);
+  }, []);
+  // }, [advertisementsData, setAdvertisements]);
 
   if (router.isFallback) {
     return <div>Carregando ...</div>;
@@ -83,8 +84,6 @@ export async function getStaticProps({ params }) {
   const { id } = params;
 
   const { data } = await api.get(`/users/${id}/advertisements`);
-
-  console.log(data);
 
   const advertisementData: iAdvertisement[] | undefined = data.advertisements;
 

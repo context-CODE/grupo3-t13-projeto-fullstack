@@ -13,8 +13,6 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { useAuthContext } from '@/contexts/authContext';
-import { useEffect, useLayoutEffect } from 'react';
-import { parseCookies } from 'nookies';
 
 interface IHeaderProps {
   userName?: string;
@@ -28,27 +26,7 @@ interface ResponsiveMenuProps {
 
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // const { user } = useAuthContext();
-
-  const cookies = parseCookies();
-  const userName = cookies['car.userName'];
-  const userId = cookies['car.userId'];
-  const userImage = cookies['car.userImage'];
-
-  // useEffect(() => {
-  //   if (user) {
-  //     document.cookie = `car.userName=${user.name}`;
-  //     document.cookie = `car.userId=${user.id}`;
-  //     document.cookie = `car.userAdvertiser=${JSON.stringify(
-  //       user.is_advertiser
-  //     )}`;
-  //     document.cookie = `car.userImage=${user.profile_img}`;
-  //     if (user.description) {
-  //       document.cookie = `car.userDescription=${user.description}`;
-  //     }
-  //     document.cookie = `car.userPhoneNumber=${user.phone_number}`;
-  //   }
-  // }, [user]);
+  const { user } = useAuthContext();
 
   return (
     <Box
@@ -91,9 +69,9 @@ const Header = () => {
         pl={'44px'}
       >
         <HeaderLoggedContent
-          userName={userName}
-          userImage={userImage}
-          isLogged={userName && true}
+          userName={user.name}
+          userImage={user.profile_img}
+          isLogged={user.name && true}
         />
       </HStack>
       <Box

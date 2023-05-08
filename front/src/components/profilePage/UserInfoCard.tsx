@@ -1,7 +1,6 @@
 import { iAdvertiser } from '@/contexts/advertisementContext';
+import { useAuthContext } from '@/contexts/authContext';
 import { Button, Flex, Heading, Image, Tag, Text } from '@chakra-ui/react';
-import { parseCookies } from 'nookies';
-import { v4 as uuidv4 } from 'uuid';
 
 interface IUserInfoCardProps {
   advertiserData: iAdvertiser;
@@ -9,9 +8,7 @@ interface IUserInfoCardProps {
 }
 
 const UserInfoCard = ({ advertiserData, onOpen }: IUserInfoCardProps) => {
-  const cookies = parseCookies();
-  const user_id = cookies.userId;
-  const userId = uuidv4(user_id);
+  const { user } = useAuthContext();
 
   return (
     <Flex
@@ -45,7 +42,7 @@ const UserInfoCard = ({ advertiserData, onOpen }: IUserInfoCardProps) => {
           {advertiserData.description}
         </Text>
       </Flex>
-      {advertiserData.id === userId && (
+      {advertiserData.id === user.id && (
         <Button variant={'outline'} maxW={'160px'} onClick={() => onOpen()}>
           Criar anuncio
         </Button>

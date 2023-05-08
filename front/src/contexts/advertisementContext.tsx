@@ -42,6 +42,10 @@ interface iFilter {
 interface iAdvertisementContext {
   advertiserData: iAdvertiser;
   setAdvertiserData: Dispatch<SetStateAction<iAdvertiser>>;
+
+  userAds: iAdvertisement[] | undefined;
+  setUserAds: Dispatch<SetStateAction<iAdvertisement[] | undefined>>;
+
   advertisements: iAdvertisement[] | undefined;
   setAdvertisements: Dispatch<SetStateAction<iAdvertisement[] | undefined>>;
   brands: string[];
@@ -61,6 +65,7 @@ export const AdvertisementProvider = ({
   children,
 }: iAdvertisementProviderProps) => {
   const [advertisements, setAdvertisements] = useState<iAdvertisement[]>();
+  const [userAds, setUserAds] = useState<iAdvertisement[]>();
   const [filterIsActive, setFilterIsActive] = useState(false);
   const [advertiserData, setAdvertiserData] = useState({} as iAdvertiser);
   const [filter, setFilter] = useState<iFilter>({
@@ -124,6 +129,8 @@ export const AdvertisementProvider = ({
       value={{
         advertiserData,
         setAdvertiserData,
+        userAds,
+        setUserAds,
         advertisements,
         setAdvertisements,
         brands,
