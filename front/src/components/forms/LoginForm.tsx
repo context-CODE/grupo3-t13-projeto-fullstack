@@ -114,6 +114,7 @@ const LoginForm = () => {
             variant={'simple_2'}
             mt={'-10px'}
             alignSelf={'flex-end'}
+            href="/"
           >
             Esqueci minha senha
           </Link>

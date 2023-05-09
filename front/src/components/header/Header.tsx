@@ -33,7 +33,7 @@ const Header = () => {
 
   return (
     <Box
-      w={'100vw'}
+      w={'100%'}
       h={'80px'}
       bg={'grey.10'}
       borderBottom={'2px solid'}
