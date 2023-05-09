@@ -19,7 +19,6 @@ const AdvertiserPage = ({ advertiserData }: iAdvertiserPage) => {
   if (router.isFallback) {
     return <div>Carregando ...</div>;
   }
-  console.log(advertiserData);
 
   return (
     <>
