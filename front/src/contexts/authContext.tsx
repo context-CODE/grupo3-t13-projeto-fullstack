@@ -54,7 +54,7 @@ const AuthProvider = ({ children }: iProviderProps) => {
   const router = useRouter();
 
   useEffect(() => {
-    (async () => {
+    void (async () => {
       const token = nookies.get()['car.token'];
 
       if (token) {

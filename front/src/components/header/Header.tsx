@@ -16,6 +16,8 @@ import { useAuthContext } from '@/contexts/authContext';
 import ModalUpdateUser from '../modalUpdateUser';
 import ModalUpdateAddress from '../modalUpdateAddress';
 import { useState } from 'react';
+import NextLink from 'next/link';
+import { iUserRes } from '@/types/user.context';
 
 interface IHeaderProps {
   userName?: string;
@@ -25,6 +27,7 @@ interface IHeaderProps {
 
 interface ResponsiveMenuProps {
   isOpen: boolean;
+  user: iUserRes;
 }
 
 const Header = () => {
@@ -33,7 +36,7 @@ const Header = () => {
 
   return (
     <Box
-      w={'100vw'}
+      w={'100%'}
       h={'80px'}
       bg={'grey.10'}
       borderBottom={'2px solid'}
@@ -54,7 +57,7 @@ const Header = () => {
           bgGradient={'linear(to right,#0B0D0D, #4529E6)'}
           bgClip={'text'}
         >
-          <Link href="/">
+          <Link as={NextLink} href="/">
             <Image src="/assets/Motors-shop-header.svg" alt="header img" />
           </Link>
         </Box>
@@ -83,7 +86,7 @@ const Header = () => {
         justifyContent={'flex-end'}
         pr={'0'}
       >
-        <ResponsiveMenu isOpen={isOpen} />
+        <ResponsiveMenu user={user} isOpen={isOpen} />
       </Box>
     </Box>
   );
@@ -177,10 +180,15 @@ const HeaderLoggedContent = ({
     </>
   ) : (
     <>
-      <Link variant={'header'} href="/login">
+      <Link as={NextLink} variant={'header'} href="/login">
         Fazer Login
       </Link>
-      <Link variant={'btnOutlineGreyHeader'} px={'18px'} href="/register">
+      <Link
+        as={NextLink}
+        variant={'btnOutlineGreyHeader'}
+        px={'18px'}
+        href="/register"
+      >
         Cadastrar
       </Link>
     </>
@@ -200,17 +208,19 @@ const ResponsiveMenu = ({ isOpen }: ResponsiveMenuProps) => {
         gap={'18px'}
         p={'20px 12px'}
         m={0}
-        // position={'relative'}
-        // top={0}
-        // left={0}
       >
         <MenuItem bg={'grey.10'}>
-          <Link variant={'simple_1'} href="/login">
+          <Link as={NextLink} variant={'simple_1'} href="/login">
             Fazer Login
           </Link>
         </MenuItem>
         <MenuItem>
-          <Link variant={'btnOutlineGreyHeader'} w={'374px'} href="/register">
+          <Link
+            as={NextLink}
+            variant={'btnOutlineGreyHeader'}
+            w={'374px'}
+            href="/register"
+          >
             Cadastrar
           </Link>
         </MenuItem>

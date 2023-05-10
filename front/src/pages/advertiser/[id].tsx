@@ -4,33 +4,17 @@ import { Box, Flex, Heading, useDisclosure } from '@chakra-ui/react';
 import UserInfoCard from '@/components/profilePage/UserInfoCard';
 import ControlPagination from '@/components/controlPagination';
 import { ModalRegisterAd } from '@/components/modalRegisterAd';
-import ModalUpdateUser from '@/components/modalUpdateUser';
 import api from '@/services';
 import { useRouter } from 'next/router';
-import {
-  iAdvertisement,
-  iAdvertiser,
-  useAdvertisementContext,
-} from '@/contexts/advertisementContext';
-import { useEffect } from 'react';
+import { iAdvertiserWithAds } from '@/contexts/advertisementContext';
 
 interface iAdvertiserPage {
-  advertiserData: iAdvertiser;
-  advertisementsData: iAdvertisement[];
+  advertiserData: iAdvertiserWithAds;
 }
 
-const AdvertiserPage = ({
-  advertiserData,
-  advertisementsData,
-}: iAdvertiserPage) => {
+const AdvertiserPage = ({ advertiserData }: iAdvertiserPage) => {
   const router = useRouter();
-  const { setAdvertisements } = useAdvertisementContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  useEffect(() => {
-    setAdvertisements(advertisementsData);
-  }, []);
-  // }, [advertisementsData, setAdvertisements]);
 
   if (router.isFallback) {
     return <div>Carregando ...</div>;
@@ -43,7 +27,6 @@ const AdvertiserPage = ({
           p={0}
           position={'relative'}
           bg={'grey.50'}
-          // minH={'100vh'}
           w={'100%'}
           flexDirection={'column'}
           alignItems={'center'}
@@ -65,7 +48,10 @@ const AdvertiserPage = ({
           >
             Anúncios
           </Heading>
-          <CardList maxW="1392px" />
+          <CardList
+            maxW="1392px"
+            listAdvertisement={advertiserData.advertisements}
+          />
           <ControlPagination />
         </Flex>
       </LayoutPage>
@@ -83,16 +69,20 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const { id } = params;
 
-  const { data } = await api.get(`/users/${id}/advertisements`);
+  const { data: advertiserData }: iAdvertiserWithAds = await api.get(
+    `/users/${id}/advertisements`
+  );
+  // console.log(data);
 
-  const advertisementData: iAdvertisement[] | undefined = data.advertisements;
+  // const advertisementData: iAdvertisement[] | undefined = data.advertisements;
 
-  const advertiserData: iAdvertiser = data;
+  // console.log('na static props', advertisementData);
+
+  // const advertiserData: iAdvertiser = data;
 
   return {
     props: {
       advertiserData,
-      advertisementData,
     },
 
     revalidate: 1800,

@@ -16,6 +16,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuthContext } from '@/contexts/authContext';
 import { iLoginReq } from '@/types/auth.context';
 import { loginReqSchema } from '@/schemas/auth.schema';
+import NextLink from 'next/link';
 
 const LoginForm = () => {
   const { loginUser, loginError, loading } = useAuthContext();
@@ -108,7 +109,13 @@ const LoginForm = () => {
               </FormErrorMessage>
             )}
           </FormControl>
-          <Link variant={'simple_2'} mt={'-10px'} alignSelf={'flex-end'}>
+          <Link
+            as={NextLink}
+            variant={'simple_2'}
+            mt={'-10px'}
+            alignSelf={'flex-end'}
+            href="/"
+          >
             Esqueci minha senha
           </Link>
         </Flex>
@@ -116,10 +123,15 @@ const LoginForm = () => {
           <Button type="submit" variant={'default'}>
             {loading ? <Spinner size="sm" /> : 'Entrar'}
           </Button>
-          <Link variant={'simple_1'} href="/register" alignSelf={'center'}>
+          <Link
+            as={NextLink}
+            variant={'simple_1'}
+            href="/register"
+            alignSelf={'center'}
+          >
             Ainda não possui conta?
           </Link>
-          <Link variant={'btnOutlineGrey'} href="/register">
+          <Link as={NextLink} variant={'btnOutlineGrey'} href="/register">
             Cadastrar
           </Link>
         </Flex>
