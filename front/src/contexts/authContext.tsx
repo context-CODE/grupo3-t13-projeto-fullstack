@@ -53,15 +53,15 @@ const AuthProvider = ({ children }: iProviderProps) => {
   const toast = useToast();
   const router = useRouter();
 
-  useEffect(() => {
-    void (async () => {
-      const token = nookies.get()['car.token'];
+  // useEffect(() => {
+  //   void (async () => {
+  //     const token = nookies.get()['car.token'];
 
-      if (token) {
-        await getUserProfile(token);
-      }
-    })();
-  }, []);
+  //     if (token) {
+  //       await getUserProfile(token);
+  //     }
+  //   })();
+  // }, []);
 
   const setError = (
     errorResDataMessage: string | object,
