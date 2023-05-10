@@ -46,6 +46,15 @@ export interface iAdvertiser {
   description: string;
 }
 
+export interface iAdvertiserWithAds {
+  id: string;
+  name: string;
+  is_advertiser: boolean;
+  profile_img: string;
+  description: string;
+  advertisements: iAdvertisement[];
+}
+
 interface iFilter {
   brand: string;
   model: string;

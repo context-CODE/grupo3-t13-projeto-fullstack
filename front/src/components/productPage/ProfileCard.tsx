@@ -1,12 +1,6 @@
 import { useAdvertisementContext } from '@/contexts/advertisementContext';
-import {
-  Avatar,
-  Button,
-  Card,
-  CardBody,
-  Heading,
-  Text,
-} from '@chakra-ui/react';
+import { Avatar, Card, CardBody, Heading, Text, Link } from '@chakra-ui/react';
+import NextLink from 'next/link';
 
 const ProfileCard = () => {
   const { currentAdvertisement } = useAdvertisementContext();
@@ -32,7 +26,14 @@ const ProfileCard = () => {
         <Text variant={'body-1-400'} textAlign="center">
           {currentAdvertisement?.user?.description}
         </Text>
-        <Button variant={'darkGrey'}>Ver todos anúncios</Button>
+        <Link
+          as={NextLink}
+          variant={'btnOutlineGrey'}
+          px="16px"
+          href={`/advertiser/${currentAdvertisement?.user?.id as string}`}
+        >
+          Ver todos anúncios
+        </Link>
       </CardBody>
     </Card>
   );

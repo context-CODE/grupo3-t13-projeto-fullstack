@@ -5,6 +5,7 @@ import {
   CardBody,
   CardFooter,
   Flex,
+  Link,
   HStack,
   Heading,
   Image,
@@ -12,7 +13,7 @@ import {
   Tag,
   Text,
 } from '@chakra-ui/react';
-import Link from 'next/link';
+import NextLink from 'next/link';
 
 interface IProductCardsProps {
   advertisement: iAdvertisement;
@@ -20,7 +21,11 @@ interface IProductCardsProps {
 
 const ProductCard = ({ advertisement }: IProductCardsProps) => {
   return (
-    <Link href={`advertisements/${advertisement.id}`}>
+    <Link
+      as={NextLink}
+      href={`/advertisements/${advertisement.id}`}
+      _hover={{ textDecor: 'unset' }}
+    >
       <Card
         display={'flex'}
         flexDirection={'column'}
