@@ -195,8 +195,6 @@ export const ModalRegisterAd = ({
 
   return (
     <>
-      <Button onClick={onOpen}>Open Modal</Button>
-
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -208,7 +206,7 @@ export const ModalRegisterAd = ({
 
             <ModalBody>
               <Text variant="body-2-500" mb="16px">
-                Infomações do veículo
+                Informações do veículo
               </Text>
 
               <VStack>

@@ -47,9 +47,6 @@ const UserInfoCard = ({ advertiserData, onOpen }: IUserInfoCardProps) => {
           Criar anuncio
         </Button>
       )}
-      {/* <Button variant={'outline'} maxW={'160px'} onClick={() => onOpen()}>
-        Editar perfil
-      </Button> */}
     </Flex>
   );
 };
