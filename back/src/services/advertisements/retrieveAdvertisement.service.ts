@@ -18,6 +18,13 @@ const retrieveAdvertisementService = async (
         user: true,
       },
     },
+    order: {
+      comments: {
+        created_at: {
+          direction: "asc",
+        },
+      },
+    },
   });
 
   const advertisement = advertisementResSchema.parse(findAdvertisement);
