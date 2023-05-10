@@ -40,6 +40,7 @@ export interface iAuthContext {
   setAvatar: React.Dispatch<React.SetStateAction<string | ''>>;
   loginError: object;
   setLoginError: Dispatch<SetStateAction<object>>;
+  removeEmptyProperties: (obj: object) => { [k: string]: any };
 }
 
 const AuthContext = createContext<iAuthContext>({} as iAuthContext);
@@ -53,15 +54,19 @@ const AuthProvider = ({ children }: iProviderProps) => {
   const toast = useToast();
   const router = useRouter();
 
-  // useEffect(() => {
-  //   void (async () => {
-  //     const token = nookies.get()['car.token'];
+  function removeEmptyProperties(obj: object) {
+    return Object.fromEntries(Object.entries(obj).filter(([_, v]) => v != ''));
+  }
 
-  //     if (token) {
-  //       await getUserProfile(token);
-  //     }
-  //   })();
-  // }, []);
+  useEffect(() => {
+    void (async () => {
+      const token = nookies.get()['car.token'];
+
+      if (token) {
+        await getUserProfile(token);
+      }
+    })();
+  }, []);
 
   const setError = (
     errorResDataMessage: string | object,
@@ -319,6 +324,7 @@ const AuthProvider = ({ children }: iProviderProps) => {
         setAvatar,
         loginError,
         setLoginError,
+        removeEmptyProperties,
       }}
     >
       {children}

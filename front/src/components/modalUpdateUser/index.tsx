@@ -21,15 +21,16 @@ interface iModalUpdateUserProps {
 }
 
 const ModalUpdateUser = ({ isOpen, onClose }: iModalUpdateUserProps) => {
+  const { updateUser, deleteUser, user } = useAuthContext();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<iUserReqUpdate>({
     resolver: zodResolver(usersReqUpdateSchema),
+    defaultValues: { ...user },
   });
-
-  const { updateUser, deleteUser } = useAuthContext();
 
   const submit = async (formData: iUserReqUpdate) => {
     console.log(formData);

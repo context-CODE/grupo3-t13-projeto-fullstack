@@ -119,38 +119,8 @@ const HeaderLoggedContent = ({
 
   return isLogged ? (
     <>
-      {/* <HStack _hover={{ cursor: 'pointer' }}>
-        <Box
-          bg={'brand.300'}
-          w={'32px'}
-          h={'32px'}
-          color={'white'}
-          borderRadius={'180px'}
-          display={'flex'}
-          alignItems={'center'}
-          justifyContent={'center'}
-        >
-          {userImage ? (
-            <Image
-              borderRadius="full"
-              boxSize={'32px'}
-              src={userImage}
-              alt={userName}
-            />
-          ) : (
-            <Text fontWeight={'bold'} fontSize={18}>
-              {initials}
-            </Text>
-          )}
-        </Box>
-        <Text variant={'body-1-400'}>{userName}</Text>
-      </HStack> */}
       <Menu>
-        <MenuButton
-          as={Button}
-          rightIcon={<HamburgerIcon />}
-          borderRadius="full"
-        >
+        <MenuButton boxSize={'32px'}>
           {userImage ? (
             <Image
               borderRadius="full"
@@ -169,7 +139,7 @@ const HeaderLoggedContent = ({
           <MenuItem onClick={onOpenUpdateUser}>Editar Perfil</MenuItem>
           <MenuItem onClick={onOpenUpdateAddress}>Editar Endereço</MenuItem>
           <MenuItem>Meus Anúncios</MenuItem>
-          <MenuItem onClick={handleLogout}>Sair</MenuItem>
+          <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </MenuList>
       </Menu>
       <ModalUpdateUser isOpen={isOpenUpdateUser} onClose={onCloseUpdateUser} />

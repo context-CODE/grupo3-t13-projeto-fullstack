@@ -15,7 +15,7 @@ const usersReqUpdateSchema = z.object({
   birthdate: z
     .string()
     .refine((value) => {
-      return !value || /^(\d{2})[-\/](\d{2})[-\/](\d{4})$/.test(value);
+      return !value || /^(\d{4})[-\/](\d{2})[-\/](\d{2})$/.test(value);
     })
     .optional(),
   description: z.string().optional(),
