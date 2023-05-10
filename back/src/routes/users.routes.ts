@@ -17,6 +17,8 @@ import resetPasswordController from "../controllers/users/resetPassword.controll
 import retrieveUserAdvertisementsController from "../controllers/users/retrieveUserAdvertisements.controller";
 
 import deleteUserController from "../controllers/users/deleteUser.controller";
+import { addressReqUpdateSchema } from "../schemas/addresses.schema";
+import updateAddressController from "../controllers/addresses/updateAddress.controller";
 
 
 const usersRoutes = Router();
@@ -26,12 +28,20 @@ usersRoutes.post(
     ensureIsValidDataMiddleware(usersReqSchema),
     createUserController
     );
+
 usersRoutes.patch(
     "/:id", 
     ensureAuthMiddleware,
     ensureIsValidDataMiddleware(usersReqUpdateSchema), 
     updateUserController
     );
+
+usersRoutes.patch(
+  "/:id/address", 
+  ensureAuthMiddleware,
+  ensureIsValidDataMiddleware(addressReqUpdateSchema), 
+  updateAddressController
+  );
 
 usersRoutes.post(
   "/resetPassword",

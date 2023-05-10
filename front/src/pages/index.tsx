@@ -15,21 +15,21 @@ interface IPropsHome {
   advertisements: iAdvertisement[];
 }
 
-export const getServerSideProps: GetServerSideProps<IPropsHome> = async () => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const { data } = await api.get('/advertisements?limit=12');
+// export const getServerSideProps: GetServerSideProps<IPropsHome> = async () => {
+//   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+//   const { data } = await api.get('/advertisements?limit=12');
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-  const advertisements: iAdvertisement[] = await data.advertisements;
+//   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+//   const advertisements: iAdvertisement[] = await data.advertisements;
 
-  return {
-    props: {
-      advertisements: advertisements,
-    },
-  };
-};
+//   return {
+//     props: {
+//       advertisements: advertisements,
+//     },
+//   };
+// };
 
-export default function Home({ advertisements }: IPropsHome) {
+const Home = ({ advertisements }: IPropsHome) => {
   const { setAdvertisements } = useAdvertisementContext();
   const { filteredAdvertisements } = useAdvertisementContext();
 
@@ -96,4 +96,5 @@ export default function Home({ advertisements }: IPropsHome) {
       </Flex>
     </LayoutPage>
   );
-}
+};
+export default Home;

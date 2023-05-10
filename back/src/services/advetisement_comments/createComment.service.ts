@@ -3,7 +3,7 @@ import Advertisement from "../../entities/advertisement.entity";
 import Comment from "../../entities/comments.entity";
 import User from "../../entities/user.entity";
 import { iAdvertisementEntity } from "../../interfaces/advertisements.interface";
-import { iCommentReq, iCommentRes } from "../../interfaces/comments.interface";
+import { iCommentEntity, iCommentReq, iCommentRes } from "../../interfaces/comments.interface";
 import { iUserEntity } from "../../interfaces/users.interface";
 import { commentResSchema } from "../../schemas/comments.schema";
 import { Repository } from "typeorm";
@@ -13,7 +13,7 @@ const createCommentService = async (
   userId: string,
   commentData: iCommentReq
 ): Promise<iCommentRes> => {
-  const commentRepository: Repository<Comment> =
+  const commentRepository: iCommentEntity =
     AppDataSource.getRepository(Comment);
   const advertisementRepository: iAdvertisementEntity =
     AppDataSource.getRepository(Advertisement);

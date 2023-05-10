@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import api from '@/services/index';
 import axios from 'axios';
 
@@ -19,6 +20,7 @@ import {
   useEffect,
   useState,
 } from 'react';
+import { iAddressReqUpdate, iAddressRes } from '@/types/address.context';
 import nookies from 'nookies';
 
 export interface iAuthContext {
@@ -27,24 +29,34 @@ export interface iAuthContext {
   registerUser: (data: iRegisterFormData) => Promise<void>;
   getUserProfile: (token: string) => Promise<void>;
   updateUser: (data: iUserReqUpdate) => Promise<void>;
+  deleteUser: () => Promise<void>;
+  updateAddress: (data: iAddressReqUpdate) => Promise<void>;
   loginUser: (data: iLoginReq, callback: () => void) => Promise<void>;
   user: iUserRes;
   setUser: React.Dispatch<React.SetStateAction<iUserRes>>;
+  address: iAddressRes;
+  setAddress: React.Dispatch<React.SetStateAction<iAddressRes>>;
   avatar: string;
   setAvatar: React.Dispatch<React.SetStateAction<string | ''>>;
   loginError: object;
   setLoginError: Dispatch<SetStateAction<object>>;
+  removeEmptyProperties: (obj: object) => { [k: string]: any };
 }
 
 const AuthContext = createContext<iAuthContext>({} as iAuthContext);
 
-export const AuthProvider = ({ children }: iProviderProps) => {
+const AuthProvider = ({ children }: iProviderProps) => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({} as iUserRes);
+  const [address, setAddress] = useState({} as iAddressRes);
   const [avatar, setAvatar] = useState('');
   const [loginError, setLoginError] = useState({});
   const toast = useToast();
   const router = useRouter();
+
+  function removeEmptyProperties(obj: object) {
+    return Object.fromEntries(Object.entries(obj).filter(([_, v]) => v != ''));
+  }
 
   useEffect(() => {
     void (async () => {
@@ -185,16 +197,18 @@ export const AuthProvider = ({ children }: iProviderProps) => {
   };
 
   // const handleLogout = () => {
-  //   removeCookie('token');
+  //   removeCookie('car.token');
   //   setUser({} as iUserRes);
   //   router.push('/');
   // };
 
   const updateUser = async (data: iUserReqUpdate) => {
     try {
+      const token = nookies.get()['car.token'];
       const updatedUser: iUserRes = await api.patch(`/users/${user.id}`, data, {
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
       toast({
@@ -210,12 +224,82 @@ export const AuthProvider = ({ children }: iProviderProps) => {
             fontWeight={'bold'}
             borderRadius={'md'}
           >
-            Update successfully completed!
+            User updated with success!
           </Box>
         ),
       });
       setUser(updatedUser);
-      await router.push('/');
+      await router.push('/profile');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteUser = async () => {
+    try {
+      const token = nookies.get()['car.token'];
+      await api.delete(`/users/${user.id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      toast({
+        title: 'success',
+        variant: 'solid',
+        position: 'top-right',
+        isClosable: true,
+        render: () => (
+          <Box
+            color={'gray.50'}
+            p={3}
+            bg={'green.600'}
+            fontWeight={'bold'}
+            borderRadius={'md'}
+          >
+            User deleted with success!
+          </Box>
+        ),
+      });
+      setUser({});
+      await router.push('/profile');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateAddress = async (data: iAddressReqUpdate) => {
+    try {
+      const token = nookies.get()['car.token'];
+      const updatedAddress: iAddressRes = await api.patch(
+        `/users/${user.id}/address`,
+        data,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast({
+        title: 'success',
+        variant: 'solid',
+        position: 'top-right',
+        isClosable: true,
+        render: () => (
+          <Box
+            color={'gray.50'}
+            p={3}
+            bg={'green.600'}
+            fontWeight={'bold'}
+            borderRadius={'md'}
+          >
+            Address updated with success!!
+          </Box>
+        ),
+      });
+      setAddress(updatedAddress);
+      await router.push('/profile');
     } catch (error) {
       console.log(error);
     }
@@ -229,18 +313,24 @@ export const AuthProvider = ({ children }: iProviderProps) => {
         registerUser,
         getUserProfile,
         updateUser,
+        deleteUser,
         loginUser,
+        updateAddress,
         user,
         setUser,
+        address,
+        setAddress,
         avatar,
         setAvatar,
         loginError,
         setLoginError,
+        removeEmptyProperties,
       }}
     >
       {children}
     </AuthContext.Provider>
   );
 };
+export default AuthProvider;
 
 export const useAuthContext = () => useContext(AuthContext);
