@@ -13,6 +13,8 @@ import ensurePaginationMiddleware from "../middlewares/pagination/ensurePaginati
 import ensureAuthMiddleware from "../middlewares/authentication/ensureAuth.middleware";
 import { commentReqSchema } from "../schemas/comments.schema";
 import createCommentController from "../controllers/comments/createComment.controller";
+import updateCommentController from "../controllers/comments/updateComment.controller";
+import deleteCommentController from "../controllers/comments/deleteComment.controller";
 
 const advertisementRouter = Router();
 
@@ -21,6 +23,17 @@ advertisementRouter.post(
   ensureAuthMiddleware,
   ensureIsValidDataMiddleware(commentReqSchema),
   createCommentController
+);
+advertisementRouter.patch(
+  "/:ad_id/comments/:comment_id",
+  ensureAuthMiddleware,
+  ensureIsValidDataMiddleware(commentReqSchema),
+  updateCommentController
+);
+advertisementRouter.delete(
+  "/:ad_id/comments/:comment_id",
+  ensureAuthMiddleware,
+  deleteCommentController
 );
 
 advertisementRouter.post(

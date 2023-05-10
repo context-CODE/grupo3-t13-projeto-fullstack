@@ -70,10 +70,8 @@ interface iFilter {
 interface iAdvertisementContext {
   advertiserData: iAdvertiser;
   setAdvertiserData: Dispatch<SetStateAction<iAdvertiser>>;
-
   userAds: iAdvertisement[] | undefined;
   setUserAds: Dispatch<SetStateAction<iAdvertisement[] | undefined>>;
-
   advertisements: iAdvertisement[] | undefined;
   filteredAdvertisements: iAdvertisement[] | undefined;
   setAdvertisements: Dispatch<SetStateAction<iAdvertisement[] | undefined>>;
@@ -88,6 +86,12 @@ interface iAdvertisementContext {
     comment: string,
     adId: string | string[] | undefined
   ): Promise<void>;
+  editComment(
+    adId: string | undefined,
+    commentId: string,
+    newComment: string
+  ): Promise<void>;
+  deleteComment(adId: string | undefined, commentId: string): Promise<void>;
 }
 
 interface iAdvertisementProviderProps {
@@ -236,6 +240,59 @@ export const AdvertisementProvider = ({
     }
   };
 
+  const editComment = async (
+    adId: string | undefined,
+    commentId: string,
+    newComment: string
+  ) => {
+    try {
+      const token = nookies.get()['car.token'];
+
+      await api.patch(
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+        `advertisements/${adId}/comments/${commentId}`,
+        {
+          comment: newComment,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      const { data } = await api.get<iAdvertisement>(`/advertisements/${adId}`);
+
+      setCurrentAdvertisement(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteComment = async (adId: string, commentId: string) => {
+    try {
+      const token = nookies.get()['car.token'];
+
+      await api.delete(
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+        `advertisements/${adId}/comments/${commentId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      const { data } = await api.get<iAdvertisement>(`/advertisements/${adId}`);
+
+      setCurrentAdvertisement(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AdvertisementContext.Provider
       value={{
@@ -254,6 +311,8 @@ export const AdvertisementProvider = ({
         setCurrentAdvertisement,
         addCommentAd,
         filteredAdvertisements,
+        editComment,
+        deleteComment,
       }}
     >
       {children}

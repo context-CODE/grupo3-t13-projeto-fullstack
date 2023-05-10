@@ -21,7 +21,11 @@ interface IProductCardsProps {
 
 const ProductCard = ({ advertisement }: IProductCardsProps) => {
   return (
-    <Link as={NextLink} href={`/advertisements/${advertisement.id}`}>
+    <Link
+      as={NextLink}
+      href={`/advertisements/${advertisement.id}`}
+      _hover={{ textDecor: 'unset' }}
+    >
       <Card
         display={'flex'}
         flexDirection={'column'}
