@@ -1,9 +1,10 @@
 import AppDataSource from "../../data-source";
 import User from "../../entities/user.entity";
 import AppError from "../../errors/AppError";
+import { iUserEntity } from "../../interfaces/users.interface";
 
 const retrieveUserService = async (userId: string): Promise<User> => {
-  const userRepository = AppDataSource.getRepository(User);
+  const userRepository:iUserEntity = AppDataSource.getRepository(User);
 
   const user = await userRepository.findOne({
     where: {

@@ -23,6 +23,13 @@ const listAdvertisementService = async (
         user: true,
       },
     },
+    order: {
+      comments: {
+        created_at: {
+          direction: "asc",
+        },
+      },
+    },
   });
 
   if (pagination.offset == 0) {

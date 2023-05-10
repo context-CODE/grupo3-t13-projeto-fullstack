@@ -1,11 +1,11 @@
 import AppDataSource from "../../data-source";
 import User from "../../entities/user.entity";
 import AppError from "../../errors/AppError";
-import { iUserReqUpdate, iUserRes } from "../../interfaces/users.interface";
+import { iUserEntity, iUserReqUpdate, iUserRes } from "../../interfaces/users.interface";
 import { usersResUpdateSchema } from "../../schemas/users.schema";
 
 const updateUserService = async (updateData: iUserReqUpdate, userId: string): Promise<iUserRes> => {
-    const userRepository = AppDataSource.getRepository(User)
+    const userRepository:iUserEntity = AppDataSource.getRepository(User)
     const user = await userRepository.findOne({
         where: {
             id: userId
@@ -13,7 +13,7 @@ const updateUserService = async (updateData: iUserReqUpdate, userId: string): Pr
     })
 
     if (!user) {
-        throw new AppError("Id inválido", 404)
+        throw new AppError("Invalid id", 404)
     }
     
     const updatedUserObject = {

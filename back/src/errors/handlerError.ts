@@ -22,7 +22,7 @@ const handleError = async (
   console.error(err);
 
   return res.status(500).send({
-    message: "Internal server error",
+    message: `Internal server error: ${err.message}`,
   });
 };
 

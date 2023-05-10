@@ -56,7 +56,11 @@ const RegisterForm = () => {
         <FormControl isRequired margin={'20px 0 20px 0'}>
           <FormLabel>Nome</FormLabel>
           <Input placeholder="Ex: Samuel Leão" {...register('name')} />
-          {errors.name && <Text color={'red'}>{errors.name.message}</Text>}
+          {errors.name && (
+            <Text color={'red'} fontSize={'14px'}>
+              {errors.name.message}
+            </Text>
+          )}
         </FormControl>
 
         <FormControl isRequired margin={'20px 0 20px 0'}>
@@ -66,7 +70,9 @@ const RegisterForm = () => {
             {...register('profile_img')}
           />
           {errors.profile_img && (
-            <Text color={'red'}>{errors.profile_img.message}</Text>
+            <Text color={'red'} fontSize={'14px'}>
+              {errors.profile_img.message}
+            </Text>
           )}
         </FormControl>
 
@@ -76,20 +82,30 @@ const RegisterForm = () => {
             placeholder="Ex: samuel@kenzie.com.br"
             {...register('email')}
           />
-          {errors.email && <Text color={'red'}>{errors.email.message}</Text>}
+          {errors.email && (
+            <Text color={'red'} fontSize={'14px'}>
+              {errors.email.message}
+            </Text>
+          )}
         </FormControl>
 
         <FormControl isRequired margin={'20px 0 20px 0'}>
           <FormLabel>CPF</FormLabel>
           <Input placeholder="000.000.000-00" {...register('cpf')} />
-          {errors.cpf && <Text color={'red'}>{errors.cpf.message}</Text>}
+          {errors.cpf && (
+            <Text color={'red'} fontSize={'14px'}>
+              {errors.cpf.message}
+            </Text>
+          )}
         </FormControl>
 
         <FormControl isRequired margin={'20px 0 20px 0'}>
           <FormLabel>Celular</FormLabel>
           <Input placeholder="(DDD) 90000-0000" {...register('phone_number')} />
           {errors.phone_number && (
-            <Text color={'red'}>{errors.phone_number.message}</Text>
+            <Text color={'red'} fontSize={'14px'}>
+              {errors.phone_number.message}
+            </Text>
           )}
         </FormControl>
 
@@ -97,7 +113,9 @@ const RegisterForm = () => {
           <FormLabel>Data de nascimento</FormLabel>
           <Input placeholder="00/00/00" {...register('birthdate')} />
           {errors.birthdate && (
-            <Text color={'red'}>{errors.birthdate.message}</Text>
+            <Text color={'red'} fontSize={'14px'}>
+              {errors.birthdate.message}
+            </Text>
           )}
         </FormControl>
 
@@ -110,7 +128,9 @@ const RegisterForm = () => {
           size={'sm'}
         />
         {errors.description && (
-          <Text color={'red'}>{errors.description.message}</Text>
+          <Text color={'red'} fontSize={'14px'}>
+            {errors.description.message}
+          </Text>
         )}
 
         <Heading variant={'Heading-5-500'} margin={'40px 0 20px 0'}>
@@ -121,7 +141,9 @@ const RegisterForm = () => {
           <FormLabel>CEP</FormLabel>
           <Input placeholder="00000-000" {...register('address.zip_code')} />
           {errors.address?.zip_code && (
-            <Text color={'red'}>{errors.address?.zip_code.message}</Text>
+            <Text color={'red'} fontSize={'14px'}>
+              {errors.address?.zip_code.message}
+            </Text>
           )}
         </FormControl>
 
@@ -140,7 +162,9 @@ const RegisterForm = () => {
               {...register('address.state')}
             />
             {errors.address?.state && (
-              <Text color={'red'}>{errors.address?.state.message}</Text>
+              <Text color={'red'} fontSize={'14px'}>
+                {errors.address?.state.message}
+              </Text>
             )}
           </FormControl>
 
@@ -148,7 +172,9 @@ const RegisterForm = () => {
             <FormLabel>Cidade</FormLabel>
             <Input placeholder="Digitar cidade" {...register('address.city')} />
             {errors.address?.city && (
-              <Text color={'red'}>{errors.address?.city.message}</Text>
+              <Text color={'red'} fontSize={'14px'}>
+                {errors.address?.city.message}
+              </Text>
             )}
           </FormControl>
         </Box>
@@ -157,7 +183,9 @@ const RegisterForm = () => {
           <FormLabel>Rua</FormLabel>
           <Input placeholder="Digitar rua" {...register('address.street')} />
           {errors.address?.street && (
-            <Text color={'red'}>{errors.address?.street.message}</Text>
+            <Text color={'red'} fontSize={'14px'}>
+              {errors.address?.street.message}
+            </Text>
           )}
         </FormControl>
 
@@ -173,7 +201,9 @@ const RegisterForm = () => {
             <FormLabel>Número</FormLabel>
             <Input placeholder="000" {...register('address.number')} />
             {errors.address?.number && (
-              <Text color={'red'}>{errors.address?.number.message}</Text>
+              <Text color={'red'} fontSize={'14px'}>
+                {errors.address?.number.message}
+              </Text>
             )}
           </FormControl>
 
@@ -184,7 +214,9 @@ const RegisterForm = () => {
               {...register('address.complement')}
             />
             {errors.address?.complement && (
-              <Text color={'red'}>{errors.address?.complement.message}</Text>
+              <Text color={'red'} fontSize={'14px'}>
+                {errors.address?.complement.message}
+              </Text>
             )}
           </FormControl>
         </Box>
@@ -220,7 +252,9 @@ const RegisterForm = () => {
           <FormLabel>Senha</FormLabel>
           <Input placeholder="Digitar senha" {...register('password')} />
           {errors.password && (
-            <Text color={'red'}>{errors.password.message}</Text>
+            <Text color={'red'} fontSize={'14px'}>
+              {errors.password.message}
+            </Text>
           )}
         </FormControl>
 
@@ -231,7 +265,9 @@ const RegisterForm = () => {
             {...register('confirm_password')}
           />
           {errors.confirm_password && (
-            <Text color={'red'}>{errors.confirm_password.message}</Text>
+            <Text color={'red'} fontSize={'14px'}>
+              {errors.confirm_password.message}
+            </Text>
           )}
         </FormControl>
 

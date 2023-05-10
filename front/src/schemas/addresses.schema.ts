@@ -6,7 +6,7 @@ const addressReqSchema = z.object({
   city: z.string().max(25),
   street: z.string().max(40),
   number: z.string().transform((value) => Number(value)),
-  complement: z.string().max(128).nullable(),
+  complement: z.string().max(128),
 });
 
 const addressReqUpdateSchema = addressReqSchema.partial();

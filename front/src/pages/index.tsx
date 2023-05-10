@@ -29,7 +29,7 @@ export const getServerSideProps: GetServerSideProps<IPropsHome> = async () => {
   };
 };
 
-export default function Home({ advertisements }: IPropsHome) {
+const Home = ({ advertisements }: IPropsHome) => {
   const { setAdvertisements } = useAdvertisementContext();
   const { filteredAdvertisements } = useAdvertisementContext();
 
@@ -110,4 +110,5 @@ export default function Home({ advertisements }: IPropsHome) {
       </Flex>
     </LayoutPage>
   );
-}
+};
+export default Home;

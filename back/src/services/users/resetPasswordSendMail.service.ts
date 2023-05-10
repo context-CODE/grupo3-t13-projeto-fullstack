@@ -3,14 +3,15 @@ import AppDataSource from "../../data-source";
 import User from "../../entities/user.entity";
 import AppError from "../../errors/AppError";
 import { getTemplateMail, sendMail } from "../../utils/sendMail.utils";
+import { iUserEntity } from "../../interfaces/users.interface";
 
 const resetPasswordSendMailService = async (
   email: string,
   protocol: string,
   host: string
 ): Promise<void> => {
-  const userRepo = AppDataSource.getRepository(User);
-  const user = await userRepo.findOneBy({
+  const userRepository:iUserEntity = AppDataSource.getRepository(User);
+  const user = await userRepository.findOneBy({
     email,
   });
 
@@ -20,7 +21,7 @@ const resetPasswordSendMailService = async (
 
   const resetToken = randomUUID();
 
-  await userRepo.update(
+  await userRepository.update(
     {
       email: user.email,
     },

@@ -6,23 +6,20 @@ const ProfileCard = () => {
   const { currentAdvertisement } = useAdvertisementContext();
   return (
     <Card
-      minW={'270px'}
       display={'flex'}
       flexDirection={'column'}
       alignItems={'center'}
-      gap={7}
-      paddingY={{ base: 10, md: 9, lg: 9 }}
-      borderRadius={4}
+      borderRadius="base"
     >
-      <Avatar name={currentAdvertisement?.user?.name} />
       <CardBody
         display={'flex'}
         flexDirection={'column'}
         alignItems={'center'}
-        justifyContent={'space-between'}
-        paddingY={0}
-        gap={{ base: 7, md: 8, lg: 8 }}
+        p="0"
+        py="16px"
+        gap="16px"
       >
+        <Avatar name={currentAdvertisement?.user?.name} />
         <Heading variant={'Heading-6-600'}>
           {currentAdvertisement?.user?.name}
         </Heading>
@@ -32,6 +29,7 @@ const ProfileCard = () => {
         <Link
           as={NextLink}
           variant={'btnOutlineGrey'}
+          px="16px"
           href={`/advertiser/${currentAdvertisement?.user?.id as string}`}
         >
           Ver todos anúncios

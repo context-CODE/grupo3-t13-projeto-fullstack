@@ -35,7 +35,11 @@ const ProductCard = ({ advertisement, advertiser }: IProductCardsProps) => {
       shadow={'none'}
       bgColor={'transparent'}
     >
-      <Link as={NextLink} href={`/advertisements/${advertisement.id}`}>
+      <Link
+        as={NextLink}
+        href={`/advertisements/${advertisement.id}`}
+        _hover={{ textDecor: 'unset' }}
+      >
         <CardBody p={0} m={0}>
           <Image
             src={advertisement.image}
@@ -75,7 +79,7 @@ const ProductCard = ({ advertisement, advertiser }: IProductCardsProps) => {
                   RP
                 </Text>
               </Flex>
-              <Text variant={'body-2-500'}>User Shop</Text>
+              <Text variant={'body-2-500'}>{advertisement.user.name}</Text>
             </HStack>
           </Stack>
         </CardBody>

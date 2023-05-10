@@ -1,12 +1,12 @@
 import AppDataSource from "../../data-source";
 import Advertisement from "../../entities/advertisement.entity";
-import { iAdvertisementRes } from "../../interfaces/advertisements.interface";
+import { iAdvertisementEntity, iAdvertisementRes } from "../../interfaces/advertisements.interface";
 import { advertisementResSchema } from "../../schemas/advertisement.schema";
 
 const retrieveAdvertisementService = async (
   id: string
 ): Promise<iAdvertisementRes> => {
-  const advertisementRepository = AppDataSource.getRepository(Advertisement);
+  const advertisementRepository: iAdvertisementEntity = AppDataSource.getRepository(Advertisement);
 
   const findAdvertisement = await advertisementRepository.findOne({
     where: {
@@ -16,6 +16,13 @@ const retrieveAdvertisementService = async (
       user: true,
       comments: {
         user: true,
+      },
+    },
+    order: {
+      comments: {
+        created_at: {
+          direction: "asc",
+        },
       },
     },
   });
