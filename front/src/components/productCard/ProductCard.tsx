@@ -1,4 +1,5 @@
-import { iAdvertisement } from '@/contexts/advertisementContext';
+import { iAdvertisement, iAdvertiser } from '@/contexts/advertisementContext';
+import { useAuthContext } from '@/contexts/authContext';
 import {
   Box,
   Card,
@@ -12,26 +13,29 @@ import {
   Stack,
   Tag,
   Text,
+  Button,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
 interface IProductCardsProps {
   advertisement: iAdvertisement;
+  advertiser?: iAdvertiser;
 }
 
-const ProductCard = ({ advertisement }: IProductCardsProps) => {
+const ProductCard = ({ advertisement, advertiser }: IProductCardsProps) => {
+  const { user } = useAuthContext();
   return (
-    <Link as={NextLink} href={`/advertisements/${advertisement.id}`}>
-      <Card
-        display={'flex'}
-        flexDirection={'column'}
-        minW={'312px'}
-        w={'312px'}
-        maxH={'350px'}
-        rowGap={'16px'}
-        shadow={'none'}
-        bgColor={'transparent'}
-      >
+    <Card
+      display={'flex'}
+      flexDirection={'column'}
+      minW={'312px'}
+      w={'312px'}
+      maxH={'350px'}
+      rowGap={'16px'}
+      shadow={'none'}
+      bgColor={'transparent'}
+    >
+      <Link as={NextLink} href={`/advertisements/${advertisement.id}`}>
         <CardBody p={0} m={0}>
           <Image
             src={advertisement.image}
@@ -89,8 +93,18 @@ const ProductCard = ({ advertisement }: IProductCardsProps) => {
             </Text>
           </HStack>
         </CardFooter>
-      </Card>
-    </Link>
+      </Link>
+      {advertiser?.id === user.id && (
+        <Flex gap={'16px'}>
+          <Button variant={'outlineDark'} px={'20px'}>
+            Editar
+          </Button>
+          <Button variant={'outlineDark'} px={'20px'}>
+            Ver Detalhes
+          </Button>
+        </Flex>
+      )}
+    </Card>
   );
 };
 

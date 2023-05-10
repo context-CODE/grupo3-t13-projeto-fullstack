@@ -51,6 +51,7 @@ const AdvertiserPage = ({ advertiserData }: iAdvertiserPage) => {
           <CardList
             maxW="1392px"
             listAdvertisement={advertiserData.advertisements}
+            advertiser={advertiserData}
           />
           <ControlPagination />
         </Flex>

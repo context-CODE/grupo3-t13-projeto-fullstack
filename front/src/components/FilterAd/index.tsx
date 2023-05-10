@@ -33,7 +33,8 @@ export const FilterAdvertisements = () => {
       flexDir="column"
       gap="16px"
       mt={'52px'}
-      display={{ base: 'none', sm: 'flex' }}
+      display={{ base: 'none', md: 'flex' }}
+      padding={'30px'}
     >
       <Heading variant="Heading-4-600">Marca</Heading>
       <UnorderedList>
