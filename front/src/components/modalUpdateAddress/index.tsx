@@ -21,15 +21,16 @@ interface iModalUpdateAddressProps {
 }
 
 const ModalUpdateAddress = ({ isOpen, onClose }: iModalUpdateAddressProps) => {
+  const { updateAddress, address } = useAuthContext();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<iAddressReqUpdate>({
     resolver: zodResolver(addressReqUpdateSchema),
+    defaultValues: { ...address },
   });
-
-  const { updateAddress } = useAuthContext();
 
   const submit = async (formData: iAddressReqUpdate) => {
     await updateAddress(formData);
