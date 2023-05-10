@@ -56,7 +56,6 @@ const AdvertiserPage = ({ advertiserData }: iAdvertiserPage) => {
         </Flex>
       </LayoutPage>
       <ModalRegisterAd isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
-      {/* <ModalUpdateUser isOpen={isOpen} onClose={onClose} onOpen={onOpen} /> */}
     </>
   );
 };
