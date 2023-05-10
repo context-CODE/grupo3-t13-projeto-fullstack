@@ -40,8 +40,6 @@ const ModalUpdateUser = ({ isOpen, onClose }: iModalUpdateUserProps) => {
 
   return (
     <>
-      <Button onClick={() => isOpen}></Button>
-
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
