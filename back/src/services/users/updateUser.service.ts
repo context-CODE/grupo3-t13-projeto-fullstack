@@ -13,7 +13,7 @@ const updateUserService = async (updateData: iUserReqUpdate, userId: string): Pr
     })
 
     if (!user) {
-        throw new AppError("Id inválido", 404)
+        throw new AppError("Invalid id", 404)
     }
     
     const updatedUserObject = {

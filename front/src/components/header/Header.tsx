@@ -13,6 +13,9 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { useAuthContext } from '@/contexts/authContext';
+import ModalUpdateUser from '../modalUpdateUser';
+import ModalUpdateAddress from '../modalUpdateAddress';
+import { useState } from 'react';
 
 interface IHeaderProps {
   userName?: string;
@@ -97,33 +100,81 @@ const HeaderLoggedContent = ({
       ? splitedName[0][0] + splitedName[1][0]
       : '';
 
+  const [isOpenUpdateUser, setIsOpenUpdateUser] = useState(false);
+  const [isOpenUpdateAddress, setIsOpenUpdateAddress] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const onOpenUpdateUser = () => setIsOpenUpdateUser(true);
+  const onCloseUpdateUser = () => setIsOpenUpdateUser(false);
+
+  const onOpenUpdateAddress = () => setIsOpenUpdateAddress(true);
+  const onCloseUpdateAddress = () => setIsOpenUpdateAddress(false);
+
+  const handleLogout = () => {
+    onCloseUpdateUser();
+    onCloseUpdateAddress();
+  };
+
   return isLogged ? (
-    <HStack _hover={{ cursor: 'pointer' }}>
-      <Box
-        bg={'brand.300'}
-        w={'32px'}
-        h={'32px'}
-        color={'white'}
-        borderRadius={'180px'}
-        display={'flex'}
-        alignItems={'center'}
-        justifyContent={'center'}
-      >
-        {userImage ? (
-          <Image
-            borderRadius="full"
-            boxSize={'32px'}
-            src={userImage}
-            alt={userName}
-          />
-        ) : (
-          <Text fontWeight={'bold'} fontSize={18}>
-            {initials}
-          </Text>
-        )}
-      </Box>
-      <Text variant={'body-1-400'}>{userName}</Text>
-    </HStack>
+    <>
+      {/* <HStack _hover={{ cursor: 'pointer' }}>
+        <Box
+          bg={'brand.300'}
+          w={'32px'}
+          h={'32px'}
+          color={'white'}
+          borderRadius={'180px'}
+          display={'flex'}
+          alignItems={'center'}
+          justifyContent={'center'}
+        >
+          {userImage ? (
+            <Image
+              borderRadius="full"
+              boxSize={'32px'}
+              src={userImage}
+              alt={userName}
+            />
+          ) : (
+            <Text fontWeight={'bold'} fontSize={18}>
+              {initials}
+            </Text>
+          )}
+        </Box>
+        <Text variant={'body-1-400'}>{userName}</Text>
+      </HStack> */}
+      <Menu>
+        <MenuButton
+          as={Button}
+          rightIcon={<HamburgerIcon />}
+          borderRadius="full"
+        >
+          {userImage ? (
+            <Image
+              borderRadius="full"
+              boxSize={'32px'}
+              src={userImage}
+              alt={userName}
+            />
+          ) : (
+            <Text fontWeight={'bold'} fontSize={18}>
+              {initials}
+            </Text>
+          )}
+        </MenuButton>
+        <Text variant={'body-1-400'}>{userName}</Text>
+        <MenuList>
+          <MenuItem onClick={onOpenUpdateUser}>Editar Perfil</MenuItem>
+          <MenuItem onClick={onOpenUpdateAddress}>Editar Endereço</MenuItem>
+          <MenuItem>Meus Anúncios</MenuItem>
+          <MenuItem onClick={handleLogout}>Sair</MenuItem>
+        </MenuList>
+      </Menu>
+      <ModalUpdateUser isOpen={isOpenUpdateUser} onClose={onCloseUpdateUser} />
+      <ModalUpdateAddress
+        isOpen={isOpenUpdateAddress}
+        onClose={onCloseUpdateAddress}
+      />
+    </>
   ) : (
     <>
       <Link variant={'header'} href="/login">

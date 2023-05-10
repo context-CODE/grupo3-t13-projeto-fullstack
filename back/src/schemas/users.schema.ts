@@ -8,7 +8,7 @@ const usersReqSchema = z.object({
   password: z.string().max(150),
   cpf: z.string().min(11).max(11),
   phone_number: z.string().regex(/^(\d{2}\s\d{5}\-\d{4})$/),
-  birthdate: z.string().regex(/(\d{2})[-.\/](\d{2})[-.\/](\d{4})/),
+  birthdate: z.string(),
   profile_img: z.string().max(127),
   is_advertiser: z.boolean(),
   address: addressReqSchema,

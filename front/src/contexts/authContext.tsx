@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import api from '@/services/index';
 import axios from 'axios';
 
@@ -11,7 +12,6 @@ import { iUserReqUpdate, iUserRes } from '@/types/user.context';
 import { Box, useToast } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { setCookie } from 'nookies';
-import nookie from 'nookies';
 import {
   Dispatch,
   SetStateAction,
@@ -31,7 +31,6 @@ export interface iAuthContext {
   updateUser: (data: iUserReqUpdate) => Promise<void>;
   deleteUser: () => Promise<void>;
   updateAddress: (data: iAddressReqUpdate) => Promise<void>;
-  deleteAddress: () => Promise<void>;
   loginUser: (data: iLoginReq, callback: () => void) => Promise<void>;
   user: iUserRes;
   setUser: React.Dispatch<React.SetStateAction<iUserRes>>;
@@ -45,7 +44,7 @@ export interface iAuthContext {
 
 const AuthContext = createContext<iAuthContext>({} as iAuthContext);
 
-export const AuthProvider = ({ children }: iProviderProps) => {
+const AuthProvider = ({ children }: iProviderProps) => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({} as iUserRes);
   const [address, setAddress] = useState({} as iAddressRes);
@@ -193,14 +192,14 @@ export const AuthProvider = ({ children }: iProviderProps) => {
   };
 
   // const handleLogout = () => {
-  //   removeCookie('token');
+  //   removeCookie('car.token');
   //   setUser({} as iUserRes);
   //   router.push('/');
   // };
 
   const updateUser = async (data: iUserReqUpdate) => {
     try {
-      const token = nookie.get()['car.token'];
+      const token = nookies.get()['car.token'];
       const updatedUser: iUserRes = await api.patch(`/users/${user.id}`, data, {
         headers: {
           'Content-Type': 'application/json',
@@ -220,7 +219,7 @@ export const AuthProvider = ({ children }: iProviderProps) => {
             fontWeight={'bold'}
             borderRadius={'md'}
           >
-            Update successfully completed!
+            User updated with success!
           </Box>
         ),
       });
@@ -233,9 +232,11 @@ export const AuthProvider = ({ children }: iProviderProps) => {
 
   const deleteUser = async () => {
     try {
+      const token = nookies.get()['car.token'];
       await api.delete(`/users/${user.id}`, {
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
       toast({
@@ -251,7 +252,7 @@ export const AuthProvider = ({ children }: iProviderProps) => {
             fontWeight={'bold'}
             borderRadius={'md'}
           >
-            User deleted successfully!
+            User deleted with success!
           </Box>
         ),
       });
@@ -264,12 +265,14 @@ export const AuthProvider = ({ children }: iProviderProps) => {
 
   const updateAddress = async (data: iAddressReqUpdate) => {
     try {
+      const token = nookies.get()['car.token'];
       const updatedAddress: iAddressRes = await api.patch(
-        `/users/${user.id}`,
+        `/users/${user.id}/address`,
         data,
         {
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -286,42 +289,11 @@ export const AuthProvider = ({ children }: iProviderProps) => {
             fontWeight={'bold'}
             borderRadius={'md'}
           >
-            Address successfully completed!
+            Address updated with success!!
           </Box>
         ),
       });
       setAddress(updatedAddress);
-      await router.push('/profile');
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const deleteAddress = async () => {
-    try {
-      await api.delete(`/users/${user.id}`, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      toast({
-        title: 'success',
-        variant: 'solid',
-        position: 'top-right',
-        isClosable: true,
-        render: () => (
-          <Box
-            color={'gray.50'}
-            p={3}
-            bg={'green.600'}
-            fontWeight={'bold'}
-            borderRadius={'md'}
-          >
-            Address deleted successfully!
-          </Box>
-        ),
-      });
-      setAddress({});
       await router.push('/profile');
     } catch (error) {
       console.log(error);
@@ -339,7 +311,6 @@ export const AuthProvider = ({ children }: iProviderProps) => {
         deleteUser,
         loginUser,
         updateAddress,
-        deleteAddress,
         user,
         setUser,
         address,
@@ -354,5 +325,6 @@ export const AuthProvider = ({ children }: iProviderProps) => {
     </AuthContext.Provider>
   );
 };
+export default AuthProvider;
 
 export const useAuthContext = () => useContext(AuthContext);

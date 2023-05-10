@@ -10,24 +10,17 @@ import {
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { iUserReqUpdate } from '@/types/user.context';
-import { usersReqUpdateSchema } from '@/schemas/users.schema';
 import { useAuthContext } from '@/contexts/authContext';
-import { Button, Flex, Heading, Input, Text, Textarea } from '@chakra-ui/react';
+import { Button, Flex, Heading, Input, Text } from '@chakra-ui/react';
 import { iAddressReqUpdate } from '@/types/address.context';
 import { addressReqUpdateSchema } from '@/schemas/addresses.schema';
 
 interface iModalUpdateAddressProps {
   isOpen: boolean;
-
   onClose: () => void;
 }
 
-const ModalUpdateAddress = ({
-  isOpen,
-
-  onClose,
-}: iModalUpdateAddressProps) => {
+const ModalUpdateAddress = ({ isOpen, onClose }: iModalUpdateAddressProps) => {
   const {
     register,
     handleSubmit,
@@ -39,7 +32,6 @@ const ModalUpdateAddress = ({
   const { updateAddress } = useAuthContext();
 
   const submit = async (formData: iAddressReqUpdate) => {
-    console.log(formData);
     await updateAddress(formData);
   };
   console.log(errors);
@@ -159,5 +151,3 @@ const ModalUpdateAddress = ({
   );
 };
 export default ModalUpdateAddress;
-
-//  const { isOpen, onOpen, onClose } = useDisclosure();
