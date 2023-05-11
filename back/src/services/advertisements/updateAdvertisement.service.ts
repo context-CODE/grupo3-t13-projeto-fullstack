@@ -1,4 +1,3 @@
-import { error } from "console";
 import AppDataSource from "../../data-source";
 import Advertisement from "../../entities/advertisement.entity";
 import {
@@ -17,28 +16,50 @@ const updateAdvertisementService = async (
     AppDataSource.getRepository(Advertisement);
   const findAdvertisement = await advertisementRepository.findOne({
     where: {
-      id: paramsId,
-    },
-    relations: {
+      id: paramsId
+    }, relations: {
       user: true,
       comments: {
-        user: true,
+        user: true
       },
-    },
+      imageGallery: {
+        advertisement: true
+      }
+    }
   });
 
   if (!findAdvertisement) {
     throw new AppError("This advertisement doesn't exist");
   }
 
-  const updatedAdvertisement: Advertisement =
-    await advertisementRepository.save({
-      ...findAdvertisement,
-      ...data,
-    });
+  const updatedAdvertisement = await advertisementRepository.update(paramsId, {
+    brand: data.brand? data.brand : findAdvertisement.brand,
+    color: data.color? data.color : findAdvertisement.color,
+    model: data.model? data.model : findAdvertisement.model,
+    fuel: data.fuel? data.fuel : findAdvertisement.fuel,
+    price: data.price? data.price : findAdvertisement.price,
+    year: data.year? data.year : findAdvertisement.year,
+    image: data.image? data. image : findAdvertisement.image,
+    kilometers: data.kilometers? data.kilometers : findAdvertisement.kilometers,
+    description: data.description? data.description : findAdvertisement.description,
+  });
+
+  const returnedAdvertisement = await advertisementRepository.findOne({
+    where: {
+      id: paramsId
+    }, relations: {
+      user: true,
+      comments: {
+        user: true
+      },
+      imageGallery: {
+        advertisement: true
+      }
+    }
+  })
 
   const validatedAdvertisement =
-    advertisementResSchema.parse(updatedAdvertisement);
+    advertisementResSchema.parse(returnedAdvertisement);
 
   return validatedAdvertisement as iAdvertisementRes;
 };
