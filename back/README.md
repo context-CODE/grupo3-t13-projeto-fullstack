@@ -1,38 +1,30 @@
-# 🏆 Projeto Full-Stack - **grupo3-t13**
-Este projeto denominado "Kars E-Commerce" cria uma plataforma de e-commerce para compra e venda de carros. 
+# 🏆 Projeto Full-Stack - **BACKEND**
 
-Todos os usuários, inclusive os não cadastrados, podem acessar a página com todos os anúncios, acessar anúncios de um determinado anunciante e podem também acessar a página de detalhamento de um determinado produto.
-Para os demais acessos às páginas, o usuário precisará ser cadastrado e estar logado.
+## Índice
+  - [Índice](#índice)
+  - [Pré-requisitos](#pré-requisitos)
+  - [Instruções](#instruções)
+  - [Endpoints](#endpoints)
+  - [Requisições](#requisições)
 
-Os vendedores tem acesso a todas as páginas, além de poderem criar, editar e deletar seus próprios anúncios.
-
-É possível exibir os anúncios utilizando vários tipos de filtro, conforme abaixo: 
- - Marca <br>
- - Modelo
- - Cor
- - Ano 
- - Combustível
- - Kilometragem mínima e máxima 
- - Preço mínimo e máximo<br>
- 
- Inclusive é possível fazer combinações entre eles.<br>
-
-
-_Esta aplicação foi toda desenvolvida em TypeScript_ 
-
-### Para rodar o projeto, é necessário seguir as instruções abaixo.
-
-## Requisitos mínimos
+## Pré-requisitos
 
 - Node.js v12 ou superior
 - NPM v6 ou superior
 - PostgreSQL v9.6 ou superior
+
+## Instruções
 
 Para inciar este projeto, primeiro é necessário clonar o repositório: <br>
 
 ```
 git clone git@github.com:context-CODE/grupo3-t13-projeto-fullstack.git
 
+```
+Logo após dar o comando abaixo para acessar o backend
+
+```
+cd back
 ```
 
 Após isso, é necessário instalar as dependências, utilizando um dos comandos abaixo:
@@ -50,7 +42,7 @@ npm install
 **Configure as variáveis de ambiente no seu .env**, passando as credenciais corretas para conectar em seu banco local.<br>
 Observação: Certifique-se de que as portas usadas por esta aplicação não estejam sendo usadas por outras aplicações no seu sistema operacional.<br>
 
-Appós isso, é necessário rodar as migrations, utilizando:
+Após isso, é necessário rodar as migrations, utilizando:
 
 ```
 yarn typeorm migration:run -- -d src/data-source
@@ -60,31 +52,17 @@ ou
 npm run typeorm migration:run -- -d src/data-source
 ```
 
-Com isso feito, basta entrar nas pastas back e front e rodar a aplicação, utilizando os comandos abaixo:
+Com isso feito, basta rodar a aplicação, utilizando um dos comandos abaixo:
+
 ```
-cd back
 yarn dev
 ```
 ou 
 ```
-cd back
-npm run dev
-```
-e
-```
-cd front
-yarn dev
-```
-ou 
-```
-cd front
 npm run dev
 ```
 
-
-<br>
-
-## Endpoints :
+## Endpoints
 A API tem um total de 18 endpoints, sendo divididos em 5 grupos: CRUD do usuário, CRUD dos anúncios, login, comentários e reset de senha.<br>
 
 CRUD DO USUÁRIO:<br>
@@ -116,7 +94,7 @@ POST/users/resetPassword - Envio de e-mail para redefinição de senha de um usu
 POST/users/resetPassword/:reset_token - Redefine a senha de um usuário com base em um token de redefinição de senha fornecido <br>
 
   
-## Exemplos de requisições dos POST e PATCH:
+## Requisições
 
   ### POST/users - Criação de usuário 
   
@@ -213,6 +191,3 @@ POST/users/resetPassword/:reset_token - Redefine a senha de um usuário com base
 
 
 ### Caso você seja um usuário de Insomnia, tem disponibilizado um **workspace** prontinho para facilitar na sua visualização. 
-
-### Agora que já sabe como rodar o seu projeto, bom proveito utilizando esta aplicação para cadstrar e comprar excelentes automóveis!
-
