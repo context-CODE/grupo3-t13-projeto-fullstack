@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { commentResSchema } from "./comments.schema";
+import { imageGalleryListSchema, imageGalleryReqSchema } from "./imageGallery.schema";
 
 const advertisementReqSchema = z.object({
   brand: z.string().max(60),
@@ -11,6 +12,7 @@ const advertisementReqSchema = z.object({
   price: z.number(),
   description: z.string(),
   image: z.string().max(300),
+  image_gallery: z.array(imageGalleryReqSchema).optional()
 });
 
 const advertisementResSchema = advertisementReqSchema.extend({
@@ -23,8 +25,10 @@ const advertisementResSchema = advertisementReqSchema.extend({
     name: z.string(),
     profile_img: z.string(),
     description: z.string(),
+    phone_number: z.string(),
   }),
   comments: z.array(commentResSchema.omit({ advertisement: true })),
+  imageGallery: imageGalleryListSchema
 });
 
 const advertisementReqUpdateSchema = advertisementReqSchema.partial();
