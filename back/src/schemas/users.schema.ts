@@ -39,6 +39,7 @@ const userAdvertisementsResSchema = z.object({
   is_advertiser: z.boolean(),
   profile_img: z.string(),
   description: z.string(),
+  phone_number: z.string(),
   advertisements: z.array(advertisementResSchema),
 });
 
