@@ -33,15 +33,11 @@ const ModalUpdateUser = ({ isOpen, onClose }: iModalUpdateUserProps) => {
   });
 
   const submit = async (formData: iUserReqUpdate) => {
-    console.log(formData);
     await updateUser(formData);
   };
-  console.log(errors);
 
   return (
     <>
-      <Button onClick={() => isOpen}></Button>
-
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>

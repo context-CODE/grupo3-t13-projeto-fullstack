@@ -7,7 +7,7 @@ import {
   useAdvertisementContext,
 } from '@/contexts/advertisementContext';
 import api from '@/services';
-import { Box, Flex, Heading } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { useEffect } from 'react';
 
@@ -15,19 +15,19 @@ interface IPropsHome {
   advertisements: iAdvertisement[];
 }
 
-// export const getServerSideProps: GetServerSideProps<IPropsHome> = async () => {
-//   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-//   const { data } = await api.get('/advertisements?limit=12');
+export const getServerSideProps: GetServerSideProps<IPropsHome> = async () => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const { data } = await api.get('/advertisements?limit=12');
 
-//   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-//   const advertisements: iAdvertisement[] = await data.advertisements;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+  const advertisements: iAdvertisement[] = await data.advertisements;
 
-//   return {
-//     props: {
-//       advertisements: advertisements,
-//     },
-//   };
-// };
+  return {
+    props: {
+      advertisements: advertisements,
+    },
+  };
+};
 
 const Home = ({ advertisements }: IPropsHome) => {
   const { setAdvertisements } = useAdvertisementContext();
@@ -85,12 +85,26 @@ const Home = ({ advertisements }: IPropsHome) => {
             A melhor plataforma de anúncios de carros do país
           </Heading>
         </Flex>
-        <Flex justifyContent={'space-between'} mx={'60px'} w={'100%'}>
+        <Flex
+          flexDir={{ base: 'column', md: 'row' }}
+          justifyContent={{ base: 'center', md: 'space-between' }}
+          mx={{ base: 'none', md: '60px' }}
+          w={{ base: '100%', md: 'calc(100% - 120px)' }}
+        >
           <FilterAdvertisements />
           <CardList
             maxW={'1032px'}
             listAdvertisement={filteredAdvertisements}
           />
+          <Button
+            variant={'default'}
+            alignSelf={'center'}
+            display={{ base: 'inline', md: 'none' }}
+            w={'280px'}
+            m={'80px 0 50px 0'}
+          >
+            Filtros
+          </Button>
         </Flex>
         <ControlPagination />
       </Flex>

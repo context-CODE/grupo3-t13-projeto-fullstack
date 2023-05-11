@@ -3,10 +3,10 @@ import CardList from '@/components/CardList';
 import { Box, Flex, Heading, useDisclosure } from '@chakra-ui/react';
 import UserInfoCard from '@/components/profilePage/UserInfoCard';
 import ControlPagination from '@/components/controlPagination';
-import { ModalRegisterAd } from '@/components/modalRegisterAd';
 import api from '@/services';
 import { useRouter } from 'next/router';
 import { iAdvertiserWithAds } from '@/contexts/advertisementContext';
+import { ModalRegisterAd } from '@/components/modalAd/modalRegisterAd';
 
 interface iAdvertiserPage {
   advertiserData: iAdvertiserWithAds;
@@ -14,6 +14,7 @@ interface iAdvertiserPage {
 
 const AdvertiserPage = ({ advertiserData }: iAdvertiserPage) => {
   const router = useRouter();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   if (router.isFallback) {
@@ -51,6 +52,7 @@ const AdvertiserPage = ({ advertiserData }: iAdvertiserPage) => {
           <CardList
             maxW="1392px"
             listAdvertisement={advertiserData.advertisements}
+            advertiser={advertiserData}
           />
           <ControlPagination />
         </Flex>
@@ -71,14 +73,6 @@ export async function getStaticProps({ params }) {
   const { data: advertiserData }: iAdvertiserWithAds = await api.get(
     `/users/${id}/advertisements`
   );
-  // console.log(data);
-
-  // const advertisementData: iAdvertisement[] | undefined = data.advertisements;
-
-  // console.log('na static props', advertisementData);
-
-  // const advertiserData: iAdvertiser = data;
-
   return {
     props: {
       advertiserData,
