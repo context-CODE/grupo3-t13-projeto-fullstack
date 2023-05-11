@@ -44,8 +44,22 @@ const updateAdvertisementService = async (
     description: data.description? data.description : findAdvertisement.description,
   });
 
+  const returnedAdvertisement = await advertisementRepository.findOne({
+    where: {
+      id: paramsId
+    }, relations: {
+      user: true,
+      comments: {
+        user: true
+      },
+      imageGallery: {
+        advertisement: true
+      }
+    }
+  })
+
   const validatedAdvertisement =
-    advertisementResSchema.parse(updatedAdvertisement);
+    advertisementResSchema.parse(returnedAdvertisement);
 
   return validatedAdvertisement as iAdvertisementRes;
 };
