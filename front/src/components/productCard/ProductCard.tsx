@@ -1,4 +1,8 @@
-import { iAdvertisement, iAdvertiser } from '@/contexts/advertisementContext';
+import {
+  iAdvertisement,
+  useAdvertisementContext,
+  iAdvertiser,
+} from '@/contexts/advertisementContext';
 import { useAuthContext } from '@/contexts/authContext';
 import {
   Box,
@@ -19,6 +23,7 @@ import {
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { ModalUpdateAd } from '../modalAd/modalUpdateAd';
+import { useRouter } from 'next/router';
 
 interface IProductCardsProps {
   advertisement: iAdvertisement;
@@ -28,7 +33,11 @@ interface IProductCardsProps {
 const ProductCard = ({ advertisement, advertiser }: IProductCardsProps) => {
   const { user } = useAuthContext();
 
+  const { push } = useRouter();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { setCurrentAdvertisement } = useAdvertisementContext();
 
   return (
     <>
@@ -99,17 +108,30 @@ const ProductCard = ({ advertisement, advertiser }: IProductCardsProps) => {
         </Link>
         {advertiser?.id === user.id && (
           <Flex gap={'16px'}>
-            <Button variant={'outlineDark'} px={'20px'}>
+            <Button
+              variant={'outlineDark'}
+              px={'20px'}
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                onOpen();
+                setCurrentAdvertisement(advertisement);
+              }}
+            >
               Editar
             </Button>
-            <Button variant={'outlineDark'} px={'20px'}>
+            <Button
+              variant={'outlineDark'}
+              px={'20px'}
+              onClick={() => void push(`/advertisements/${advertisement.id}`)}
+            >
               Ver Detalhes
             </Button>
           </Flex>
         )}
       </Card>
 
-      <ModalUpdateAd isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
+      <ModalUpdateAd isOpen={isOpen} onClose={onClose} />
     </>
   );
 };

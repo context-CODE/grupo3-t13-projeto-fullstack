@@ -55,6 +55,7 @@ export const FormAdv = ({
   const [filterBrand, setFilterBrand] = useState('');
   const [filterModel, setFilterModel] = useState('');
   const [fipeValue, setFipeValue] = useState<string>();
+  const [isAvaliabe, setIsAvaliable] = useState(ad?.is_available);
 
   const brandFiltered: string[] = brands.filter((e) =>
     filterBrand === '' ? false : e.includes(filterBrand.toLowerCase())
@@ -64,10 +65,15 @@ export const FormAdv = ({
     filterModel === '' ? false : e.name.includes(filterModel.toLowerCase())
   );
 
-  let defaultValues = { image_gallery: [{ image_url: '' }] };
+  let defaultValues = {
+    image_gallery: [{ image_url: '' }],
+  };
 
   if (ad) {
-    defaultValues = { ...ad, image_gallery: [] };
+    defaultValues = {
+      ...ad,
+      image_gallery: [],
+    };
   }
 
   const {
@@ -132,6 +138,9 @@ export const FormAdv = ({
   const getFilterModel = (e: ChangeEvent<HTMLInputElement>) => {
     setFilterModel(e.target.value);
   };
+
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  const { deleteAd } = useAdvertisementContext();
 
   return (
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -326,11 +335,25 @@ export const FormAdv = ({
           <FormControl>
             <FormLabel>Publicado</FormLabel>
             <Stack spacing={5} direction="row">
-              <Button w="50%" variant="outlineGrey">
+              <Button
+                w="50%"
+                variant={isAvaliabe ? 'default' : 'outlineGrey'}
+                onClick={() => {
+                  setValue('is_available', true);
+                  setIsAvaliable(true);
+                }}
+              >
                 Sim
               </Button>
 
-              <Button w="50%" variant="default">
+              <Button
+                w="50%"
+                variant={!isAvaliabe ? 'default' : 'outlineGrey'}
+                onClick={() => {
+                  setValue('is_available', false);
+                  setIsAvaliable(false);
+                }}
+              >
                 Não
               </Button>
             </Stack>
@@ -408,7 +431,13 @@ export const FormAdv = ({
           )}
           {formUpdate && (
             <>
-              <Button variant="lightGrey" onClick={onClose}>
+              <Button
+                variant="lightGrey"
+                onClick={() => {
+                  void deleteAd();
+                  onClose();
+                }}
+              >
                 Excluir anúncio
               </Button>
               <Button variant="default" type="submit">

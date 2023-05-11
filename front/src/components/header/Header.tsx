@@ -106,10 +106,13 @@ const HeaderLoggedContent = ({
   const onOpenUpdateAddress = () => setIsOpenUpdateAddress(true);
   const onCloseUpdateAddress = () => setIsOpenUpdateAddress(false);
 
-  const handleLogout = () => {
-    onCloseUpdateUser();
-    onCloseUpdateAddress();
-  };
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  const { handleLogout } = useAuthContext();
+
+  // const handleLogout = () => {
+  //   onCloseUpdateUser();
+  //   onCloseUpdateAddress();
+  // };
 
   return isLogged ? (
     <>
@@ -129,7 +132,7 @@ const HeaderLoggedContent = ({
           <MenuItem onClick={onOpenUpdateUser}>Editar Perfil</MenuItem>
           <MenuItem onClick={onOpenUpdateAddress}>Editar Endereço</MenuItem>
           <MenuItem>Meus Anúncios</MenuItem>
-          <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
         </MenuList>
       </Menu>
       <ModalUpdateUser isOpen={isOpenUpdateUser} onClose={onCloseUpdateUser} />

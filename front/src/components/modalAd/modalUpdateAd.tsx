@@ -14,33 +14,39 @@ import { useToast } from '@chakra-ui/react';
 import { FormAdv } from './formAdv';
 import nookies from 'nookies';
 import { iModalRegisterAdSchema } from './modalRegisterAd';
+import { useAdvertisementContext } from '@/contexts/advertisementContext';
 
 interface iModalUpdateAdProps {
   isOpen: boolean;
-  onOpen: () => void;
   onClose: () => void;
 }
 
 export const ModalUpdateAd = ({ isOpen, onClose }: iModalUpdateAdProps) => {
   const toast = useToast();
 
+  const { currentAdvertisement } = useAdvertisementContext();
+
   const submit = async (dataAd: iModalRegisterAdSchema) => {
     try {
-      console.log(dataAd);
-      // const token = nookies.get()['car.token'];
-      // await api.patch('/advertisements', dataAd, {
-      //   headers: {
-      //     Authorization: `Bearer ${token}`,
-      //   },
-      // });
+      const token = nookies.get()['car.token'];
+      await api.patch(
+        `/advertisements/${currentAdvertisement?.id as string}`,
+        dataAd,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-      // toast({
-      //   title: 'Anúncio criado com sucesso.',
-      //   status: 'success',
-      //   duration: 2000,
-      //   isClosable: true,
-      //   position: 'top-right',
-      // });
+      toast({
+        title: 'Anúncio editado com sucesso.',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+        position: 'top-right',
+      });
+      onClose();
     } catch (error) {
       console.log(error);
       toast({
@@ -67,7 +73,12 @@ export const ModalUpdateAd = ({ isOpen, onClose }: iModalUpdateAdProps) => {
             Informações do veículo
           </Text>
 
-          <FormAdv submit={submit} onClose={onClose} formUpdate={true} />
+          <FormAdv
+            submit={submit}
+            onClose={onClose}
+            formUpdate={true}
+            ad={currentAdvertisement}
+          />
         </ModalBody>
       </ModalContent>
     </Modal>

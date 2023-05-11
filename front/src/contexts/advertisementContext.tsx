@@ -92,6 +92,7 @@ interface iAdvertisementContext {
     newComment: string
   ): Promise<void>;
   deleteComment(adId: string | undefined, commentId: string): Promise<void>;
+  deleteAd(): Promise<void>;
 }
 
 interface iAdvertisementProviderProps {
@@ -293,6 +294,24 @@ export const AdvertisementProvider = ({
     }
   };
 
+  const deleteAd = async () => {
+    try {
+      const token = nookies.get()['car.token'];
+
+      await api.delete(
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+        `advertisements/${currentAdvertisement?.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AdvertisementContext.Provider
       value={{
@@ -313,6 +332,7 @@ export const AdvertisementProvider = ({
         filteredAdvertisements,
         editComment,
         deleteComment,
+        deleteAd,
       }}
     >
       {children}

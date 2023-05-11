@@ -23,23 +23,27 @@ export const modalRegisterAdSchema = z.object({
   year: z
     .string()
     .nonempty('Campo vazio')
-    .transform((val) => Number(val))
+    .or(z.number())
+    .transform((val) => (typeof val === 'string' ? Number(val) : val))
     .refine((val) => val >= 0, 'Número menor que 0'),
   kilometers: z
     .string()
     .nonempty('Campo vazio')
-    .transform((val) => Number(val))
+    .or(z.number())
+    .transform((val) => (typeof val === 'string' ? Number(val) : val))
     .refine((val) => val >= 0, 'Número menor que 0'),
   price: z
     .string()
     .nonempty('Campo vazio')
-    .transform((val) => Number(val))
+    .or(z.number())
+    .transform((val) => (typeof val === 'string' ? Number(val) : val))
     .refine((val) => val >= 0, 'Número menor que 0'),
   description: z.string().nonempty('Campo vazio'),
   image: z
     .string()
     .max(150, 'Máximo 150 caracteres')
     .nonempty('Defina uma imagem de capa'),
+  is_available: z.boolean().default(true),
   image_gallery: z.array(
     z.object({
       image_url: z
@@ -76,6 +80,7 @@ export const ModalRegisterAd = ({ isOpen, onClose }: iModalRegisterAdProps) => {
         isClosable: true,
         position: 'top-right',
       });
+      onClose();
     } catch (error) {
       console.log(error);
       toast({

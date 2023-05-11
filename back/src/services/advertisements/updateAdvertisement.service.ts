@@ -17,22 +17,28 @@ const updateAdvertisementService = async (
     AppDataSource.getRepository(Advertisement);
   const findAdvertisement = await advertisementRepository.findOne({
     where: {
-      id: paramsId
-    }, relations: {
-      user: true
-    }
+      id: paramsId,
+    },
+    relations: {
+      user: true,
+      comments: {
+        user: true,
+      },
+    },
   });
- 
-  if (!findAdvertisement){
-    throw new AppError("This advertisement doesn't exist")
+
+  if (!findAdvertisement) {
+    throw new AppError("This advertisement doesn't exist");
   }
 
-  const updatedAdvertisement: Advertisement = await advertisementRepository.save({
-    ...findAdvertisement,
-    ...data,
-  });
+  const updatedAdvertisement: Advertisement =
+    await advertisementRepository.save({
+      ...findAdvertisement,
+      ...data,
+    });
 
-  const validatedAdvertisement = advertisementResSchema.parse(updatedAdvertisement);
+  const validatedAdvertisement =
+    advertisementResSchema.parse(updatedAdvertisement);
 
   return validatedAdvertisement as iAdvertisementRes;
 };
