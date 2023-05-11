@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { usersReqUpdateSchema } from '../schemas/users.schema';
-import { iAddressReq, iAddressRes } from './address.context';
+import { iAddressRes } from './address.context';
 
 export type iUserReqUpdate = z.infer<typeof usersReqUpdateSchema>;
 export interface iUserRes {
