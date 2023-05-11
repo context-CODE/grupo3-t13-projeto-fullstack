@@ -48,6 +48,7 @@ export default function Advertisement({ advertisement }: iAdProps) {
 
   useEffect(() => {
     setCurrentAdvertisement(advertisement);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
