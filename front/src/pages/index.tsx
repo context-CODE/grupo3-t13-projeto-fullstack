@@ -1,4 +1,5 @@
 import CardList from '@/components/CardList';
+import { EmptyList } from '@/components/EmptyList';
 import { FilterAdvertisements } from '@/components/FilterAd';
 import LayoutPage from '@/components/LayoutPage';
 import ControlPagination from '@/components/controlPagination';
@@ -95,6 +96,9 @@ const Home = ({ advertisements }: IPropsHome) => {
             maxW={'1032px'}
             listAdvertisement={filteredAdvertisements}
           />
+          {filteredAdvertisements?.length === 0 && (
+            <EmptyList message="Lista de anúncios vazia." />
+          )}
           <Button
             variant={'default'}
             alignSelf={'center'}
