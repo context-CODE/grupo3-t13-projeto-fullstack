@@ -106,7 +106,7 @@ const ProductCard = ({ advertisement, advertiser }: IProductCardsProps) => {
             </HStack>
           </CardFooter>
         </Link>
-        {advertiser?.id === user.id && (
+        {advertiser?.id === user.id && user.id !== undefined && (
           <Flex gap={'16px'}>
             <Button
               variant={'outlineDark'}

@@ -15,7 +15,6 @@ const CardList = ({
 }: iCardListProps) => {
   return (
     <Flex
-      // h={'fit-content'}
       minW={{ base: '95vw', sm: 'auto' }}
       maxW={maxW}
       columnGap={{ base: '12px', sm: '48px' }}
