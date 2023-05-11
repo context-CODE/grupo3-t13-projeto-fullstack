@@ -37,7 +37,7 @@ usersRoutes.patch(
     );
 
 usersRoutes.patch(
-  "/:id/address", 
+  "/:id/address/:addressId", 
   ensureAuthMiddleware,
   ensureIsValidDataMiddleware(addressReqUpdateSchema), 
   updateAddressController
