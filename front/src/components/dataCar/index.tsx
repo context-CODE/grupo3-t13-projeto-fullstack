@@ -1,17 +1,30 @@
 import { useAdvertisementContext } from '@/contexts/advertisementContext';
 import {
   Flex,
-  Button,
   Card,
   CardBody,
   Heading,
   Tag,
   Image,
   Text,
+  Link,
 } from '@chakra-ui/react';
+import NextLink from 'next/link';
 
 export const DataCar = () => {
   const { currentAdvertisement } = useAdvertisementContext();
+
+  const returnPhoneFormat = (numberFromAPI: string) => {
+    const numberWithoutSpaces = numberFromAPI
+      .replace(/\s/g, '')
+      .replace(/-/g, '');
+
+    const dddNumber = numberWithoutSpaces.slice(0, 2);
+    const prefix = numberWithoutSpaces.slice(2, 7);
+    const suffix = numberWithoutSpaces.slice(7);
+
+    return `+55${dddNumber}${prefix}${suffix}`;
+  };
 
   return (
     <Flex
@@ -61,9 +74,17 @@ export const DataCar = () => {
             </Text>
           </Flex>
 
-          <Button mt="16px" variant={'default'} alignSelf="start">
+          <Link
+            as={NextLink}
+            mt="16px"
+            variant={'btnDefault'}
+            alignSelf="start"
+            href={`https://api.whatsapp.com/send?phone=${returnPhoneFormat(
+              currentAdvertisement.user.phone_number
+            )}`}
+          >
             Comprar
-          </Button>
+          </Link>
         </CardBody>
       </Card>
 
