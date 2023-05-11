@@ -52,6 +52,7 @@ const AdvertiserPage = ({ advertiserData }: iAdvertiserPage) => {
           <CardList
             maxW="1392px"
             listAdvertisement={advertiserData.advertisements}
+            advertiser={advertiserData}
           />
           <ControlPagination />
         </Flex>
@@ -72,14 +73,6 @@ export async function getStaticProps({ params }) {
   const { data: advertiserData }: iAdvertiserWithAds = await api.get(
     `/users/${id}/advertisements`
   );
-  // console.log(data);
-
-  // const advertisementData: iAdvertisement[] | undefined = data.advertisements;
-
-  // console.log('na static props', advertisementData);
-
-  // const advertiserData: iAdvertiser = data;
-
   return {
     props: {
       advertiserData,

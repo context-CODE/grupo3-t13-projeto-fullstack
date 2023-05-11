@@ -33,7 +33,6 @@ const ModalUpdateUser = ({ isOpen, onClose }: iModalUpdateUserProps) => {
   });
 
   const submit = async (formData: iUserReqUpdate) => {
-    console.log(formData);
     await updateUser(formData);
   };
 

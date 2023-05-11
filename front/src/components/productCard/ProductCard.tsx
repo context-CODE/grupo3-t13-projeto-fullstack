@@ -1,7 +1,9 @@
 import {
   iAdvertisement,
   useAdvertisementContext,
+  iAdvertiser,
 } from '@/contexts/advertisementContext';
+import { useAuthContext } from '@/contexts/authContext';
 import {
   Box,
   Card,
@@ -14,8 +16,9 @@ import {
   Stack,
   Tag,
   Text,
-  useDisclosure,
   Avatar,
+  useDisclosure,
+  Flex,
   Button,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
@@ -23,29 +26,32 @@ import { ModalUpdateAd } from '../modalAd/modalUpdateAd';
 
 interface IProductCardsProps {
   advertisement: iAdvertisement;
+  advertiser?: iAdvertiser;
 }
 
-const ProductCard = ({ advertisement }: IProductCardsProps) => {
+const ProductCard = ({ advertisement, advertiser }: IProductCardsProps) => {
+  const { user } = useAuthContext();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { setCurrentAdvertisement } = useAdvertisementContext();
 
   return (
     <>
-      <Link
-        as={NextLink}
-        href={`/advertisements/${advertisement.id}`}
-        _hover={{ textDecor: 'unset' }}
+      <Card
+        display={'flex'}
+        flexDirection={'column'}
+        minW={'312px'}
+        w={'312px'}
+        maxH={'350px'}
+        rowGap={'16px'}
+        shadow={'none'}
+        bgColor={'transparent'}
       >
-        <Card
-          display={'flex'}
-          flexDirection={'column'}
-          minW={'312px'}
-          w={'312px'}
-          maxH={'350px'}
-          rowGap={'16px'}
-          shadow={'none'}
-          bgColor={'transparent'}
+        <Link
+          as={NextLink}
+          href={`/advertisements/${advertisement.id}`}
+          _hover={{ textDecor: 'unset' }}
         >
           <CardBody p={0} m={0}>
             <Image
@@ -107,8 +113,18 @@ const ProductCard = ({ advertisement }: IProductCardsProps) => {
               Editar
             </Button>
           </CardFooter>
-        </Card>
-      </Link>
+        </Link>
+        {advertiser?.id === user.id && (
+          <Flex gap={'16px'}>
+            <Button variant={'outlineDark'} px={'20px'}>
+              Editar
+            </Button>
+            <Button variant={'outlineDark'} px={'20px'}>
+              Ver Detalhes
+            </Button>
+          </Flex>
+        )}
+      </Card>
 
       <ModalUpdateAd isOpen={isOpen} onClose={onClose} />
     </>

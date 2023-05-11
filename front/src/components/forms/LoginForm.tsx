@@ -2,8 +2,6 @@ import {
   Button,
   Flex,
   FormControl,
-  FormErrorMessage,
-  FormHelperText,
   FormLabel,
   Heading,
   Input,
@@ -11,7 +9,7 @@ import {
   Spinner,
 } from '@chakra-ui/react';
 import React from 'react';
-import { FieldError, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuthContext } from '@/contexts/authContext';
 import { iLoginReq } from '@/types/auth.context';
@@ -19,7 +17,7 @@ import { loginReqSchema } from '@/schemas/auth.schema';
 import NextLink from 'next/link';
 
 const LoginForm = () => {
-  const { loginUser, loginError, loading } = useAuthContext();
+  const { loginUser, loading } = useAuthContext();
 
   const {
     register,
@@ -31,21 +29,13 @@ const LoginForm = () => {
     mode: 'onSubmit',
   });
 
-  const emailError: boolean | FieldError =
-    errors.email ||
-    Object.keys(loginError).includes('email') ||
-    (loginError.message?.toLowerCase().includes('email') as boolean);
-
-  const passwordError: boolean | FieldError =
-    errors.password ||
-    Object.keys(loginError).includes('password') ||
-    (loginError.message?.toLowerCase().includes('password') as boolean);
-
   const onFormSubmit = async (formData: iLoginReq): Promise<void> => {
     await loginUser(formData, () => {
       reset();
     });
   };
+
+  console.log(errors);
 
   return (
     <Flex
@@ -66,7 +56,7 @@ const LoginForm = () => {
       </Heading>
       <Flex flexDirection={'column'} gap={'20px'}>
         <Flex flexDirection={'column'} gap={'20px'}>
-          <FormControl id={'email'} isRequired isInvalid={emailError}>
+          <FormControl id={'email'} isRequired>
             <FormLabel variant={'default'}>Usuário</FormLabel>
             <Input
               required
@@ -75,20 +65,8 @@ const LoginForm = () => {
               {...register('email')}
               variant={'default'}
             />
-            {!emailError ? (
-              <FormHelperText mb={2} fontSize={12} pl={1}>
-                Digite seu e-mail
-              </FormHelperText>
-            ) : (
-              <FormErrorMessage mb={2} fontSize={12} pl={1}>
-                {errors.email?.message ||
-                  (loginError.message?.toLowerCase().includes('email') &&
-                    loginError.message) ||
-                  (loginError.email && loginError.email)}
-              </FormErrorMessage>
-            )}
           </FormControl>
-          <FormControl id={'password'} isRequired isInvalid={passwordError}>
+          <FormControl id={'password'} isRequired>
             <FormLabel variant={'default'}>Senha</FormLabel>
             <Input
               required
@@ -96,18 +74,6 @@ const LoginForm = () => {
               placeholder={'********'}
               {...register('password')}
             />
-            {!passwordError ? (
-              <FormHelperText mb={2} fontSize={12} pl={1}>
-                Digite sua senha
-              </FormHelperText>
-            ) : (
-              <FormErrorMessage mb={2} fontSize={12} pl={1}>
-                {errors.password?.message ||
-                  (loginError.message?.toLowerCase().includes('password') &&
-                    loginError.message) ||
-                  (loginError.password && loginError.password)}
-              </FormErrorMessage>
-            )}
           </FormControl>
           <Link
             as={NextLink}
