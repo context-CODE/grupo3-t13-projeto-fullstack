@@ -7,6 +7,7 @@ import api from '@/services';
 import { useRouter } from 'next/router';
 import { iAdvertiserWithAds } from '@/contexts/advertisementContext';
 import { ModalRegisterAd } from '@/components/modalAd/modalRegisterAd';
+import { GetStaticProps, GetStaticPaths } from 'next';
 
 interface iAdvertiserPage {
   advertiserData: iAdvertiserWithAds;
@@ -63,14 +64,14 @@ const AdvertiserPage = ({ advertiserData }: iAdvertiserPage) => {
 };
 
 // eslint-disable-next-line @typescript-eslint/require-await
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   return { paths: [], fallback: 'blocking' };
-}
+};
 
-export async function getStaticProps({ params }) {
-  const { id } = params;
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  const id = ctx.params?.id as string;
 
-  const { data: advertiserData }: iAdvertiserWithAds = await api.get(
+  const { data: advertiserData } = await api.get<iAdvertiserWithAds>(
     `/users/${id}/advertisements`
   );
   return {
@@ -80,6 +81,6 @@ export async function getStaticProps({ params }) {
 
     revalidate: 1800,
   };
-}
+};
 
 export default AdvertiserPage;
