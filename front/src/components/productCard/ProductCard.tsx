@@ -23,6 +23,7 @@ import {
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { ModalUpdateAd } from '../modalAd/modalUpdateAd';
+import { useRouter } from 'next/router';
 
 interface IProductCardsProps {
   advertisement: iAdvertisement;
@@ -31,6 +32,8 @@ interface IProductCardsProps {
 
 const ProductCard = ({ advertisement, advertiser }: IProductCardsProps) => {
   const { user } = useAuthContext();
+
+  const { push } = useRouter();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -101,8 +104,13 @@ const ProductCard = ({ advertisement, advertiser }: IProductCardsProps) => {
                 })}
               </Text>
             </HStack>
-
+          </CardFooter>
+        </Link>
+        {advertiser?.id === user.id && (
+          <Flex gap={'16px'}>
             <Button
+              variant={'outlineDark'}
+              px={'20px'}
               onClick={(e) => {
                 e.stopPropagation();
                 e.preventDefault();
@@ -112,14 +120,11 @@ const ProductCard = ({ advertisement, advertiser }: IProductCardsProps) => {
             >
               Editar
             </Button>
-          </CardFooter>
-        </Link>
-        {advertiser?.id === user.id && (
-          <Flex gap={'16px'}>
-            <Button variant={'outlineDark'} px={'20px'}>
-              Editar
-            </Button>
-            <Button variant={'outlineDark'} px={'20px'}>
+            <Button
+              variant={'outlineDark'}
+              px={'20px'}
+              onClick={() => void push(`/advertisements/${advertisement.id}`)}
+            >
               Ver Detalhes
             </Button>
           </Flex>
