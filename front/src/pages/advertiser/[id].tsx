@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { iAdvertiserWithAds } from '@/contexts/advertisementContext';
 import { ModalRegisterAd } from '@/components/modalAd/modalRegisterAd';
 import { GetStaticProps, GetStaticPaths } from 'next';
+import { EmptyList } from '@/components/EmptyList';
 
 interface iAdvertiserPage {
   advertiserData: iAdvertiserWithAds;
@@ -55,6 +56,10 @@ const AdvertiserPage = ({ advertiserData }: iAdvertiserPage) => {
             listAdvertisement={advertiserData.advertisements}
             advertiser={advertiserData}
           />
+
+          {advertiserData.advertisements.length === 0 && (
+            <EmptyList message="Este anunciante não possui anúncios." />
+          )}
           <ControlPagination />
         </Flex>
       </LayoutPage>
