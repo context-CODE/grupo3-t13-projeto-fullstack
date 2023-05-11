@@ -142,7 +142,7 @@ export const ModalRegisterAd = ({
         position: 'top-right',
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast({
         title: 'Ocorreu um erro.',
         status: 'error',

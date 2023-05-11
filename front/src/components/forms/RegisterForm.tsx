@@ -28,10 +28,8 @@ const RegisterForm = () => {
   const { registerUser } = useAuthContext();
 
   const onSubmitForm = async (formData: iRegisterFormData) => {
-    console.log(formData);
     await registerUser(formData);
   };
-  console.log(errors);
 
   return (
     <Flex

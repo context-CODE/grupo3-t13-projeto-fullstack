@@ -35,7 +35,6 @@ const ModalUpdateAddress = ({ isOpen, onClose }: iModalUpdateAddressProps) => {
   const submit = async (formData: iAddressReqUpdate) => {
     await updateAddress(formData);
   };
-  console.log(errors);
 
   return (
     <>

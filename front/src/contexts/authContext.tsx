@@ -80,9 +80,9 @@ export const AuthProvider = ({ children }: iProviderProps) => {
       Object.entries(errorResDataMessage).forEach(([key, value]) => {
         if (typeof value === 'string') {
           message[key] = value;
-          console.log('string', message);
+          console.error('string', message);
         } else if (Array.isArray(value)) {
-          console.log('array', message);
+          console.error('array', message);
           if (value.length <= 1) {
             message[key] = value[0] as string;
           } else {
@@ -91,9 +91,9 @@ export const AuthProvider = ({ children }: iProviderProps) => {
               message[key] = message[key] + `${elem} - `;
             });
             message[key] = message[key].slice(0, -3);
-            console.log(message[key]);
+            console.error(message[key]);
           }
-          console.log(message);
+          console.error(message);
         }
       });
       setterStateError(message);
@@ -127,7 +127,7 @@ export const AuthProvider = ({ children }: iProviderProps) => {
       setUser(newUser);
       await router.push('/login');
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -141,7 +141,7 @@ export const AuthProvider = ({ children }: iProviderProps) => {
       });
       setUser(data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -231,7 +231,7 @@ export const AuthProvider = ({ children }: iProviderProps) => {
       setUser(updatedUser);
       await router.push('/profile');
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -264,7 +264,7 @@ export const AuthProvider = ({ children }: iProviderProps) => {
       setUser({});
       await router.push('/profile');
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -301,7 +301,7 @@ export const AuthProvider = ({ children }: iProviderProps) => {
       setAddress(updatedAddress);
       await router.push('/profile');
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

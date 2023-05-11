@@ -24,6 +24,7 @@ interface IProductCardsProps {
 
 const ProductCard = ({ advertisement, advertiser }: IProductCardsProps) => {
   const { user } = useAuthContext();
+
   return (
     <Card
       display={'flex'}
