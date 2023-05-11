@@ -236,7 +236,7 @@ export const AdvertisementProvider = ({
 
       setCurrentAdvertisement(data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -266,7 +266,7 @@ export const AdvertisementProvider = ({
 
       setCurrentAdvertisement(data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -289,7 +289,7 @@ export const AdvertisementProvider = ({
 
       setCurrentAdvertisement(data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
