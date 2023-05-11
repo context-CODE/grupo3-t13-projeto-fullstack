@@ -28,10 +28,8 @@ const RegisterForm = () => {
   const { registerUser } = useAuthContext();
 
   const onSubmitForm = async (formData: iRegisterFormData) => {
-    console.log(formData);
     await registerUser(formData);
   };
-  console.log(errors);
 
   return (
     <Flex
@@ -250,7 +248,11 @@ const RegisterForm = () => {
         </Flex>
         <FormControl isRequired margin={'20px 0 20px 0'}>
           <FormLabel>Senha</FormLabel>
-          <Input placeholder="Digitar senha" {...register('password')} />
+          <Input
+            type="password"
+            placeholder="Digitar senha"
+            {...register('password')}
+          />
           {errors.password && (
             <Text color={'red'} fontSize={'14px'}>
               {errors.password.message}
@@ -261,6 +263,7 @@ const RegisterForm = () => {
         <FormControl isRequired margin={'20px 0 20px 0'}>
           <FormLabel>Confirmar Senha</FormLabel>
           <Input
+            type="password"
             placeholder="Confirmar senha"
             {...register('confirm_password')}
           />

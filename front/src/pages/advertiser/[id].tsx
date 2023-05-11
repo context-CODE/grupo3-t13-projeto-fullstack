@@ -3,10 +3,12 @@ import CardList from '@/components/CardList';
 import { Box, Flex, Heading, useDisclosure } from '@chakra-ui/react';
 import UserInfoCard from '@/components/profilePage/UserInfoCard';
 import ControlPagination from '@/components/controlPagination';
-import { ModalRegisterAd } from '@/components/modalRegisterAd';
 import api from '@/services';
 import { useRouter } from 'next/router';
 import { iAdvertiserWithAds } from '@/contexts/advertisementContext';
+import { ModalRegisterAd } from '@/components/modalAd/modalRegisterAd';
+import { GetStaticProps, GetStaticPaths } from 'next';
+import { EmptyList } from '@/components/EmptyList';
 
 interface iAdvertiserPage {
   advertiserData: iAdvertiserWithAds;
@@ -14,6 +16,7 @@ interface iAdvertiserPage {
 
 const AdvertiserPage = ({ advertiserData }: iAdvertiserPage) => {
   const router = useRouter();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   if (router.isFallback) {
@@ -51,7 +54,12 @@ const AdvertiserPage = ({ advertiserData }: iAdvertiserPage) => {
           <CardList
             maxW="1392px"
             listAdvertisement={advertiserData.advertisements}
+            advertiser={advertiserData}
           />
+
+          {advertiserData.advertisements.length === 0 && (
+            <EmptyList message="Este anunciante não possui anúncios." />
+          )}
           <ControlPagination />
         </Flex>
       </LayoutPage>
@@ -61,24 +69,16 @@ const AdvertiserPage = ({ advertiserData }: iAdvertiserPage) => {
 };
 
 // eslint-disable-next-line @typescript-eslint/require-await
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   return { paths: [], fallback: 'blocking' };
-}
+};
 
-export async function getStaticProps({ params }) {
-  const { id } = params;
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  const id = ctx.params?.id as string;
 
-  const { data: advertiserData }: iAdvertiserWithAds = await api.get(
+  const { data: advertiserData } = await api.get<iAdvertiserWithAds>(
     `/users/${id}/advertisements`
   );
-  // console.log(data);
-
-  // const advertisementData: iAdvertisement[] | undefined = data.advertisements;
-
-  // console.log('na static props', advertisementData);
-
-  // const advertiserData: iAdvertiser = data;
-
   return {
     props: {
       advertiserData,
@@ -86,6 +86,6 @@ export async function getStaticProps({ params }) {
 
     revalidate: 1800,
   };
-}
+};
 
 export default AdvertiserPage;

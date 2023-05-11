@@ -20,6 +20,15 @@ const usersResSchema = usersReqSchema
     id: z.string().uuid(),
     created_at: z.date(),
     updated_at: z.date(),
+    address: z.object({
+      id: z.string(),
+      zip_code: z.string().max(8),
+      state: z.string().max(2),
+      city: z.string().max(25),
+      street: z.string().max(40),
+      number: z.number(),
+      complement: z.string().max(128)
+    })
   })
   .omit({
     password: true,

@@ -1,4 +1,3 @@
-import { error } from "console";
 import AppDataSource from "../../data-source";
 import Advertisement from "../../entities/advertisement.entity";
 import {
@@ -28,9 +27,9 @@ const updateAdvertisementService = async (
       }
     }
   });
- 
-  if (!findAdvertisement){
-    throw new AppError("This advertisement doesn't exist")
+
+  if (!findAdvertisement) {
+    throw new AppError("This advertisement doesn't exist");
   }
 
   const updatedAdvertisement = await advertisementRepository.update(paramsId, {
@@ -45,7 +44,8 @@ const updateAdvertisementService = async (
     description: data.description? data.description : findAdvertisement.description,
   });
 
-  const validatedAdvertisement = advertisementResSchema.parse(updatedAdvertisement);
+  const validatedAdvertisement =
+    advertisementResSchema.parse(updatedAdvertisement);
 
   return validatedAdvertisement as iAdvertisementRes;
 };

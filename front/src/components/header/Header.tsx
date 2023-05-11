@@ -1,6 +1,8 @@
 import {
+  Avatar,
   Box,
   Button,
+  Flex,
   HStack,
   Image,
   Link,
@@ -31,7 +33,7 @@ interface ResponsiveMenuProps {
 }
 
 const Header = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen } = useDisclosure();
   const { user } = useAuthContext();
 
   return (
@@ -64,10 +66,8 @@ const Header = () => {
       </Box>
       <HStack
         display={{ base: 'none', md: 'flex' }}
-        // w={'390px'}
         alignItems={'center'}
         gap={'44px'}
-        // justifyContent={'space-between'}
         borderLeft={'2px solid'}
         borderColor={'grey.300'}
         h={'100%'}
@@ -77,7 +77,7 @@ const Header = () => {
         <HeaderLoggedContent
           userName={user.name}
           userImage={user.profile_img}
-          isLogged={user.name && true}
+          isLogged={Boolean(user.name)}
         />
       </HStack>
       <Box
@@ -97,12 +97,6 @@ const HeaderLoggedContent = ({
   userImage,
   isLogged,
 }: IHeaderProps) => {
-  const splitedName = userName?.split(' ');
-  const initials: string =
-    splitedName && splitedName.length >= 2
-      ? splitedName[0][0] + splitedName[1][0]
-      : '';
-
   const [isOpenUpdateUser, setIsOpenUpdateUser] = useState(false);
   const [isOpenUpdateAddress, setIsOpenUpdateAddress] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -112,34 +106,33 @@ const HeaderLoggedContent = ({
   const onOpenUpdateAddress = () => setIsOpenUpdateAddress(true);
   const onCloseUpdateAddress = () => setIsOpenUpdateAddress(false);
 
-  const handleLogout = () => {
-    onCloseUpdateUser();
-    onCloseUpdateAddress();
-  };
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  const { handleLogout } = useAuthContext();
+
+  // const handleLogout = () => {
+  //   onCloseUpdateUser();
+  //   onCloseUpdateAddress();
+  // };
 
   return isLogged ? (
     <>
       <Menu>
-        <MenuButton boxSize={'32px'}>
-          {userImage ? (
-            <Image
+        <MenuButton>
+          <Flex alignItems="center" gap="16px">
+            <Avatar
               borderRadius="full"
               boxSize={'32px'}
+              name={userName}
               src={userImage}
-              alt={userName}
             />
-          ) : (
-            <Text fontWeight={'bold'} fontSize={18}>
-              {initials}
-            </Text>
-          )}
+            <Text variant={'body-1-400'}>{userName}</Text>
+          </Flex>
         </MenuButton>
-        <Text variant={'body-1-400'}>{userName}</Text>
         <MenuList>
           <MenuItem onClick={onOpenUpdateUser}>Editar Perfil</MenuItem>
           <MenuItem onClick={onOpenUpdateAddress}>Editar Endereço</MenuItem>
           <MenuItem>Meus Anúncios</MenuItem>
-          <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
         </MenuList>
       </Menu>
       <ModalUpdateUser isOpen={isOpenUpdateUser} onClose={onCloseUpdateUser} />

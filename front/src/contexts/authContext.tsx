@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import api from '@/services/index';
-import axios from 'axios';
 
 import {
   iLoginReq,
@@ -40,12 +39,12 @@ export interface iAuthContext {
   setAvatar: React.Dispatch<React.SetStateAction<string | ''>>;
   loginError: object;
   setLoginError: Dispatch<SetStateAction<object>>;
-  removeEmptyProperties: (obj: object) => { [k: string]: any };
+  handleLogout(): void;
 }
 
 const AuthContext = createContext<iAuthContext>({} as iAuthContext);
 
-const AuthProvider = ({ children }: iProviderProps) => {
+export const AuthProvider = ({ children }: iProviderProps) => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({} as iUserRes);
   const [address, setAddress] = useState({} as iAddressRes);
@@ -53,10 +52,6 @@ const AuthProvider = ({ children }: iProviderProps) => {
   const [loginError, setLoginError] = useState({});
   const toast = useToast();
   const router = useRouter();
-
-  function removeEmptyProperties(obj: object) {
-    return Object.fromEntries(Object.entries(obj).filter(([_, v]) => v != ''));
-  }
 
   useEffect(() => {
     void (async () => {
@@ -67,38 +62,6 @@ const AuthProvider = ({ children }: iProviderProps) => {
       }
     })();
   }, []);
-
-  const setError = (
-    errorResDataMessage: string | object,
-    setterStateError: Dispatch<SetStateAction<object>>
-  ) => {
-    let message = {};
-    if (typeof errorResDataMessage === 'string') {
-      message = { message: errorResDataMessage };
-      setterStateError(message);
-    } else if (typeof errorResDataMessage === 'object') {
-      Object.entries(errorResDataMessage).forEach(([key, value]) => {
-        if (typeof value === 'string') {
-          message[key] = value;
-          console.log('string', message);
-        } else if (Array.isArray(value)) {
-          console.log('array', message);
-          if (value.length <= 1) {
-            message[key] = value[0] as string;
-          } else {
-            message[key] = '';
-            value.forEach((elem) => {
-              message[key] = message[key] + `${elem} - `;
-            });
-            message[key] = message[key].slice(0, -3);
-            console.log(message[key]);
-          }
-          console.log(message);
-        }
-      });
-      setterStateError(message);
-    }
-  };
 
   const registerUser = async (data: iRegisterFormData) => {
     try {
@@ -127,7 +90,7 @@ const AuthProvider = ({ children }: iProviderProps) => {
       setUser(newUser);
       await router.push('/login');
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -141,7 +104,7 @@ const AuthProvider = ({ children }: iProviderProps) => {
       });
       setUser(data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -167,6 +130,7 @@ const AuthProvider = ({ children }: iProviderProps) => {
         variant: 'solid',
         position: 'top-right',
         isClosable: true,
+        duration: 2000,
         render: () => (
           <Box
             color={'gray.50'}
@@ -180,13 +144,24 @@ const AuthProvider = ({ children }: iProviderProps) => {
         ),
       });
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error(error);
-        const { message } = error.response?.data;
-        setError(message, setLoginError);
-
-        setUser({} as iUserRes);
-      }
+      toast({
+        title: 'error',
+        variant: 'solid',
+        position: 'top-right',
+        isClosable: true,
+        duration: 2000,
+        render: () => (
+          <Box
+            color={'gray.50'}
+            p={3}
+            bg={'alert.300'}
+            fontWeight={'bold'}
+            borderRadius={'md'}
+          >
+            Email ou senha inválidos
+          </Box>
+        ),
+      });
     } finally {
       if (loginError) {
         console.error(loginError);
@@ -196,11 +171,11 @@ const AuthProvider = ({ children }: iProviderProps) => {
     }
   };
 
-  // const handleLogout = () => {
-  //   removeCookie('car.token');
-  //   setUser({} as iUserRes);
-  //   router.push('/');
-  // };
+  const handleLogout = () => {
+    nookies.destroy(null, 'car.token', { router: '/' });
+    setUser({} as iUserRes);
+    router.push('/');
+  };
 
   const updateUser = async (data: iUserReqUpdate) => {
     try {
@@ -231,7 +206,7 @@ const AuthProvider = ({ children }: iProviderProps) => {
       setUser(updatedUser);
       await router.push('/profile');
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -261,10 +236,10 @@ const AuthProvider = ({ children }: iProviderProps) => {
           </Box>
         ),
       });
-      setUser({});
+      setUser({} as iUserRes);
       await router.push('/profile');
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -272,7 +247,7 @@ const AuthProvider = ({ children }: iProviderProps) => {
     try {
       const token = nookies.get()['car.token'];
       const updatedAddress: iAddressRes = await api.patch(
-        `/users/${user.id}/address`,
+        `/users/${user.id}/address/${address.id}`,
         data,
         {
           headers: {
@@ -301,13 +276,14 @@ const AuthProvider = ({ children }: iProviderProps) => {
       setAddress(updatedAddress);
       await router.push('/profile');
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   return (
     <AuthContext.Provider
       value={{
+        handleLogout,
         loading,
         setLoading,
         registerUser,
@@ -324,13 +300,11 @@ const AuthProvider = ({ children }: iProviderProps) => {
         setAvatar,
         loginError,
         setLoginError,
-        removeEmptyProperties,
       }}
     >
       {children}
     </AuthContext.Provider>
   );
 };
-export default AuthProvider;
 
 export const useAuthContext = () => useContext(AuthContext);

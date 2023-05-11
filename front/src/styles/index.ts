@@ -257,6 +257,19 @@ const theme = extendTheme({
             textDecoration: 'none',
           },
         },
+        btnDefault: {
+          bg: 'brand.400',
+          borderRadius: '4px',
+          color: 'white',
+          padding: '12px',
+          height: { base: '38px', md: '48px' },
+          fontSize: { base: '0.875rem', md: '1rem' },
+          fontWeight: '600',
+          _hover: {
+            textDecoration: 'none',
+            bg: 'brand.300',
+          },
+        },
       },
     },
     FormLabel: {
