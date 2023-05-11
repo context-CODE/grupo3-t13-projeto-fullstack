@@ -22,7 +22,7 @@ _Esta aplicação foi toda desenvolvida em TypeScript_
 Este é um projeto com duas partes: uma aplicação Backend em Node.js e uma aplicação Frontend em React Next.js.
 
 Node.js:
-Veja as instruções de instalação e uso da aplicação [Backend](https://github.com/context-CODE/grupo3-t13-projeto-fullstack/tree/develop/back#readme).
+Veja as instruções de instalação e uso da aplicação [Backend](https://github.com/context-CODE/grupo3-t13-projeto-fullstack/tree/main/back#readme).
 
 Next.js:
-Veja as instruções de instalação e uso da aplicação [Frontend](https://github.com/context-CODE/grupo3-t13-projeto-fullstack/tree/develop/front#readme).
+Veja as instruções de instalação e uso da aplicação [Frontend](https://github.com/context-CODE/grupo3-t13-projeto-fullstack/tree/main/front#readme).
