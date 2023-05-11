@@ -1,6 +1,6 @@
 import { iAdvertiser } from '@/contexts/advertisementContext';
 import { useAuthContext } from '@/contexts/authContext';
-import { Button, Flex, Heading, Image, Tag, Text } from '@chakra-ui/react';
+import { Avatar, Button, Flex, Heading, Tag, Text } from '@chakra-ui/react';
 
 interface IUserInfoCardProps {
   advertiserData: iAdvertiser;
@@ -24,11 +24,12 @@ const UserInfoCard = ({ advertiserData, onOpen }: IUserInfoCardProps) => {
       bg={'white'}
     >
       <Flex flexDirection={'column'} rowGap={'20px'}>
-        <Image
-          borderRadius={'full'}
-          boxSize={'104px'}
+        <Avatar
+          // borderRadius={'full'}
+          // boxSize={'104px'}
+          name={advertiserData.name}
           src={advertiserData.profile_img}
-          alt={advertiserData.name}
+          // alt={advertiserData.name}
         />
         <Flex gap={'10px'} flexWrap={'wrap'} alignItems={'center'}>
           <Heading variant={'Heading-6-600'}>{advertiserData.name}</Heading>
