@@ -272,7 +272,7 @@ export const AuthProvider = ({ children }: iProviderProps) => {
     try {
       const token = nookies.get()['car.token'];
       const updatedAddress: iAddressRes = await api.patch(
-        `/users/${user.id}/address`,
+        `/users/${user.id}/address/${address.id}`,
         data,
         {
           headers: {

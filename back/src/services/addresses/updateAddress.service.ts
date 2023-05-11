@@ -4,7 +4,6 @@ import User from "../../entities/user.entity";
 import AppError from "../../errors/AppError";
 import { iAddressEntity, iAddressReqUpdate, iAddressRes } from "../../interfaces/address.interface";
 import { iUserEntity } from "../../interfaces/users.interface";
-import { addressResSchema } from "../../schemas/addresses.schema";
 
 
 const updateAddressService = async (updateData: iAddressReqUpdate, userId:string): Promise<iAddressRes> => {
@@ -12,6 +11,9 @@ const updateAddressService = async (updateData: iAddressReqUpdate, userId:string
     const user = await userRepository.findOne({
         where: {
             id: userId
+        },
+        relations: {
+            address: true
         }
     })
 
@@ -32,12 +34,14 @@ const updateAddressService = async (updateData: iAddressReqUpdate, userId:string
     
     
     const updatedAddressObject = {
+       
         zip_code: updateData.zip_code? updateData.zip_code : address.zip_code,
         state: updateData.state? updateData.state : address.state,
         city: updateData.city? updateData.city : address.city,
         street: updateData.street? updateData.street : address.street,
         number: updateData.number? updateData.number : address.number,
         complement: updateData.complement? updateData.complement : address.complement,
+        
     }
 
     const newAddressUpdated = addressRepository.create(updatedAddressObject)
@@ -52,9 +56,9 @@ const updateAddressService = async (updateData: iAddressReqUpdate, userId:string
         },
     })
 
-    const validatedUpdatedAddress = addressResSchema.parse(updatedAddress)
+   
 
-    return validatedUpdatedAddress
+    return updatedAddress! 
 }
 
 export default updateAddressService
