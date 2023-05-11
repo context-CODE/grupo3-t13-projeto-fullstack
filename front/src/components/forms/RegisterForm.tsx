@@ -31,7 +31,6 @@ const RegisterForm = () => {
     console.log(formData);
     await registerUser(formData);
   };
-  console.log(errors);
 
   return (
     <Flex

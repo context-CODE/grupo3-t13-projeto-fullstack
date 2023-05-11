@@ -36,7 +36,6 @@ const ModalUpdateUser = ({ isOpen, onClose }: iModalUpdateUserProps) => {
     console.log(formData);
     await updateUser(formData);
   };
-  console.log(errors);
 
   return (
     <>

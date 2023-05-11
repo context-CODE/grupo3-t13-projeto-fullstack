@@ -1,4 +1,7 @@
-import { iAdvertisement } from '@/contexts/advertisementContext';
+import {
+  iAdvertisement,
+  useAdvertisementContext,
+} from '@/contexts/advertisementContext';
 import {
   Box,
   Card,
@@ -13,6 +16,7 @@ import {
   Text,
   useDisclosure,
   Avatar,
+  Button,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { ModalUpdateAd } from '../modalAd/modalUpdateAd';
@@ -23,6 +27,8 @@ interface IProductCardsProps {
 
 const ProductCard = ({ advertisement }: IProductCardsProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { setCurrentAdvertisement } = useAdvertisementContext();
 
   return (
     <>
@@ -89,11 +95,22 @@ const ProductCard = ({ advertisement }: IProductCardsProps) => {
                 })}
               </Text>
             </HStack>
+
+            <Button
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                onOpen();
+                setCurrentAdvertisement(advertisement);
+              }}
+            >
+              Editar
+            </Button>
           </CardFooter>
         </Card>
       </Link>
 
-      <ModalUpdateAd isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
+      <ModalUpdateAd isOpen={isOpen} onClose={onClose} />
     </>
   );
 };

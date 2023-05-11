@@ -18,7 +18,6 @@ interface IPropsHome {
 export const getServerSideProps: GetServerSideProps<IPropsHome> = async () => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { data } = await api.get('/advertisements?limit=12');
-
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
   const advertisements: iAdvertisement[] = await data.advertisements;
 
