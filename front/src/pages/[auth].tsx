@@ -35,6 +35,7 @@ const AuthPage = () => {
   );
 };
 
+// eslint-disable-next-line @typescript-eslint/require-await
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const cookies = nookies.get(ctx);
   if (cookies['car.token']) {
